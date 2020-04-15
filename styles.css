@@ -1,0 +1,44 @@
+/*    homepage styles     */
+
+
+/* Header/Logo Title */
+.header {
+    padding: 10px;
+    text-align: center;
+    background: #5282bc;
+    color: white;
+    /*
+    font: Candara;
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+    */
+
+    font-size: 30px;
+}
+/* Page Content */
+.content {
+    padding:20px;
+    text-align: center;
+
+}
+
+.search-container button {
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    /*font-size: 17px; */
+    border: none;
+    cursor: pointer;
+}
+input[type=text] {
+    padding: 5px 10px;
+    margin-top: 8px;
+    font-size: 17px;
+    box-sizing: border-box;}
+
+.search-container button:hover {
+    background: #ccc;
+}
+
+
+
