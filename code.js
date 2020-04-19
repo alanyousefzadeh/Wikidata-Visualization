@@ -13,7 +13,10 @@ function chooseSubject(){
         searchContainer.innerHTML ="<input id=\"searchEntity\" list=\"entities\" name=\"entity\" style=\" border-radius: 5px;width:200px; height:30px;\">" +
             "<datalist id=\"entities\">";
         searchContainer.innerHTML+="</datalist><input id=\"btn2\" type=\"submit\" onclick=\"chooseEntity()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
-        var entities = ["Bob Dylan","The Beatles","Nirvana"];
+
+        var entities = [];
+        entities=getentity();
+        console.log(entities)
 
         var list = document.getElementById('entities');
 
