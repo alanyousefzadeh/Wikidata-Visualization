@@ -48,7 +48,7 @@ function initPage() {
     });
     //set button
     var button = document.createElement('input');
-    button.id="btn1";
+    button.id="subjectBtn";
     button.type = "submit";
     button.onclick = chooseSubject;
     button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px;";
@@ -58,7 +58,7 @@ function initPage() {
 
 }
 
-
+////////
 
 var subject="";
 function chooseSubject(){
@@ -81,6 +81,8 @@ function chooseSubject(){
         tryAgain();
     }
 }
+
+///////
 function createEntityChoice(){
     var checkDIv =  document.getElementById("checkDiv");
     if (checkDIv){
@@ -90,16 +92,13 @@ function createEntityChoice(){
     if(err){
         err.remove();
     }
-
+    ///
     var command = document.getElementById("command");
-
-    //command.style.display = "block";
-
     command.getElementsByTagName('h1')[0].innerHTML = 'Please Choose Entity';
     var search = document.getElementById("search");
     search.style.display = "block";
 
-    search.innerHTML = "";
+    search.innerHTML = "";//erase subject search bar
     //initializing input
     var input = document.createElement("input");
     input.id = "searchEntity";
@@ -122,7 +121,7 @@ function createEntityChoice(){
     });
     //initialize button
     var button =document.createElement("input");
-    button.id = "btn2";
+    button.id = "entityBtn";
     button.type = "submit";
     button.onclick = chooseEntity;
     button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
@@ -137,35 +136,32 @@ function createEntityChoice(){
 ////////////
 var entity="";
 function chooseEntity(){
-
     //back button
     goBackButton("entity");
     //
     entity = document.getElementById("searchEntity").value;
     console.log(entity);
-    if(entity === "Bob Dylan"){
-        //document.getElementById("searchEntity").value= "";
 
-        var btn = document.getElementById("btn2");
+    if(entity === "Bob Dylan"){
+        document.getElementById("searchEntity").disabled = true;
+        //document.getElementById("searchEntity").value= "";
+        var btn = document.getElementById("entityBtn");
         btn.remove();
         err = document.getElementById("err");
         if(err){
             err.remove();
         }
         createCheckBtns();
-
-
     }
     else if(entity === ""){
         return;
     }
     else{
+        document.getElementById("searchEntity").value = "";
         tryAgain()
     }
 }
-
-
-
+///////////////
 //////back button
 function goBackButton(backTo) {
     var mainPage = document.getElementById("mainPage");
@@ -191,9 +187,7 @@ function goBackButton(backTo) {
     mainPage.appendChild(backButton);
 }
 //////////////////////////
-
-
-// ///////////////
+/////////////////
 function tryAgain() {
     var err = document.getElementById("err");
     if(err){
@@ -218,7 +212,7 @@ function createCheckBtns(){
     var checkDiv = document.createElement("div");
     checkDiv.id = "checkDiv";
     checkDiv.style.textAlign = 'center';
-    var currentDiv = document.getElementsByClassName("content");// add the newly created element and its content into the DOM
+    var currentDiv = document.getElementsByClassName("content");//
     document.body.appendChild(checkDiv, currentDiv);
     // /////
     var checkBtn = document.getElementById('checkDiv');
@@ -271,12 +265,15 @@ function chooseWork() {
         document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Work';
         document.getElementById("search").style.display = "none";
 
+        /////show graph here
+
 
         ////BUGGGGGG
         goBackButton("entity");
 
     }
     else{
+        document.getElementById("searchWork").value = "";
         tryAgain()
     }
 
@@ -288,6 +285,8 @@ function entityPersonal(){
     if(checker){
         checker.remove();
     }
+
+    /////show graph here
 
     document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Personal Content';
     document.getElementById("search").style.display = "none";
