@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wikidata Visualization Engine</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-hierarchy.v1.min.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCaxMo8rfeEkDWTlAXZy_-rNcTqxpFLh_s",
+        authDomain: "wikidata-visualization.firebaseapp.com",
+        databaseURL: "https://wikidata-visualization.firebaseio.com",
+        projectId: "wikidata-visualization",
+        storageBucket: "wikidata-visualization.appspot.com",
+        messagingSenderId: "44744854813",
+        appId: "1:44744854813:web:af01dc81d43b150c6565f4",
+        measurementId: "G-JZDLW4MY64"
+    };
+    firebase.initializeApp(firebaseConfig);
+</script>
+<div class="header">
+    <h1>Wikidata Visualization Engine</h1>
+</div>
+
+<div id="mainPage" class="content"></div>
+
+<script src="./code.js"></script>
+<script src="./sparqlQuery.js"></script>
+<script src="./csvtoarray.js"></script>
+</body>
+</html>
