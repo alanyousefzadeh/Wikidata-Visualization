@@ -295,4 +295,5 @@ function entityPersonal(){
     ////BUGGGGGG
     goBackButton("entity");
 
+
 }

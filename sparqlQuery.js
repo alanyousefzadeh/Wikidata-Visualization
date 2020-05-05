@@ -38,8 +38,6 @@
 
             var name = qid.substring(0, qid.indexOf("("));
 
-            console.log(data);
-
                 var d = d3.csvParse(data);
 
                 var nested_data = d3.nest()
@@ -66,26 +64,33 @@
 
                 nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\",\n\"children\":");
 
-                console.log(nested_data);
-
                 nested_data = JSON.parse(nested_data)
 
                 nested_data = JSON.stringify(nested_data, null, 2).replace(/"data":/g, '"children":')
 
                 nested_data = JSON.parse(nested_data)
 
+
+
+
             const db = firebase.database();
 
-            var usersRef = db.ref('/artist');
-            const normalUsersRef = usersRef.child('normal_users');
-            const superUsersRef = usersRef.child('super_users');
+                 var usersRef = db.ref('/artist');
+                 const normalUsersRef = usersRef.child('normal_users');
+                 const superUsersRef = usersRef.child('super_users');
 
-            console.log(qid)
+                  usersRef.child(qid).once('value', function(snapshot) {
 
-            usersRef.child(qid).set({personal: nested_data,});
+                      var exists = (snapshot.val() !== null);
 
-            console.log(nested_data)
-
+             if (exists) {
+                 console.log("artist already exists")
+             } else {
+                 console.log("artist doesn't exist exists")
+                 usersRef.child(qid).set({personal: nested_data,});
+                 console.log("artist added")
+             }
+         });
             return nested_data;
 
             }
