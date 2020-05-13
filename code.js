@@ -1,247 +1,299 @@
-jQuery(document).ready(function(){
+window.onload = function init(){
+    initPage();
+};
+var entities=[];
 
-    $(document).ready(function() {
-        $("#submit").click(function(){
-
-            function makeSPARQLQuery( endpointUrl, sparqlQuery, doneCallback ) {
-                var settings = {
-                    headers: { Accept : "application/sparql-results+json" },
-                    data: { query: sparqlQuery }
-                };
-                return $.ajax( endpointUrl, settings ).then( doneCallback );
-
-                /*return $.ajax( endpointUrl, settings ).then( (res => {
-                    download(res, 'filename.json', 'text/json');
-
-
-                }) );*/
-            }
-            var qid = $("#qid").val().trim();
-            var limit =  $("#limit").val().trim();
-            console.log(qid);
-            console.log(limit);
-
-            var endpointUrl = 'https://query.wikidata.org/sparql',
-                sparqlQuery = "SELECT ?source ?sourceLabel ?type ?typeLabel \n" +
-                    "                WHERE {\n" +
-                    "                ?source wdt:P31/wdt:P279* wd:Q482994 ;\n" +
-                    "                   wdt:P175 ?type.\n" +
-                    "                  ?type ?label \""+qid+"\"@en .\n" +
-                    "                 SERVICE wikibase:label {\n" +
-                    "                      bd:serviceParam wikibase:language \"en\".\n" +
-                    "                 }\n" +
-                    "                 \n" +
-                    "                }\n" +
-                    "           LIMIT "+limit+"";
-
-
-            /*makeSPARQLQuery( endpointUrl, sparqlQuery, function( data ) {
-                    var i=0
-
-                        var string = $('body').append($('<pre>').text( JSON.stringify( data, null, 2 ) ) );
-                        //console.log(data.results.bindings.data)
-
-                }
-            );*/
-
-            function download(strData, strFileName, strMimeType) {
-                var D = document,
-                    A = arguments,
-                    a = D.createElement("a"),
-                    d = A[0],
-                    n = A[1],
-                    t = A[2] || "text/plain";
-
-                //build download link:
-                a.href = "data:" + strMimeType + "charset=utf-8," + escape(strData);
-
-
-                if (window.MSBlobBuilder) { // IE10
-                    var bb = new MSBlobBuilder();
-                    bb.append(strData);
-                    return navigator.msSaveBlob(bb, strFileName);
-                } /* end if(window.MSBlobBuilder) */
-
-
-
-                if ('download' in a) { //FF20, CH19
-                    a.setAttribute("download", n);
-                    a.innerHTML = "downloading...";
-                    D.body.appendChild(a);
-                    setTimeout(function() {
-                        var e = D.createEvent("MouseEvents");
-                        e.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-                        a.dispatchEvent(e);
-                        D.body.removeChild(a);
-                    }, 66);
-                    return true;
-                }; /* end if('download' in a) */
-
-
-
-                //do iframe dataURL download: (older W3)
-                var f = D.createElement("iframe");
-                D.body.appendChild(f);
-                f.src = "data:" + (A[2] ? A[2] : "application/octet-stream") + (window.btoa ? ";base64" : "") + "," + (window.btoa ? window.btoa : escape)(strData);
-                setTimeout(function() {
-                    D.body.removeChild(f);
-                }, 333);
-                return true;
-            }
-
-            makeSPARQLQuery( endpointUrl, sparqlQuery, function( data ) {
-                var i = 0
-                var a = "[";
-                limitnum = parseInt(limit);
-                //console.log(limitnum)
-                for (i = 0; i < limitnum; i++) {
-                    var string = $('body').append($('<pre>').text(JSON.stringify(data.results.bindings[i].sourceLabel.value, undefined, 2)));
-
-                    /*if(i==0)
-                        {
-                            a+=  "{\n" +
-                                "      \"name\": \""+data.results.bindings[i].typeLabel.value+"\",\n" +
-                                "      \"id\": "+i+" \n" + "},"+"\n"
-                        }
-                        else {
-                            a +=
-                                "    {\n" +
-                                "      \"name\": \"" + data.results.bindings[i].source.value + "\",\n" +
-                                "      \"id\": "+i+1+ " \n" + "}," + "\n"
-                        }
-
-
-                    }
-                    a=a.concat("],\n ")
-                    a=a.concat("\n\"links\": [\n")*/
-
-                    for (i = 0; i < limitnum; i++) {
-                        if (i != limitnum-1) {
-                            a +=
-                                "    {\n" +
-                                "      \"source\":\"" + data.results.bindings[i].typeLabel.value + "\" ,\n" +
-                                "      \"target\":\"" + data.results.bindings[i].sourceLabel.value +"\",\n" +
-                                "      \"type\":\"" + data.results.bindings[i].source.value +"\"\n" +
-                                "    },\n"
-                        } else {
-                            a +=
-                                "    {\n" +
-                                "      \"source\":\"" + data.results.bindings[i].typeLabel.value + "\" ,\n" +
-                                "      \"target\":\"" + data.results.bindings[i].sourceLabel.value +"\",\n" +
-                                "      \"type\":\"" + data.results.bindings[i].source.value +"\"\n" +
-                                "    }\n"
-                        }
-                    }
-                    a+="]"
-                    console.log(a)
-                }
-                // http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/
-
-                a=JSON.parse(a);
-                //console.log(a)
-
-                var nodes = {}
-                var types ={}
-
-                // Compute the distinct nodes from the links.
-                a.forEach(function(link) {
-                    link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
-                    link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
-                    //link.type = types[link.type] || (types[link.type] = {name: types.type});
-                    //link.type=nodes[link.type]||(nodes[link.type] = {type: link.type});
-                });
-
-                var width = 960,
-                    height = 500;
-
-                var force = d3.layout.force()
-                    .nodes(d3.values(nodes))
-
-                    .links(a)
-                    .size([width, height])
-                    .linkDistance(180)
-                    .charge(-300)
-                    .on("tick", tick)
-                    .start();
-
-                var svg = d3.select("body").append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
-
-                var link = svg.selectAll(".link")
-                    .data(force.links())
-                    .enter().append("line")
-                    .attr("class", "link");
-
-                var node = svg.selectAll(".node")
-                    .data(force.nodes())
-                    .enter().append("g")
-                    .attr("class", "node")
-                    .on("mouseover", mouseover)
-                    .on("mouseout", mouseout)
-                    //.on("click", click)
-                    .call(force.drag);
-
-
-
-
-                function click (d){
-                    let url = "http://" + d.type; //or whatever your URL field is called in the data
-                    window.open(url, "_self");
-                }
-
-                node.append("circle")
-                    .attr("r", 8)
-                ;
-
-                node.append("text")
-                    .attr("x", 12)
-                    .attr("dy", ".35em")
-                    .text(function(d) { return d.name; });
-
-
-
-                function tick() {
-                    link
-                        .attr("x1", function(d) { return d.source.x; })
-                        .attr("y1", function(d) { return d.source.y; })
-                        .attr("x2", function(d) { return d.target.x; })
-                        .attr("y2", function(d) { return d.target.y; });
-
-
-                    node
-                        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-
-
-                }
-
-
-                function mouseover() {
-                    d3.select(this).select("circle").transition()
-                        .duration(750)
-                        .attr("r", 16);
-                }
-
-                function mouseout() {
-                    d3.select(this).select("circle").transition()
-                        .duration(750)
-                        .attr("r", 8);
-                }
-
-
-            });
-
-
-            /* makeSPARQLQuery( endpointUrl, sparqlQuery, function( data ) {
-                     var i=0
-                     for(i=0;i<10;i++) {
-                         var string = $('body').append($('<pre>').text(JSON.stringify(data.results.bindings[i].person.value, undefined, 2)));
-                         //console.log(data.results.bindings.data)
-                     }
-                 }
-             );*/
-
-        });
-
+function initPage() {
+    var currentDiv = document.getElementById("mainPage");// main to div
+    currentDiv.innerHTML = ""; //empty mainPage
+    //initializing command div
+    var commandDiv = document.createElement("div");
+    commandDiv.id = "command";
+    var commandText = document.createElement("h1");
+    var text = document.createTextNode("Please Choose Subject");
+    commandText.appendChild(text);
+    commandDiv.appendChild(commandText);
+    //append command div to main div
+    currentDiv.appendChild(commandDiv);
+    //initializing search div
+    var searchDiv = document.createElement("div");
+    searchDiv.id = "search";
+    searchDiv.className="search-container";
+    //set label
+    var label = document.createElement("label");
+    label.htmlFor = 'subjects';
+    searchDiv.appendChild(label);
+    //set select options
+    var select = document.createElement("select");
+    select.id = "subjects";
+    select.name = "subject";
+    select.style = "width:200px; height:30px;";
+    searchDiv.appendChild(select);
+    //set options
+    var options = ["","Music","Photography","Movies","Fashion","Literature","Television","Architecture","Artworks","Sculpture","Theater","Typography","Other"];
+    options.forEach(function(item){
+        var option = document.createElement('option');
+        option.value = item;
+        option.innerText = item;
+        if(item === ""){
+            option.selected = "true";
+            option.disabled = "disabled";
+            option.innerText = "Click To Select Subject";
+        }
+        else if(item !== "Music"){
+            option.disabled = "disabled";
+        }
+        select.appendChild(option);
     });
-});
+    //set button
+    var button = document.createElement('input');
+    button.id="subjectBtn";
+    button.type = "submit";
+    button.onclick = chooseSubject;
+    button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px;";
+    searchDiv.appendChild(button);
+    //append command div to main div
+    currentDiv.appendChild(searchDiv);
+
+}
+
+////////
+
+var subject="";
+function chooseSubject(){
+    var err = document.getElementById('err');
+    if (err) {
+        err.parentNode.removeChild(err);
+    }
+
+    var subjects = document.getElementById("subjects");
+    if(subjects){
+        subject = subjects.value;
+    }
+    if(subject === "Music"){
+        entities=getentity();
+        createEntityChoice();
+    }
+    else if(subject === ""){
+        return;
+    }
+    else{
+        tryAgain();
+    }
+}
+
+///////
+function createEntityChoice(){
+    var checkDIv =  document.getElementById("checkDiv");
+    if (checkDIv){
+        checkDIv.remove();
+    }
+    var err = document.getElementById("err");
+    if(err){
+        err.remove();
+    }
+    ///
+    var command = document.getElementById("command");
+    command.getElementsByTagName('h1')[0].innerHTML = 'Please Choose Entity';
+    var search = document.getElementById("search");
+    search.style.display = "block";
+
+    search.innerHTML = "";//erase subject search bar
+    //initializing input
+    var input = document.createElement("input");
+    input.id = "searchEntity";
+    input.setAttribute("list", "entities");
+    input.name = "entity";
+    input.style = "border-radius: 5px;width:200px; height:30px;";
+    search.appendChild(input);
+    //initializing datalist
+    var datalist =document.createElement("datalist");
+    datalist.id = "entities";
+    search.appendChild(datalist);
+    //fill data list
+    var list = document.getElementById('entities');
+
+
+    entities.forEach(function(item){
+        var option = document.createElement('option');
+        option.value = item;
+        list.appendChild(option);
+    });
+    //initialize button
+    var button =document.createElement("input");
+    button.id = "entityBtn";
+    button.type = "submit";
+    button.onclick = chooseEntity;
+    button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
+    search.appendChild(button);
+
+
+    //back button
+    goBackButton("init");
+}
+
+
+////////////
+var entity="";
+function chooseEntity(){
+    //back button
+    goBackButton("entity");
+    //
+    entity = document.getElementById("searchEntity").value;
+     req(entity);
+    console.log(entity);
+
+
+    if(entity === "Bob Dylan"){
+        document.getElementById("searchEntity").disabled = true;
+        //document.getElementById("searchEntity").value= "";
+        var btn = document.getElementById("entityBtn");
+        btn.remove();
+        err = document.getElementById("err");
+        if(err){
+            err.remove();
+        }
+        createCheckBtns();
+    }
+    else if(entity === ""){
+        return;
+    }
+    else{
+        document.getElementById("searchEntity").value = "";
+        tryAgain()
+    }
+}
+///////////////
+//////back button
+function goBackButton(backTo) {
+    var mainPage = document.getElementById("mainPage");
+    var btn = document.getElementById("backBtn");
+    if (btn){
+        btn.remove();
+    }
+    var backButton = document.createElement("button");
+    backButton.id = "backBtn";
+    if(backTo ==="init"){
+        backButton.onclick = initPage;
+    }
+    else if(backTo ==="entity"){
+        backButton.onclick = createEntityChoice;
+    }
+    else if (backTo === "checkers"){
+        backButton.onclick = createCheckBtns;
+    }
+    else if (backTo === "works"){
+        backButton.onclick = entityWork;
+    }
+    backButton.innerText = "Go Back";
+    mainPage.appendChild(backButton);
+}
+//////////////////////////
+/////////////////
+function tryAgain() {
+    var err = document.getElementById("err");
+    if(err){
+        err.remove();
+    }
+    var errorDiv = document.createElement("div");
+    errorDiv.id = "err";
+    errorDiv.style.textAlign = 'center';
+    var errorContent1 = document.createTextNode("Your Choice Is Currently Unavailable");
+    errorDiv.appendChild(errorContent1);// add the text node to the newly created div
+    var linebreak = document.createElement('br')
+    errorDiv.appendChild(linebreak);
+    var errorContent2 = document.createTextNode("Please Try Again");
+    errorDiv.appendChild(errorContent2);
+    var currentDiv = document.getElementsByClassName("content");// add the newly created element and its content into the DOM
+    document.body.appendChild(errorDiv, currentDiv);
+}
+
+//////////////////
+function createCheckBtns(){
+    //generate command for user
+    var checkDiv = document.createElement("div");
+    checkDiv.id = "checkDiv";
+    checkDiv.style.textAlign = 'center';
+    var currentDiv = document.getElementsByClassName("content");//
+    document.body.appendChild(checkDiv, currentDiv);
+    // /////
+    var checkBtn = document.getElementById('checkDiv');
+    checkBtn.innerHTML = '<h4>Are You Interested in</h4>';// +
+    checkBtn.innerHTML+="<input id=\"work\" value='work content' type=\"submit\" onclick=\"entityWork()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
+    checkBtn.innerHTML+="or";
+    checkBtn.innerHTML+="<input id=\"personal\" value='personal content' type=\"submit\" onclick=\"entityPersonal()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
+}
+
+//////////
+function entityWork(){
+    goBackButton("entity");
+    //
+    checker = document.getElementById("checkDiv");
+
+    if(checker){
+        checker.remove();
+    }
+
+    document.getElementById('command').innerHTML = '<h1>Choose Desired Work</h1>';
+    var searchContainer = document.getElementById("search");
+    searchContainer.innerHTML ="<input id=\"searchWork\" list=\"works\" name=\"work\" style=\" border-radius: 5px;width:200px; height:30px;\">" +
+        "<datalist id=\"works\">";
+    searchContainer.innerHTML+="</datalist><input id=\"worksBtn\" type=\"submit\" onclick=\"chooseWork()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
+    var works = ["song1","song2","song3","album1","album2","album3"];
+
+    var list = document.getElementById('works');
+
+    works.forEach(function(item) {
+        var option = document.createElement('option');
+        option.value = item;
+        list.appendChild(option);
+    });
+}
+
+
+////////
+function chooseWork() {
+
+    work = document.getElementById("searchWork").value;
+    console.log(work);
+    if(work === "song1"){
+        var worksBtn = document.getElementById("worksBtn");
+        worksBtn.remove();
+        err = document.getElementById("err");
+        if(err){
+            err.remove();
+        }
+
+        document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Work';
+        document.getElementById("search").style.display = "none";
+
+        /////show graph here
+
+
+        ////BUGGGGGG
+        goBackButton("entity");
+
+    }
+    else{
+        document.getElementById("searchWork").value = "";
+        tryAgain()
+    }
+
+
+}
+function entityPersonal(){
+
+    checker = document.getElementById("checkDiv");
+    if(checker){
+        checker.remove();
+    }
+
+    /////show graph here
+
+    document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Personal Content';
+    document.getElementById("search").style.display = "none";
+    ////BUGGGGGG
+    goBackButton("entity");
+
+
+}
