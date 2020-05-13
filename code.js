@@ -56,11 +56,22 @@ function initPage() {
     //append command div to main div
     currentDiv.appendChild(searchDiv);
 
+
+    //if went back, remove this div
+    var checkDIv =  document.getElementById("checkDiv");
+    if (checkDIv){
+        checkDIv.remove();
+    }
 }
 
 ////////
 
 var subject="";
+////////////
+var entity="";
+var checkersActiv = false;
+var work = "";
+
 function chooseSubject(){
     var err = document.getElementById('err');
     if (err) {
@@ -72,6 +83,7 @@ function chooseSubject(){
         subject = subjects.value;
     }
     if(subject === "Music"){
+        entity="";
         createEntityChoice();
     }
     else if(subject === ""){
@@ -83,6 +95,7 @@ function chooseSubject(){
 }
 
 ///////
+
 function createEntityChoice(){
     var checkDIv =  document.getElementById("checkDiv");
     if (checkDIv){
@@ -106,6 +119,7 @@ function createEntityChoice(){
     input.name = "entity";
     input.style = "border-radius: 5px;width:200px; height:30px;";
     search.appendChild(input);
+
     //initializing datalist
     var datalist =document.createElement("datalist");
     datalist.id = "entities";
@@ -127,27 +141,48 @@ function createEntityChoice(){
     button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
     search.appendChild(button);
 
-
     //back button
     goBackButton("init");
+    //when go back is activated
+    if (entity !== ""){
+
+        document.getElementById("searchEntity").value = entity;
+        //chooseEntity();
+        document.getElementById("searchEntity").disabled = false;
+        //document.getElementById("checkDiv").style.display = "block";
+        if (checkersActiv){
+            goBackButton("entity");
+
+            var btn = document.getElementById("entityBtn");
+            if (btn !== null){
+                btn.remove();
+            }
+            createCheckBtns();
+        }
+    }
 }
 
 
 ////////////
-var entity="";
+//var entity="";
 function chooseEntity(){
+    checkersActiv =false;
     //back button
     goBackButton("entity");
     //
     entity = document.getElementById("searchEntity").value;
-    console.log(entity);
+
 
     if(entity === "Bob Dylan"){
+        console.log(entity);
+
         document.getElementById("searchEntity").disabled = true;
         //document.getElementById("searchEntity").value= "";
         var btn = document.getElementById("entityBtn");
-        btn.remove();
-        err = document.getElementById("err");
+        if (btn !== null){
+            btn.remove();
+        }
+        var err = document.getElementById("err");
         if(err){
             err.remove();
         }
@@ -158,7 +193,12 @@ function chooseEntity(){
     }
     else{
         document.getElementById("searchEntity").value = "";
-        tryAgain()
+        entity = "";
+        var checkDiv = document.getElementById('checkDiv');
+        if (checkDiv!==null){
+            checkDiv.remove();
+        }
+        tryAgain();
     }
 }
 ///////////////
@@ -173,12 +213,22 @@ function goBackButton(backTo) {
     backButton.id = "backBtn";
     if(backTo ==="init"){
         backButton.onclick = initPage;
+        //entity="";
+        var checkDiv = document.getElementById('checkDiv');
+        if (checkDiv!==null){
+            //checkDiv.style.display = "none";
+            checkDiv.remove();
+        }
     }
     else if(backTo ==="entity"){
         backButton.onclick = createEntityChoice;
+        checkersActiv =false;
+        work="";
+
     }
     else if (backTo === "checkers"){
-        backButton.onclick = createCheckBtns;
+        backButton.onclick = createEntityChoice;
+
     }
     else if (backTo === "works"){
         backButton.onclick = entityWork;
@@ -208,6 +258,7 @@ function tryAgain() {
 
 //////////////////
 function createCheckBtns(){
+    //createEntityChoice();
     //generate command for user
     var checkDiv = document.createElement("div");
     checkDiv.id = "checkDiv";
@@ -224,34 +275,56 @@ function createCheckBtns(){
 
 //////////
 function entityWork(){
-    goBackButton("entity");
+    checkersActiv = true;
+
+    document.getElementById("search").style.display = "block";
+
+    goBackButton("checkers");
     //
     checker = document.getElementById("checkDiv");
 
     if(checker){
-        checker.remove();
+        checker.style.display = "none";
     }
 
-    document.getElementById('command').innerHTML = '<h1>Choose Desired Work</h1>';
-    var searchContainer = document.getElementById("search");
-    searchContainer.innerHTML ="<input id=\"searchWork\" list=\"works\" name=\"work\" style=\" border-radius: 5px;width:200px; height:30px;\">" +
-        "<datalist id=\"works\">";
-    searchContainer.innerHTML+="</datalist><input id=\"worksBtn\" type=\"submit\" onclick=\"chooseWork()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
-    var works = ["song1","song2","song3","album1","album2","album3"];
+    var command = document.getElementById("command");
+    command.getElementsByTagName('h1')[0].innerHTML = 'Choose Desired Work';
+    var search = document.getElementById("search");
 
+    search.innerHTML = "";//erase search div content
+    //initializing input
+    var input = document.createElement("input");
+    input.id = "searchWork";
+    input.setAttribute("list", "works");
+    input.name = "work";
+    input.style = "border-radius: 5px;width:200px; height:30px;";
+    search.appendChild(input);
+    //initializing datalist
+    var datalist =document.createElement("datalist");
+    datalist.id = "works";
+    search.appendChild(datalist);
+    //fill data list
     var list = document.getElementById('works');
-
-    works.forEach(function(item) {
+    var works = ["song1","song2","song3","album1","album2","album3"];
+    works.forEach(function(item){
         var option = document.createElement('option');
         option.value = item;
         list.appendChild(option);
     });
+    //initialize button
+    var button =document.createElement("input");
+    button.id = "worksBtn";
+    button.type = "submit";
+    button.onclick = chooseWork;
+    button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
+    search.appendChild(button);
+    //
+    document.getElementById("searchWork").value = work;
 }
 
 
 ////////
 function chooseWork() {
-
     work = document.getElementById("searchWork").value;
     console.log(work);
     if(work === "song1"){
@@ -267,9 +340,7 @@ function chooseWork() {
 
         /////show graph here
 
-
-        ////BUGGGGGG
-        goBackButton("entity");
+        goBackButton("works");
 
     }
     else{
@@ -280,18 +351,16 @@ function chooseWork() {
 
 }
 function entityPersonal(){
-
+    checkersActiv = true;
     checker = document.getElementById("checkDiv");
     if(checker){
-        checker.remove();
+        checker.style.display = "none";
     }
-
     /////show graph here
 
     document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Personal Content';
     document.getElementById("search").style.display = "none";
-    ////BUGGGGGG
-    goBackButton("entity");
+    goBackButton("checkers");
 
 }
 
