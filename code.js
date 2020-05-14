@@ -144,7 +144,7 @@ function chooseEntity(){
     console.log(entity);
 
 
-    if(entity === "Bob Dylan"){
+
         document.getElementById("searchEntity").disabled = true;
         //document.getElementById("searchEntity").value= "";
         var btn = document.getElementById("entityBtn");
@@ -154,14 +154,14 @@ function chooseEntity(){
             err.remove();
         }
         createCheckBtns();
-    }
-    else if(entity === ""){
+
+    /*else if(entity === ""){
         return;
     }
     else{
         document.getElementById("searchEntity").value = "";
         tryAgain()
-    }
+    }*/
 }
 ///////////////
 //////back button
@@ -217,7 +217,7 @@ function createCheckBtns(){
     var currentDiv = document.getElementsByClassName("content");//
     document.body.appendChild(checkDiv, currentDiv);
     // /////
-    var checkBtn = document.getElementById('checkDiv');
+    var checkBtn = document.getElementById('mainPage');
     checkBtn.innerHTML = '<h4>Are You Interested in</h4>';// +
     checkBtn.innerHTML+="<input id=\"work\" value='work content' type=\"submit\" onclick=\"entityWork()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
     checkBtn.innerHTML+="or";
@@ -239,7 +239,8 @@ function entityWork(){
     searchContainer.innerHTML ="<input id=\"searchWork\" list=\"works\" name=\"work\" style=\" border-radius: 5px;width:200px; height:30px;\">" +
         "<datalist id=\"works\">";
     searchContainer.innerHTML+="</datalist><input id=\"worksBtn\" type=\"submit\" onclick=\"chooseWork()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
-    var works = ["song1","song2","song3","album1","album2","album3"];
+    var works=albumreq(entity)
+    console.log(works)
 
     var list = document.getElementById('works');
 
@@ -281,19 +282,30 @@ function chooseWork() {
 
 
 }
+var personalInfo=""
 function entityPersonal(){
 
     checker = document.getElementById("checkDiv");
     if(checker){
         checker.remove();
     }
-
+    const db = firebase.database();
+    var uref = db.ref('artist/'+ entity)
+    uref.once('value').then(function (snapshot) {
+        //here we will get data
+        //enter your field name
+        personalInfo = snapshot.val().personal;
+        $('.header').remove();
+        document.getElementById("chartdivwrapper").style.height="100vh";
+        buildGraph(personalInfo)
+    })
     /////show graph here
-
-    document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Personal Content';
-    document.getElementById("search").style.display = "none";
+    //document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Personal Content';
+    //document.getElementById("search").style.display = "none";
     ////BUGGGGGG
-    goBackButton("entity");
-
-
+    //goBackButton("entity");
+}
+function getInfo()
+{
+    return personalInfo;
 }

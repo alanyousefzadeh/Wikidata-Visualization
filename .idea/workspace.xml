@@ -2,16 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/amchartgraphbuid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/graphbuildstyle.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/indexgraphbuid.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sparklqueryForAlbums.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Wikidata-Visualization.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Wikidata-Visualization.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AmchartGraph/force-directed-tree-expandable/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmchartGraph/force-directed-tree-expandable/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AmchartGraph/force-directed-tree-expandable/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/AmchartGraph/force-directed-tree-expandable/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/code.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/homepage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/realtime.js" beforeDir="false" afterPath="$PROJECT_DIR$/realtime.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -24,11 +40,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -42,11 +64,41 @@
       <updated>1586879863582</updated>
       <workItem from="1586879866058" duration="292000" />
       <workItem from="1588496223781" duration="813000" />
-      <workItem from="1588677664023" duration="2735000" />
+      <workItem from="1588677664023" duration="6060000" />
+      <workItem from="1589267876217" duration="13081000" />
+      <workItem from="1589356573311" duration="37000" />
+      <workItem from="1589358750623" duration="4901000" />
+      <workItem from="1589380532264" duration="1053000" />
     </task>
+    <task id="LOCAL-00001" summary="Created validation to check if artist already exists in db">
+      <created>1588685466025</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1588685466025</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Created validation to check if artist already exists in db" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created validation to check if artist already exists in db" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="336" y="25" key="CommitChangelistDialog2" timestamp="1588685464358">
+      <screen x="0" y="23" width="1536" height="867" />
+    </state>
+    <state x="336" y="25" key="CommitChangelistDialog2/0.23.1536.867@0.23.1536.867" timestamp="1588685464358" />
+    <state x="412" y="173" key="SettingsEditor" timestamp="1589443635394">
+      <screen x="0" y="23" width="1792" height="1022" />
+    </state>
+    <state x="412" y="173" key="SettingsEditor/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" timestamp="1589443635394" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1588685470068">
+      <screen x="0" y="23" width="1536" height="867" />
+    </state>
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2/0.23.1536.867@0.23.1536.867" timestamp="1588685470068" />
   </component>
 </project>
