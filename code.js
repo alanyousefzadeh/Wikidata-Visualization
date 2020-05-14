@@ -255,19 +255,39 @@ function tryAgain() {
 
 //////////////////
 function createCheckBtns(){
+    var searchDiv = document.getElementById("search");// main to div
     //generate command for user
     var checkDiv = document.createElement("div");
     checkDiv.id = "checkDiv";
     checkDiv.style.textAlign = 'center';
-    var currentDiv = document.getElementsByClassName("content");//
-    document.body.appendChild(checkDiv, currentDiv);
-    // /////
-    var checkBtn = document.getElementById('checkDiv');
-    checkBtn.innerHTML = '<h4>Are You Interested in</h4>';// +
-    checkBtn.innerHTML+="<input id=\"work\" value='work content' type=\"submit\" onclick=\"entityWork()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
-    checkBtn.innerHTML+="or";
-    checkBtn.innerHTML+="<input id=\"personal\" value='personal content' type=\"submit\" onclick=\"entityPersonal()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
-}
+
+    var commandText = document.createElement("h4");
+    var text = document.createTextNode("Are You Interested in");
+    commandText.appendChild(text);
+    checkDiv.appendChild(commandText);
+    //set button
+    var worksBtn = document.createElement('input');
+    worksBtn.id="work";
+    worksBtn.type = "submit";
+    worksBtn.onclick = entityWork;
+    //worksBtn.setAttribute("onclick", "entityWork");
+    worksBtn.value ="work content" ;
+    worksBtn.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px;";
+    checkDiv.appendChild(worksBtn);
+    var personalBtn = document.createElement('input');
+    personalBtn.id="personal";
+    personalBtn.type = "submit";
+    personalBtn.onclick = entityPersonal;
+    //personalBtn.setAttribute("onclick", "entityPersonal");
+    personalBtn.value ="personal content" ;
+
+    personalBtn.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px;";
+    checkDiv.appendChild(personalBtn);
+
+    //append command div to main div
+    searchDiv.appendChild(checkDiv);
+
+   }
 
 //////////
 function entityWork(){
