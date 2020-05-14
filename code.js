@@ -1,7 +1,9 @@
+var entities=[];
+
 window.onload = function init(){
     initPage();
+    entities=getentity();
 };
-var entities=[];
 
 function initPage() {
     var currentDiv = document.getElementById("mainPage");// main to div
@@ -55,11 +57,22 @@ function initPage() {
     //append command div to main div
     currentDiv.appendChild(searchDiv);
 
+
+    //if went back, remove this div
+    var checkDIv =  document.getElementById("checkDiv");
+    if (checkDIv){
+        checkDIv.remove();
+    }
+
 }
 
 ////////
 
 var subject="";
+var entity="";
+var checkersActiv = false;
+var work = "";
+
 function chooseSubject(){
     var err = document.getElementById('err');
     if (err) {
@@ -71,7 +84,8 @@ function chooseSubject(){
         subject = subjects.value;
     }
     if(subject === "Music"){
-        entities=getentity();
+        entity="";//if went back
+        // entities=getentity();
         createEntityChoice();
     }
     else if(subject === ""){
@@ -127,15 +141,32 @@ function createEntityChoice(){
     button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
     search.appendChild(button);
 
-
     //back button
     goBackButton("init");
+    //when go back is activated
+    if (entity !== ""){
+
+        document.getElementById("searchEntity").value = entity;
+        //chooseEntity();
+        document.getElementById("searchEntity").disabled = false;
+        //document.getElementById("checkDiv").style.display = "block";
+        if (checkersActiv){
+
+            goBackButton("entity");
+
+            var btn = document.getElementById("entityBtn");
+            if (btn !== null){
+                btn.remove();
+            }
+            createCheckBtns();
+        }
+    }
 }
 
 
 ////////////
-var entity="";
 function chooseEntity(){
+    checkersActiv =false;
     //back button
     goBackButton("entity");
     //
@@ -143,26 +174,34 @@ function chooseEntity(){
      req(entity);
     console.log(entity);
 
+    document.getElementById("searchEntity").disabled = true;
+    //document.getElementById("searchEntity").value= "";
+    var btn = document.getElementById("entityBtn");
+    btn.remove();
+    err = document.getElementById("err");
+    if(err){
+        err.remove();
+    }
+    createCheckBtns();
 
-
-        document.getElementById("searchEntity").disabled = true;
-        //document.getElementById("searchEntity").value= "";
-        var btn = document.getElementById("entityBtn");
-        btn.remove();
-        err = document.getElementById("err");
-        if(err){
-            err.remove();
-        }
-        createCheckBtns();
-
-    /*else if(entity === ""){
+    if(entity === ""){
         return;
     }
-    else{
-        document.getElementById("searchEntity").value = "";
-        tryAgain()
-    }*/
+    // else if(){
+    //     document.getElementById("searchEntity").value = "";
+    //     entity = "";
+    //     var checkDiv = document.getElementById('checkDiv');
+    //     if (checkDiv!==null){
+    //         checkDiv.remove();
+    //     }
+    //     tryAgain();
+    // }
 }
+
+
+
+
+
 ///////////////
 //////back button
 function goBackButton(backTo) {
@@ -175,12 +214,18 @@ function goBackButton(backTo) {
     backButton.id = "backBtn";
     if(backTo ==="init"){
         backButton.onclick = initPage;
+        var checkDiv = document.getElementById('checkDiv');
+        if (checkDiv!==null){
+            checkDiv.remove();
+        }
     }
     else if(backTo ==="entity"){
         backButton.onclick = createEntityChoice;
+        checkersActiv =false;
+        work="";
     }
     else if (backTo === "checkers"){
-        backButton.onclick = createCheckBtns;
+        backButton.onclick = createEntityChoice;
     }
     else if (backTo === "works"){
         backButton.onclick = entityWork;
@@ -217,7 +262,7 @@ function createCheckBtns(){
     var currentDiv = document.getElementsByClassName("content");//
     document.body.appendChild(checkDiv, currentDiv);
     // /////
-    var checkBtn = document.getElementById('mainPage');
+    var checkBtn = document.getElementById('checkDiv');
     checkBtn.innerHTML = '<h4>Are You Interested in</h4>';// +
     checkBtn.innerHTML+="<input id=\"work\" value='work content' type=\"submit\" onclick=\"entityWork()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
     checkBtn.innerHTML+="or";
@@ -226,41 +271,61 @@ function createCheckBtns(){
 
 //////////
 function entityWork(){
-    goBackButton("entity");
-    //
-    checker = document.getElementById("checkDiv");
-
+    checkersActiv = true;
+    document.getElementById("search").style.display = "block";
+    goBackButton("checkers");
+    var checker = document.getElementById("checkDiv");
     if(checker){
-        checker.remove();
+        checker.style.display = "none";
     }
 
-    document.getElementById('command').innerHTML = '<h1>Choose Desired Work</h1>';
-    var searchContainer = document.getElementById("search");
-    searchContainer.innerHTML ="<input id=\"searchWork\" list=\"works\" name=\"work\" style=\" border-radius: 5px;width:200px; height:30px;\">" +
-        "<datalist id=\"works\">";
-    searchContainer.innerHTML+="</datalist><input id=\"worksBtn\" type=\"submit\" onclick=\"chooseWork()\" style=\" height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px\" >";
+    var command = document.getElementById("command");
+    command.getElementsByTagName('h1')[0].innerHTML = 'Choose Desired Work';
+    var search = document.getElementById("search");
+
+    search.innerHTML = "";//erase search div content
+    //initializing input
+    var input = document.createElement("input");
+    input.id = "searchWork";
+    input.setAttribute("list", "works");
+    input.name = "work";
+    input.style = "border-radius: 5px;width:200px; height:30px;";
+    search.appendChild(input);
+    //initializing datalist
+    var datalist =document.createElement("datalist");
+    datalist.id = "works";
+    search.appendChild(datalist);
+
+    //fill data list
     var works=albumreq(entity)
     console.log(works)
 
     var list = document.getElementById('works');
-
-    works.forEach(function(item) {
+    works.forEach(function(item){
         var option = document.createElement('option');
         option.value = item;
         list.appendChild(option);
     });
+    //initialize button
+    var button =document.createElement("input");
+    button.id = "worksBtn";
+    button.type = "submit";
+    button.onclick = chooseWork;
+    button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
+    search.appendChild(button);
+    //
+    document.getElementById("searchWork").value = work;
 }
 
 
 ////////
 function chooseWork() {
-
     work = document.getElementById("searchWork").value;
     console.log(work);
     if(work === "song1"){
         var worksBtn = document.getElementById("worksBtn");
         worksBtn.remove();
-        err = document.getElementById("err");
+        var err = document.getElementById("err");
         if(err){
             err.remove();
         }
@@ -270,22 +335,18 @@ function chooseWork() {
 
         /////show graph here
 
-
-        ////BUGGGGGG
-        goBackButton("entity");
+        goBackButton("works");
 
     }
     else{
         document.getElementById("searchWork").value = "";
         tryAgain()
     }
-
-
 }
 var personalInfo=""
 function entityPersonal(){
-
-    checker = document.getElementById("checkDiv");
+    checkersActiv = true;
+    var checker = document.getElementById("checkDiv");
     if(checker){
         checker.remove();
     }
@@ -302,8 +363,7 @@ function entityPersonal(){
     /////show graph here
     //document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Personal Content';
     //document.getElementById("search").style.display = "none";
-    ////BUGGGGGG
-    //goBackButton("entity");
+    goBackButton("checkers");
 }
 function getInfo()
 {

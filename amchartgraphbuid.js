@@ -4,10 +4,10 @@ function buildGraph(info) {
   var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree, am4charts.XYChart);
 //var chart = am4core.create("zoom",am4charts.XYChart);
   chart.legend = new am4charts.Legend();
-  chart.exporting.menu = new am4core.ExportMenu();
-  chart.exporting.menu.container = document.getElementById("tools");
-  chart.legend.parent = chart.chartContainer;
-  chart.legend.position = "left"
+  //chart.exporting.menu = new am4core.ExportMenu();
+  //chart.exporting.menu.container = document.getElementById("tools");
+  //chart.legend.parent = chart.chartContainer;
+  chart.legend.position = "right"
   chart.legend.scrollable = true;
   chart.legend.itemContainers.template.cursorOverStyle = am4core.MouseCursorStyle.default;
   chart.data.scrollable = true;
