@@ -39,5 +39,23 @@ function addbutton(info) {
         name= JSON.stringify(name,null,2)
         console.log(name)
     })
-});*/
+});
+
+
+updateBtn.addEventListener('click', e => {
+    e.preventDefault();
+    console.log(userId)
+    var uref = db.ref('users/'+ userId.value)
+    uref.once('value').then(function (snapshot) {
+        //here we will get data
+        //enter your field name
+        var name = snapshot.val().personal;
+        name= JSON.stringify(name,null,2)
+        console.log(name)
+    })
+});
+ */
+
+
+
 

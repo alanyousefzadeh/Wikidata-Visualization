@@ -35,7 +35,7 @@
 
 
      makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-
+          var str = "";
             var name = qid.substring(0, qid.indexOf("("));
 
                 var d = d3.csvParse(data);
@@ -70,10 +70,10 @@
 
                 nested_data = JSON.parse(nested_data)
 
+                nested_data= JSON.stringify(nested_data, null, 2)
 
-
-
-            const db = firebase.database();
+                str=nested_data;
+                 const db = firebase.database();
 
                  var usersRef = db.ref('/artist');
                  const normalUsersRef = usersRef.child('normal_users');
@@ -87,7 +87,7 @@
                  console.log("artist already exists")
              } else {
                  console.log("artist doesn't exist exists")
-                 usersRef.child(qid).set({personal: nested_data,});
+                 usersRef.child(qid).set({personal: str,});
                  console.log("artist added")
              }
          });

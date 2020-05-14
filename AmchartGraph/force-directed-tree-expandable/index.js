@@ -3,7 +3,8 @@ am4core.useTheme(am4themes_animated);
 var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree,am4charts.XYChart);
 //var chart = am4core.create("zoom",am4charts.XYChart);
 chart.legend = new am4charts.Legend();
-
+chart.exporting.menu = new am4core.ExportMenu();
+chart.exporting.menu.container = document.getElementById("tools");
 chart.legend.parent = chart.chartContainer;
 chart.legend.position="left"
 chart.legend.scrollable = true;
@@ -1342,10 +1343,14 @@ networkSeries.data = [
             ]
           }
         ]
-      },
-        ]
+      }
+        ],
+    "height": 0,
+    "depth": 0,
+    "parent": null
   }];
 
+console.log(networkSeries.data)
 
 /*var zoomInButton = buttonContainer.createChild(am4core.Button);
 zoomInButton.label.text = "+";
@@ -1372,6 +1377,13 @@ icon.height = 40;
 
 networkSeries.nodes.template.circle.disabled = true;
 networkSeries.nodes.template.outerCircle.disabled = true;*/
+
+/*var nodeTemplate = networkSeries.nodes.template;
+nodeTemplate.readerTitle = "Click to show/hide or drag to rearrange";
+nodeTemplate.showSystemTooltip = true;
+nodeTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer;*/
+
+
 networkSeries.dataFields.linkWith = "linkWith";
 networkSeries.dataFields.name = "name";
 networkSeries.dataFields.id = "name";
@@ -1423,6 +1435,7 @@ networkSeries.nodes.template.events.on("out", function(event) {
     event.target.dataItem.parentLink.isHover = false;
   }
 })
+
 /*networkSeries.nodes.template.events.on("hit", function(ev) {
   var targetNode = ev.target;
   if (targetNode.isActive) {
