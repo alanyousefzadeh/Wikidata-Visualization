@@ -6,10 +6,9 @@
 
 
     position: absolute;
-
     /*float: left;*/
     padding: 9.5px;
-    text-align: left;
+    text-align: center;
     background: #5282bc;
     color: white;
     /*
@@ -55,15 +54,12 @@ body {
 {
     float:left;
     background:#5282bc; /*#7ea3d0;*/
-    height: 30vh;
-
-
+    text-align: center;
+    height: 100%;
     position: absolute;
     top: 310px;
     padding: 10.5px;
-
     width: 317px;
-    max-height: 568px;
     display: inline-block;
 
 }
