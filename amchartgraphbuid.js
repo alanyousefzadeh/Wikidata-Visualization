@@ -1339,12 +1339,18 @@ function buildGraph(info) {
 
   networkSeries.nodes.template.circle.disabled = true;
   networkSeries.nodes.template.outerCircle.disabled = true;*/
+
   networkSeries.dataFields.linkWith = "linkWith";
   networkSeries.dataFields.name = "name";
   networkSeries.dataFields.id = "name";
 //networkSeries.dataFields.value = "value";
 //networkSeries.dataFields.value = "10";
   networkSeries.dataFields.children = "children";
+  networkSeries.dataFields.fixed="fixed"
+  networkSeries.dataFields.centerStrength=50
+  networkSeries.nodes.centerStrength=50
+  networkSeries.nodes.template.propertyFields.x = "x";
+  networkSeries.nodes.template.propertyFields.y = "y";
   networkSeries.nodes.template.tooltipText = "{name}";
   networkSeries.nodes.template.fillOpacity = 1;
 //networkSeries.nodes.template.dataFields.url = "name";

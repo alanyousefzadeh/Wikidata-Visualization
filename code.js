@@ -518,7 +518,6 @@ function entityPersonal(){
         //enter your field name
         personalInfo = snapshot.val().personal;
         //////////////
-        $('.header').remove();
         //////
         document.getElementById("chartdivwrapper").style.height="100vh";
         buildGraph(personalInfo)
