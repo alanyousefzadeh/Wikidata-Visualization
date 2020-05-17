@@ -1,0 +1,20 @@
+sparqlQuery = "SELECT ?property ?propertyLabel ?value ?valueLabel ?article ?articleLable{\n" +
+            "  VALUES (?identifier) {(wd:" + qID + ")}\n" +
+            "  \n" +
+            "  ?identifier ?p ?statement .\n" +
+            "  ?statement ?ps ?value .\n" +
+            "  \n" +
+            "  ?property wikibase:claim ?p.\n" +
+            "  ?property wikibase:statementProperty ?ps.\n" +
+            "  \n" +
+            "  OPTIONAL {\n" +
+            "  ?identifier ?p ?statement .\n" +
+            "  ?statement ?ps ?value .\n" +
+            "  ?article schema:about ?value.\n" +
+            "  ?article schema:inLanguage \"en\" .\n" +
+            "  ?article schema:isPartOf <https://en.wikipedia.org/>.\n" +
+            "  }\n" +
+            "  \n" +
+            "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n" +
+            "} ORDER BY ?property ?statement ?value\n" +
+            "";
