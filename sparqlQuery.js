@@ -11,27 +11,61 @@
     var identifier = regExp.exec(qid);
     var qID = identifier[1]
 
-    var endpointUrl = 'https://query.wikidata.org/sparql',
-        sparqlQuery = "SELECT ?property ?propertyLabel ?value ?valueLabel ?article ?articleLable{\n" +
-            "  VALUES (?identifier) {(wd:" + qID + ")}\n" +
-            "  \n" +
-            "  ?identifier ?p ?statement .\n" +
-            "  ?statement ?ps ?value .\n" +
-            "  \n" +
-            "  ?property wikibase:claim ?p.\n" +
-            "  ?property wikibase:statementProperty ?ps.\n" +
-            "  \n" +
-            "  OPTIONAL {\n" +
-            "  ?identifier ?p ?statement .\n" +
-            "  ?statement ?ps ?value .\n" +
-            "  ?article schema:about ?value.\n" +
-            "  ?article schema:inLanguage \"en\" .\n" +
-            "  ?article schema:isPartOf <https://en.wikipedia.org/>.\n" +
-            "  }\n" +
-            "  \n" +
-            "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\" }\n" +
-            "} ORDER BY ?property ?statement ?value\n" +
-            "";
+     var endpointUrl = 'https://query.wikidata.org/sparql',
+         sparqlQuery = "PREFIX entity: <http://www.wikidata.org/entity/> \n" +
+             "\n" +
+             "SELECT ?propLabel ?valUrl ?val\n" +
+             "WHERE\n" +
+             "{\n" +
+             "	hint:Query hint:optimizer 'None' .\n" +
+             "	{	BIND(entity:" + qID + " AS ?valUrl) .\n" +
+             "		BIND(\"N/A\" AS ?propUrl ) .\n" +
+             "		BIND(\"Name\"@en AS ?propLabel ) .\n" +
+             "       entity:" + qID + " rdfs:label ?val .\n" +
+             "      \n" +
+             "        FILTER (LANG(?val) = \"en\") \n" +
+             "	}\n" +
+             "  \n" +
+             "   UNION\n" +
+             "    {   BIND(entity:" + qID + " AS ?valUrl) .\n" +
+             "        BIND(\"AltLabel\"@en AS ?propLabel ) .\n" +
+             "        optional{entity:" + qID + " skos:altLabel ?val}.\n" +
+             "        FILTER (LANG(?val) = \"en\") \n" +
+             "    }\n" +
+             "    UNION\n" +
+             "    {   BIND(entity:" + qID + " AS ?valUrl) .\n" +
+             "        BIND(\"Description\"@en AS ?propLabel ) .\n" +
+             "        optional{entity:" + qID + " schema:description ?val}.\n" +
+             "        FILTER (LANG(?val) = \"en\") \n" +
+             "    }\n" +
+             "  \n" +
+             "  UNION\n" +
+             "	{	entity:" + qID + " ?propUrl ?valUrl .\n" +
+             "		?property ?ref ?propUrl .\n" +
+             "		?property rdf:type wikibase:Property .\n" +
+             "		?property rdfs:label ?propLabel.\n" +
+             "     	FILTER (lang(?propLabel) = 'en' )\n" +
+             "        filter  isliteral(?valUrl) \n" +
+             "        FILTER (!contains(str(?propLabel), \"ID\") )\n" +
+             "        FILTER (!contains(str(?propLabel), \"name\") )\n" +
+             "        FILTER (!contains(str(?propLabel), \"Identifier\") )\n" +
+             "        FILTER (!contains(str(?propLabel), \"ISNI\") )\n" +
+             "        FILTER (!contains(str(?propLabel), \"Libris-URI\") )\n" +
+             "        BIND(?valUrl AS ?val)\n" +
+             "	}\n" +
+             "  UNION\n" +
+             "	{	entity:" + qID + " ?propUrl ?valUrl .\n" +
+             "		?property ?ref ?propUrl .\n" +
+             "		?property rdf:type wikibase:Property .\n" +
+             "		?property rdfs:label ?propLabel.\n" +
+             "     	FILTER (lang(?propLabel) = 'en' ) \n" +
+             "        filter  isIRI(?valUrl) \n" +
+             "        ?valUrl rdfs:label ?valLabel \n" +
+             "		FILTER (LANG(?valLabel) = \"en\") \n" +
+             "        BIND(CONCAT(?valLabel) AS ?val)\n" +
+             "	}\n" +
+             "}\n" +
+             "ORDER BY ?propLabel";
 
 
      makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
@@ -43,10 +77,10 @@
                 var nested_data = d3.nest()
                     //.key(function(d) { return "entity"; })
                     .key(function (d) {
-                        return d.propertyLabel;
+                        return d.propLabel;
                     })
                     .key(function (d) {
-                        return d.valueLabel;
+                        return d.val;
                     })
                     .entries(d);
 

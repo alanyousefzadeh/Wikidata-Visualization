@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amchartgraphbuid.js" beforeDir="false" afterPath="$PROJECT_DIR$/amchartgraphbuid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlQuery.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,29 +36,8 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>var work</find>
-      <find>var checkersA</find>
-      <find>document.getElementById(&quot;search&quot;</find>
-      <find>&quot;search&quot;</find>
-      <find>button</find>
-      <find>input</find>
-      <find>chartdivwrapper</find>
-      <find>disa</find>
-      <find>entityBtn</find>
-      <find>req(</find>
-      <find>header</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="31" />
-    <option name="y" value="23" />
-    <option name="width" value="1407" />
-    <option name="height" value="857" />
   </component>
   <component name="ProjectId" id="1bOHRc5dHOwcvLeOk92xMoorXvn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -99,6 +79,8 @@
       <workItem from="1589356573311" duration="37000" />
       <workItem from="1589358750623" duration="4901000" />
       <workItem from="1589380532264" duration="1053000" />
+      <workItem from="1589640012944" duration="434000" />
+      <workItem from="1589704060923" duration="1679000" />
     </task>
     <task id="LOCAL-00001" summary="Created validation to check if artist already exists in db">
       <created>1588685466025</created>
@@ -135,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589628967852</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="design improvement">
+      <created>1589629023805</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1589629023805</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,11 +143,11 @@
     <state x="336" y="25" key="CommitChangelistDialog2/0.23.1536.867@0.23.1536.867" timestamp="1589627691011" />
     <state x="412" y="173" key="SettingsEditor" timestamp="1589627691011" />
     <state x="412" y="173" key="SettingsEditor/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" timestamp="1589627691011" />
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1589628969164">
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1589629025760">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/0.23.1536.867@0.23.1536.867" timestamp="1589627691011" />
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1589628969164" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1589629025760" />
     <state x="609" y="312" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1589627940879">
       <screen x="0" y="23" width="1792" height="1097" />
     </state>
