@@ -66,6 +66,7 @@ body {
 #chartdiv {
     width: 100%;
     height: 100vh;
+
     overflow-x: auto;
     overflow-y: auto;
 }
@@ -76,7 +77,9 @@ body {
     right:0;
 }
 #chartdivwrapper {
-    width: 100%;
+    width: 76.5%;
+    margin-left: 332px;
+
     height:10vh;
     max-height: 100vh;
     overflow-x: auto;
