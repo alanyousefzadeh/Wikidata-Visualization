@@ -84,3 +84,14 @@ body {
 }
 
 
+/*form {*/
+    /*border-color: black;*/
+/*}*/
+
+input[type="radio" i] {
+
+    padding :10px;
+    margin: 9px;
+
+
+}

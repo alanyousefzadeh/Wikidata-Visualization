@@ -4,7 +4,7 @@ var entity="";
 var checkersActiv = false;
 var work = "";
 window.onload = function init(){
-    entities=getentity();
+    // entities=getentity();
     console.log("in init    " + entities[0]);
     initPage();
     // var searchEntity = document.getElementById("searchEntityDiv");
@@ -175,7 +175,95 @@ function chooseSubject(){
         //     list.appendChild(option);
         // });
         // entities=getentity();
-        createEntityChoice();
+
+        submit = document.getElementById("subjectBtn");
+
+        submit.remove();//.style.display = "none";
+
+        var searchSubjectDiv = document.getElementById("searchSubject");// searchSubject div
+        searchSubjectDiv.appendChild(document.createElement("br"));
+
+        // searchSubjectDiv.appendChild(document.createTextNode("select: "));
+        select = document.createElement("h4");
+        select.innerText = "select : ";
+        searchSubjectDiv.appendChild(select);
+
+
+        var radioDiv = document.createElement("form");
+        radioDiv.id = "radioDiv";
+
+        var band = document.createElement("input");
+        band.type = "radio";
+        band.name = "choice";
+        //band.value = "band";
+        // var textBand = document.createElement("h4");
+        // textBand.innerText = "band"
+        var textBand = document.createTextNode("band");
+        //radioDiv.appendChild(textBand);
+        band.innerHTML = "band     ";
+
+        var artist = document.createElement("input");
+        artist.type = "radio";
+        artist.name = "choice";
+        artist.value = "artist";
+        //artist.innerHTML = "artist";
+        var textArtist = document.createTextNode("artist");
+        // var textArtist = document.createElement("h4");
+        // textArtist.innerText = "artist"
+
+
+        radioDiv.appendChild(band);
+        radioDiv.appendChild(textBand);
+        radioDiv.appendChild(document.createElement("br"));
+
+        radioDiv.appendChild(artist);
+        radioDiv.appendChild(textArtist);
+
+        searchSubjectDiv.appendChild(radioDiv);
+
+        var button = document.createElement("button");
+        // button.onclick = artistOrBand;
+        button.innerText="ok";
+        button.style.marginBottom = "10px"; //    margin-bottom: 10px;
+        button.onclick = () => {
+            var ele = document.getElementsByName('choice');
+
+            if (ele[0].checked){
+                console.log("band");
+                // entities = getList('bands');
+                entities = getentity('bands');
+
+                createEntityChoice();
+
+            }
+            else if (ele[1].checked){
+                // entities = getList('artists');
+                entities = getentity('artists');
+
+                // entities=getentity();
+
+                console.log("artist");
+                createEntityChoice();
+            }
+            else{
+                tryAgain();
+            }
+
+        };
+        searchSubjectDiv.appendChild(document.createElement("br"));
+
+        searchSubjectDiv.appendChild(button);
+
+
+
+        goBackButton("init");
+
+
+        //
+    // <button type="button" onclick="displayRadioValue()">
+    //         Submit
+    //         </button>
+
     }
     else if(subject === ""){
         return;
@@ -490,6 +578,13 @@ function chooseWork() {
         if(err){
             err.remove();
         }
+
+
+        ///////////////
+
+
+
+        /////////////////
 
         document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Work';
         document.getElementById("search").style.display = "none";
