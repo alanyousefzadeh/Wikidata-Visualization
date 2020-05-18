@@ -21,9 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement">
       <change beforePath="$PROJECT_DIR$/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/code.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/csvtoarray.js" beforeDir="false" afterPath="$PROJECT_DIR$/csvtoarray.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/homepage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,20 +29,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="240" column="45" selection-start-line="240" selection-start-column="45" selection-end-line="240" selection-end-column="45" />
+            <state relative-caret-position="165">
+              <caret line="534" column="29" selection-start-line="534" selection-start-column="29" selection-end-line="534" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/csvtoarray.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="15" />
+            <state relative-caret-position="300">
+              <caret line="20" column="26" lean-forward="true" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -53,7 +50,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/homepage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
+            <state relative-caret-position="291">
               <caret line="46" column="24" selection-start-line="46" selection-end-line="47" />
             </state>
           </provider>
@@ -83,6 +80,8 @@
       <find>entities</find>
       <find>beatles</find>
       <find>getEnti</find>
+      <find>bands</find>
+      <find>works</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -93,8 +92,8 @@
       <list>
         <option value="$PROJECT_DIR$/styles.css" />
         <option value="$PROJECT_DIR$/homepage.html" />
-        <option value="$PROJECT_DIR$/code.js" />
         <option value="$PROJECT_DIR$/csvtoarray.js" />
+        <option value="$PROJECT_DIR$/code.js" />
       </list>
     </option>
   </component>
@@ -221,7 +220,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9359000" />
+    <option name="totallyTimeSpent" value="11913000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="31" y="23" width="1407" height="857" extended-state="0" />
@@ -310,20 +309,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/homepage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="46" column="24" selection-start-line="46" selection-end-line="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="240" column="45" selection-start-line="240" selection-start-column="45" selection-end-line="240" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datafiles/artists.json">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="255">
@@ -340,8 +325,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/csvtoarray.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="15" />
+        <state relative-caret-position="300">
+          <caret line="20" column="26" lean-forward="true" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/homepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="46" column="24" selection-start-line="46" selection-end-line="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="534" column="29" selection-start-line="534" selection-start-column="29" selection-end-line="534" selection-end-column="29" />
         </state>
       </provider>
     </entry>

@@ -1,4 +1,5 @@
 var entities=[];
+var works = [];
 var subject="";
 var entity="";
 var checkersActiv = false;
@@ -195,7 +196,7 @@ function chooseSubject(){
         var band = document.createElement("input");
         band.type = "radio";
         band.name = "choice";
-        //band.value = "band";
+        band.value = "band";
         // var textBand = document.createElement("h4");
         // textBand.innerText = "band"
         var textBand = document.createTextNode("band");
@@ -254,16 +255,7 @@ function chooseSubject(){
 
         searchSubjectDiv.appendChild(button);
 
-
-
         goBackButton("init");
-
-
-        //
-    // <button type="button" onclick="displayRadioValue()">
-    //         Submit
-    //         </button>
-
     }
     else if(subject === ""){
         return;
@@ -481,7 +473,91 @@ function createCheckBtns(){
     var worksBtn = document.createElement('input');
     worksBtn.id="work";
     worksBtn.type = "submit";
-    worksBtn.onclick = entityWork;
+    // worksBtn.onclick = entityWork;
+
+
+    worksBtn.onclick = ()=>{
+        //checkDiv
+        //
+        // var submit = document.getElementById("worksBtn");
+        // submit.remove();//.style.display = "none";
+
+        // var workSearchDiv = document.getElementById("workSearchDiv");// searchSubject div
+        checkDiv.appendChild(document.createElement("br"));
+
+        // searchSubjectDiv.appendChild(document.createTextNode("select: "));
+        var select = document.createElement("h4");
+        select.innerText = "select : ";
+        checkDiv.appendChild(select);
+
+
+        var radioDiv = document.createElement("form");
+        radioDiv.id = "radioDiv";
+
+        var albums = document.createElement("input");
+        albums.type = "radio";
+        albums.name = "albumsOrSongs";
+        albums.value = "albums";
+
+        var textAlbums = document.createTextNode("albums");
+        albums.innerHTML = "albums     ";
+
+        var songs = document.createElement("input");
+        songs.type = "radio";
+        songs.name = "albumsOrSongs";
+        songs.value = "songs";
+        var textSongs = document.createTextNode("songs");
+
+
+        radioDiv.appendChild(albums);
+        radioDiv.appendChild(textAlbums);
+        radioDiv.appendChild(document.createElement("br"));
+
+        radioDiv.appendChild(songs);
+        radioDiv.appendChild(textSongs);
+
+        checkDiv.appendChild(radioDiv);
+
+        var button = document.createElement("button");
+        // button.onclick = artistOrBand;
+        button.innerText="ok";
+        button.style.marginBottom = "10px"; //    margin-bottom: 10px;
+        button.onclick = () => {
+            var ele = document.getElementsByName('albumsOrSongs');
+
+            if (ele[0].checked){
+                console.log("albums");
+
+                //load album list here
+                works=albumreq(entity)
+                console.log(works)
+
+                entityWork();
+
+            }
+            else if (ele[1].checked){
+                console.log("songs");
+
+                //load songs list here
+
+
+                //works=albumreq(entity)
+                console.log(works)
+
+                entityWork();
+            }
+            else{
+                tryAgain();
+            }
+
+        };
+        checkDiv.appendChild(document.createElement("br"));
+
+        checkDiv.appendChild(button);
+
+    };
+
+
     //worksBtn.setAttribute("onclick", "entityWork");
     worksBtn.value ="work content" ;
     worksBtn.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px;";
@@ -538,8 +614,8 @@ function entityWork(){
         search.appendChild(datalist);
 
         //fill data list
-        var works=albumreq(entity)
-        console.log(works)
+        // works=albumreq(entity)
+        // console.log(works)
 
         var list = document.getElementById('works');
         works.forEach(function(item){
@@ -551,7 +627,10 @@ function entityWork(){
         var button =document.createElement("input");
         button.id = "worksBtn";
         button.type = "submit";
+        // button.onclick = chooseWork;
         button.onclick = chooseWork;
+
+
         button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
         search.appendChild(button);
 
@@ -580,15 +659,79 @@ function chooseWork() {
         }
 
 
-        ///////////////
 
-
-
-        /////////////////
 
         document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Work';
         document.getElementById("search").style.display = "none";
 
+        ///////////////
+
+
+        // //workSearchDiv
+        //
+        // var submit = document.getElementById("worksBtn");
+        // submit.remove();//.style.display = "none";
+        //
+        // var workSearchDiv = document.getElementById("workSearchDiv");// searchSubject div
+        // workSearchDiv.appendChild(document.createElement("br"));
+        //
+        // // searchSubjectDiv.appendChild(document.createTextNode("select: "));
+        // var select = document.createElement("h4");
+        // select.innerText = "select : ";
+        // workSearchDiv.appendChild(select);
+        //
+        //
+        // var radioDiv = document.createElement("form");
+        // radioDiv.id = "radioDiv";
+        //
+        // var albums = document.createElement("input");
+        // albums.type = "radio";
+        // albums.name = "choice";
+        // var textAlbums = document.createTextNode("albums");
+        // albums.innerHTML = "albums     ";
+        //
+        // var songs = document.createElement("input");
+        // songs.type = "radio";
+        // songs.name = "choice";
+        // songs.value = "songs";
+        // var textSongs = document.createTextNode("songs");
+        //
+        //
+        // radioDiv.appendChild(albums);
+        // radioDiv.appendChild(textAlbums);
+        // radioDiv.appendChild(document.createElement("br"));
+        //
+        // radioDiv.appendChild(songs);
+        // radioDiv.appendChild(textSongs);
+        //
+        // workSearchDiv.appendChild(radioDiv);
+        //
+        // var button = document.createElement("button");
+        // // button.onclick = artistOrBand;
+        // button.innerText="ok";
+        // button.style.marginBottom = "10px"; //    margin-bottom: 10px;
+        // button.onclick = () => {
+        //     var ele = document.getElementsByName('choice');
+        //
+        //     if (ele[0].checked){
+        //         console.log("albums");
+        //
+        //     }
+        //     else if (ele[1].checked){
+        //         console.log("songs");
+        //     }
+        //     else{
+        //         tryAgain();
+        //     }
+        //
+        // };
+        // workSearchDiv.appendChild(document.createElement("br"));
+        //
+        // workSearchDiv.appendChild(button);
+
+        // goBackButton("works");
+
+        /////////////////
         /////show graph here
 
         goBackButton("works");
