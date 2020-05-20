@@ -53,8 +53,6 @@ function buildGraph(info) {
 //networkSeries.dataFields.value = "10";
   networkSeries.dataFields.children = "children";
   networkSeries.dataFields.fixed="fixed"
-  networkSeries.dataFields.centerStrength=50
-  networkSeries.nodes.centerStrength=50
   networkSeries.nodes.template.propertyFields.x = "x";
   networkSeries.nodes.template.propertyFields.y = "y";
   networkSeries.nodes.template.tooltipText = "{name}";
@@ -69,7 +67,7 @@ function buildGraph(info) {
   networkSeries.nodes.template.expandAll = false;
   networkSeries.fontSize = 8;
   networkSeries.currentLevel = 1;
-  networkSeries.maxLevels = 1;
+  networkSeries.maxLevels = 2;
   networkSeries.maxRadius = 50;
   networkSeries.minRadius = 25;
   networkSeries.nodes.template.label.hideOversized = true;

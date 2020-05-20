@@ -1,4 +1,4 @@
-function albumreq (qid) {
+function albumreq (qid,type) {
     function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},
@@ -20,7 +20,6 @@ function albumreq (qid) {
 
     var albumlist = [];
     makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-
             //    var name = qid.substring(0, qid.indexOf("("));
 
             var d = d3.csvParse(data);
@@ -52,6 +51,30 @@ function albumreq (qid) {
             for (var i = 0; i < nested_data.length; i++) {
                 albumlist[i] = nested_data[i].albumLabel;
             }
+        const db = firebase.database();
+        var str = albumlist;
+        var usersRef =""
+        if(type==="artists")
+        {
+             usersRef = db.ref('/artistWorks');
+
+        }else if(type==="bands")
+        {
+             usersRef = db.ref('/bandsWorks');
+
+        }
+        console.log(usersRef)
+        usersRef.child(qid).once('value', function(snapshot) {
+
+            var exists = (snapshot.val() !== null);
+
+            if (exists) {
+                console.log(type+" already exists")
+            } else {
+                console.log(type+" doesn't exist exists")
+                usersRef.child(qid).set({albums: str,});
+                console.log(type+" artist added")
+            }
 
             /*const db = firebase.database();
 
@@ -75,5 +98,6 @@ function albumreq (qid) {
 
         }
     );
+});
 return albumlist;
 }
