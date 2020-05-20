@@ -1,4 +1,6 @@
- function req(qid) {
+var nested_data=""
+
+function req(qid,type) {
      function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},
@@ -71,10 +73,15 @@
      makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
           var str = "";
             var name = qid.substring(0, qid.indexOf("("));
+            /*var fixed = "\n\"fixed\":\"true\",\n" +
+                "  \"x\":\" \",\n" +
+                "  \"y\":\" \","*/
+            var fixed = "\n\"fixed\":\"true\",";
+            console.log(name)
 
                 var d = d3.csvParse(data);
 
-                var nested_data = d3.nest()
+            nested_data = d3.nest()
                     //.key(function(d) { return "entity"; })
                     .key(function (d) {
                         return d.propLabel;
@@ -96,7 +103,9 @@
 
                 nested_data = JSON.stringify(nested_data, null, 2).replace(/"values":/g, '"children":')
 
-                nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\",\n\"children\":");
+                nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\","+fixed+"\n\"children\":");
+
+                console.log(nested_data)
 
                 nested_data = JSON.parse(nested_data)
 
@@ -108,8 +117,16 @@
 
                 str=nested_data;
                  const db = firebase.database();
+                 var usersRef =""
+                 if(type==="artists") {
+                      usersRef = db.ref('/artist');
+                 }
+                 else if(type==="bands")
+                     {
 
-                 var usersRef = db.ref('/artist');
+                         usersRef = db.ref('/bands');
+
+                     }
                  const normalUsersRef = usersRef.child('normal_users');
                  const superUsersRef = usersRef.child('super_users');
 
@@ -125,7 +142,7 @@
                  console.log("artist added")
              }
          });
-            return nested_data;
+         return nested_data;
 
             }
         );

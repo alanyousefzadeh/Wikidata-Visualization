@@ -4,9 +4,10 @@ var subject="";
 var entity="";
 var checkersActiv = false;
 var work = "";
+var bOrA="";
 window.onload = function init(){
     // entities=getentity();
-    console.log("in init    " + entities[0]);
+    console.log("in init" + entities[0]);
     initPage();
     // var searchEntity = document.getElementById("searchEntityDiv");
     // var list = document.getElementById('entities');
@@ -18,8 +19,6 @@ window.onload = function init(){
     //     list.appendChild(option);
     // });
     // searchEntity.style.display = "none";
-
-
 };
 
 function initPage() {
@@ -106,7 +105,7 @@ function initPage() {
     //var list = document.getElementById('entities');
 
     //console.log(entities);
-    console.log("in onInit    " + entities[0]);
+    console.log("in onInit " + entities[0]);
 
     // for (var i = 0 ; i<3;i++){
     //     console.log(entities[i]);
@@ -230,20 +229,15 @@ function chooseSubject(){
             var ele = document.getElementsByName('choice');
 
             if (ele[0].checked){
-                console.log("band");
-                // entities = getList('bands');
-                entities = getentity('bands');
-
+                console.log("bands");
+                bOrA="bands"
+                entities = getbands()
                 createEntityChoice();
-
             }
             else if (ele[1].checked){
-                // entities = getList('artists');
-                entities = getentity('artists');
-
-                // entities=getentity();
-
-                console.log("artist");
+                console.log("artists");
+                bOrA="artists"
+                entities = getartists()
                 createEntityChoice();
             }
             else{
@@ -286,8 +280,6 @@ function createEntityChoice(){
     searchEntity.style.display = "block";
     document.getElementById("searchEntity").disabled = false;
     document.getElementById("entityBtn").style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px; display:inline";
-
-
     var list = document.getElementById('entities');
     entities.forEach(function(item){
         var option = document.createElement('option');
@@ -384,8 +376,9 @@ function chooseEntity(){
         }
         tryAgain();
     }
-
-    req(entity);
+    console.log("calling" + bOrA)
+    req(entity,bOrA);
+    albumreq(entity,bOrA)
     console.log(entity);
 
     document.getElementById("searchEntity").disabled = true;
@@ -398,7 +391,6 @@ function chooseEntity(){
         err.remove();
     }
     createCheckBtns();
-
 
 }
 
@@ -527,23 +519,16 @@ function createCheckBtns(){
 
             if (ele[0].checked){
                 console.log("albums");
-
                 //load album list here
-                works=albumreq(entity)
                 console.log(works)
-
                 entityWork();
 
             }
             else if (ele[1].checked){
                 console.log("songs");
-
                 //load songs list here
-
-
-                //works=albumreq(entity)
+                //works=albumreq(entity,bOrA)
                 console.log(works)
-
                 entityWork();
             }
             else{
@@ -586,7 +571,6 @@ function entityWork(){
     if(checker){
         checker.style.display = "none";
     }
-
     var command = document.getElementById("command");
     command.getElementsByTagName('h1')[0].innerHTML = 'Choose Desired Work';
 
@@ -612,17 +596,36 @@ function entityWork(){
         var datalist =document.createElement("datalist");
         datalist.id = "works";
         search.appendChild(datalist);
-
         //fill data list
-        // works=albumreq(entity)
+        //works=albumreq(entity)
         // console.log(works)
 
-        var list = document.getElementById('works');
-        works.forEach(function(item){
-            var option = document.createElement('option');
-            option.value = item;
-            list.appendChild(option);
-        });
+        const db = firebase.database();
+        var usersRef =""
+        if(bOrA==="artists")
+        {
+            usersRef= db.ref('artistWorks/'+entity);
+
+        }else if(bOrA==="bands")
+        {
+            usersRef=db.ref('bandsWorks/'+entity);
+
+        }
+        //usersRef = db.ref('artist/'+ entity)
+        usersRef.once('value').then(function (snapshot) {
+            //here we will get data
+            //enter your field name
+            works = snapshot.val().albums;
+            var list = document.getElementById('works');
+            works.forEach(function(item){
+                var option = document.createElement('option');
+                option.value = item;
+                list.appendChild(option);
+            });
+        })
+
+
+
         //initialize button
         var button =document.createElement("input");
         button.id = "worksBtn";
@@ -657,10 +660,6 @@ function chooseWork() {
         if(err){
             err.remove();
         }
-
-
-
-
         document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Work';
         document.getElementById("search").style.display = "none";
 
@@ -758,6 +757,10 @@ function entityPersonal(){
         //////////////
         //////
         document.getElementById("chartdivwrapper").style.height="100vh";
+
+        personalInfo.x=am4core.percent(50)
+        personalInfo.y=am4core.percent(50)
+
         buildGraph(personalInfo)
     })
     /////show graph here
