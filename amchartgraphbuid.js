@@ -1,4 +1,5 @@
 function buildGraph(info) {
+  console.log(info)
   info=JSON.parse(info)
   am4core.useTheme(am4themes_animated);
   var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree, am4charts.XYChart);

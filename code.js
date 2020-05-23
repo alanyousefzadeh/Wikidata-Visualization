@@ -5,6 +5,19 @@ var entity="";
 var checkersActiv = false;
 var work = "";
 var bOrA="";
+
+function showpb()
+{
+    document.getElementById("myBar").style.display = "block";
+
+}
+
+function hidepb()
+{
+    document.getElementById("myBar").style.display = "none";
+
+}
+
 window.onload = function init(){
     // entities=getentity();
     console.log("in init" + entities[0]);
@@ -140,6 +153,7 @@ function initPage() {
     }
 
 }
+
 
 ////////
 
@@ -612,9 +626,11 @@ function entityWork(){
 
         }
         //usersRef = db.ref('artist/'+ entity)
+        showpb()
         usersRef.once('value').then(function (snapshot) {
             //here we will get data
             //enter your field name
+            hidepb();
             works = snapshot.val().albums;
             var list = document.getElementById('works');
             works.forEach(function(item){
@@ -623,6 +639,7 @@ function entityWork(){
                 list.appendChild(option);
             });
         })
+            .catch(error => {hidepb()})
 
 
 
@@ -652,18 +669,42 @@ function entityWork(){
 ////////
 function chooseWork() {
     work = document.getElementById("searchWork").value;
+    albumInfoReq(work, bOrA);
     console.log(work);
-    if(work === "song1"){
-        var worksBtn = document.getElementById("worksBtn");
-        worksBtn.remove();
-        var err = document.getElementById("err");
-        if(err){
-            err.remove();
-        }
-        document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Work';
-        document.getElementById("search").style.display = "none";
+    var worksBtn = document.getElementById("worksBtn");
+    worksBtn.remove();
+    var err = document.getElementById("err");
+    if (err) {
+        err.remove();
+    }
+    const db = firebase.database();
+    var usersRef = ""
+    var album = "";
+    if (bOrA === "artists") {
+        usersRef = db.ref('/artistAlbumInfo');
 
-        ///////////////
+    } else if (bOrA === "bands") {
+        usersRef = db.ref('/bandsAlbumInfo');
+
+    }
+
+    showpb();
+    usersRef.once('value').then(function (snapshot) {
+        //here we will get data
+        //enter your field name
+        hidepb();
+        album = snapshot.val().albumInfo;
+        //////////////
+        //////
+        console.log(album)
+        document.getElementById("chartdivwrapper").style.height = "100vh";
+
+        buildGraph(album)
+    })
+
+        .catch(error => {hidepb()})
+    goBackButton("works");
+    ///////////////
 
 
         // //workSearchDiv
@@ -732,14 +773,6 @@ function chooseWork() {
 
         /////////////////
         /////show graph here
-
-        goBackButton("works");
-
-    }
-    else{
-        document.getElementById("searchWork").value = "";
-        tryAgain()
-    }
 }
 var personalInfo=""
 function entityPersonal(){
@@ -757,9 +790,6 @@ function entityPersonal(){
         //////////////
         //////
         document.getElementById("chartdivwrapper").style.height="100vh";
-
-        personalInfo.x=am4core.percent(50)
-        personalInfo.y=am4core.percent(50)
 
         buildGraph(personalInfo)
     })

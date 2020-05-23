@@ -48,8 +48,16 @@ function albumreq (qid,type) {
 
             console.log(nested_data);
 
+            var listItem ="";
+            var id="";
+            var parts="";
+
+        var id = parts[parts.length - 1]; // Or parts.pop();
             for (var i = 0; i < nested_data.length; i++) {
-                albumlist[i] = nested_data[i].albumLabel;
+                parts = nested_data[i].album.split("/");
+                id=parts[parts.length - 1];
+                listItem= nested_data[i].albumLabel+"("+id+")";
+                albumlist[i] = listItem;
             }
         const db = firebase.database();
         var str = albumlist;
