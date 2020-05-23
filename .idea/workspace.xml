@@ -19,19 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement">
-      <change afterPath="$PROJECT_DIR$/csvtoarray2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datafiles/bands2.json" afterDir="false" />
+    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List">
+      <change afterPath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmchartGraph/force-directed-tree-expandable/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/AmchartGraph/force-directed-tree-expandable/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AmchartGraph/force-directed-tree-expandable/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/AmchartGraph/force-directed-tree-expandable/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/amchartgraphbuid.js" beforeDir="false" afterPath="$PROJECT_DIR$/amchartgraphbuid.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/code.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/csvtoarray.js" beforeDir="false" afterPath="$PROJECT_DIR$/csvtoarray.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datafiles/bands.json" beforeDir="false" afterPath="$PROJECT_DIR$/datafiles/bands.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/homepage.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sparklqueryForAlbums.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparklqueryForAlbums.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlQuery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +99,7 @@
       <workItem from="1589380532264" duration="1053000" />
       <workItem from="1589640012944" duration="434000" />
       <workItem from="1589704060923" duration="1679000" />
-      <workItem from="1589961630574" duration="11079000" />
+      <workItem from="1589961630574" duration="20774000" />
     </task>
     <task id="LOCAL-00001" summary="Created validation to check if artist already exists in db">
       <created>1588685466025</created>
@@ -149,13 +143,29 @@
       <option name="project" value="LOCAL" />
       <updated>1589629023805</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List">
+      <created>1589986827751</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1589986827751</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -175,7 +185,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created validation to check if artist already exists in db" />
     <MESSAGE value="design improvement" />
-    <option name="LAST_COMMIT_MESSAGE" value="design improvement" />
+    <MESSAGE value="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List" />
+    <option name="LAST_COMMIT_MESSAGE" value="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List" />
   </component>
   <component name="WindowStateProjectService">
     <state x="336" y="25" key="CommitChangelistDialog2" timestamp="1589886009065" />
@@ -252,14 +263,23 @@
     <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.871@0.23.1536.871" timestamp="1589918993114" />
     <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.876@0.23.1536.876" timestamp="1589887464372" />
     <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.877@0.23.1536.877" timestamp="1589887305624" />
-    <state x="412" y="173" key="SettingsEditor" timestamp="1589886009065" />
+    <state x="412" y="173" key="SettingsEditor" timestamp="1590054473645">
+      <screen x="0" y="23" width="1792" height="1097" />
+    </state>
+    <state x="412" y="173" key="SettingsEditor/1792.23.1920.1101/0.23.1792.1097@1792.23.1920.1101" timestamp="1590054473645" />
     <state x="412" y="173" key="SettingsEditor/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" timestamp="1589886009065" />
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1589886009065" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1589986830647">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/0.23.1536.867@0.23.1536.867" timestamp="1589886009065" />
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1589886009065" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" timestamp="1589986830647" />
     <state x="609" y="312" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1589886009065" />
     <state x="609" y="312" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1589886009065" />
-    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589886009065" />
+    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589986749937">
+      <screen x="0" y="23" width="1792" height="1024" />
+    </state>
     <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1589886009065" />
+    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" timestamp="1589986749937" />
   </component>
 </project>
