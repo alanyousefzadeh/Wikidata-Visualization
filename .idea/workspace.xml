@@ -19,19 +19,73 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List">
-      <change afterPath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" afterDir="false" />
+    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/amchartgraphbuid.js" beforeDir="false" afterPath="$PROJECT_DIR$/amchartgraphbuid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/code.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/homepage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparklqueryForAlbums.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparklqueryForAlbums.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1025">
+              <caret line="708" selection-start-line="708" selection-end-line="708" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/amchartgraphbuid.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="120" selection-start-line="120" selection-end-line="130" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/csvtoarray.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/graphbuildstyle.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="6" lean-forward="true" selection-start-column="6" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/homepage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="267">
+              <caret line="43" column="30" lean-forward="true" selection-start-line="43" selection-end-line="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/styles.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -40,12 +94,57 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>buildGraph</find>
+      <find>legend</find>
+      <find>workSearchDiv</find>
+      <find>dataFields.co</find>
+      <find>currentLevel</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/code.js" />
+        <option value="$PROJECT_DIR$/amchartgraphbuid.js" />
+        <option value="$PROJECT_DIR$/homepage.html" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectId" id="1bOHRc5dHOwcvLeOk92xMoorXvn" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="2" id="Add" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Wikidata-Visualization" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Wikidata-Visualization" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Wikidata-Visualization" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Wikidata-Visualization" type="462c0819:PsiDirectoryNode" />
+              <item name="AmchartGraph" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Wikidata-Visualization" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Wikidata-Visualization" type="462c0819:PsiDirectoryNode" />
+              <item name="datafiles" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -65,6 +164,18 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration name="homepage.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Wikidata-Visualization-afterbeta/homepage.html" useBuiltInWebServerPort="true">
@@ -153,6 +264,32 @@
     <option name="localTasksCounter" value="8" />
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="11750000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="31" y="23" width="1407" height="857" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21356422" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4978355" visible="true" weight="0.32941177" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5021645" side_tool="true" visible="true" weight="0.32941177" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
@@ -161,7 +298,14 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -180,7 +324,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created validation to check if artist already exists in db" />
@@ -189,97 +332,119 @@
     <option name="LAST_COMMIT_MESSAGE" value="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="336" y="25" key="CommitChangelistDialog2" timestamp="1589886009065" />
-    <state x="336" y="25" key="CommitChangelistDialog2/0.23.1536.867@0.23.1536.867" timestamp="1589886009065" />
-    <state width="1515" height="285" key="GridCell.Tab.0.bottom" timestamp="1589918993112">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.0.bottom/0.23.1536.871@0.23.1536.871" timestamp="1589918993112" />
-    <state width="1515" height="285" key="GridCell.Tab.0.bottom/0.23.1536.876@0.23.1536.876" timestamp="1589887464504" />
-    <state width="1515" height="285" key="GridCell.Tab.0.bottom/0.23.1536.877@0.23.1536.877" timestamp="1589887305691" />
-    <state width="1515" height="285" key="GridCell.Tab.0.center" timestamp="1589918993112">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.0.center/0.23.1536.871@0.23.1536.871" timestamp="1589918993112" />
-    <state width="1515" height="285" key="GridCell.Tab.0.center/0.23.1536.876@0.23.1536.876" timestamp="1589887464504" />
-    <state width="1515" height="285" key="GridCell.Tab.0.center/0.23.1536.877@0.23.1536.877" timestamp="1589887305690" />
-    <state width="1515" height="285" key="GridCell.Tab.0.left" timestamp="1589918993112">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.0.left/0.23.1536.871@0.23.1536.871" timestamp="1589918993112" />
-    <state width="1515" height="285" key="GridCell.Tab.0.left/0.23.1536.876@0.23.1536.876" timestamp="1589887464504" />
-    <state width="1515" height="285" key="GridCell.Tab.0.left/0.23.1536.877@0.23.1536.877" timestamp="1589887305690" />
-    <state width="1515" height="285" key="GridCell.Tab.0.right" timestamp="1589918993112">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.0.right/0.23.1536.871@0.23.1536.871" timestamp="1589918993112" />
-    <state width="1515" height="285" key="GridCell.Tab.0.right/0.23.1536.876@0.23.1536.876" timestamp="1589887464504" />
-    <state width="1515" height="285" key="GridCell.Tab.0.right/0.23.1536.877@0.23.1536.877" timestamp="1589887305690" />
-    <state width="1515" height="285" key="GridCell.Tab.1.bottom" timestamp="1589918993113">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.1.bottom/0.23.1536.871@0.23.1536.871" timestamp="1589918993113" />
-    <state width="1515" height="285" key="GridCell.Tab.1.bottom/0.23.1536.876@0.23.1536.876" timestamp="1589887464372" />
-    <state width="1515" height="285" key="GridCell.Tab.1.bottom/0.23.1536.877@0.23.1536.877" timestamp="1589887305623" />
-    <state width="1515" height="285" key="GridCell.Tab.1.center" timestamp="1589918993113">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.1.center/0.23.1536.871@0.23.1536.871" timestamp="1589918993113" />
-    <state width="1515" height="285" key="GridCell.Tab.1.center/0.23.1536.876@0.23.1536.876" timestamp="1589887464371" />
-    <state width="1515" height="285" key="GridCell.Tab.1.center/0.23.1536.877@0.23.1536.877" timestamp="1589887305623" />
-    <state width="1515" height="285" key="GridCell.Tab.1.left" timestamp="1589918993113">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.1.left/0.23.1536.871@0.23.1536.871" timestamp="1589918993113" />
-    <state width="1515" height="285" key="GridCell.Tab.1.left/0.23.1536.876@0.23.1536.876" timestamp="1589887464371" />
-    <state width="1515" height="285" key="GridCell.Tab.1.left/0.23.1536.877@0.23.1536.877" timestamp="1589887305623" />
-    <state width="1515" height="285" key="GridCell.Tab.1.right" timestamp="1589918993113">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.1.right/0.23.1536.871@0.23.1536.871" timestamp="1589918993113" />
-    <state width="1515" height="285" key="GridCell.Tab.1.right/0.23.1536.876@0.23.1536.876" timestamp="1589887464372" />
-    <state width="1515" height="285" key="GridCell.Tab.1.right/0.23.1536.877@0.23.1536.877" timestamp="1589887305623" />
-    <state width="1515" height="285" key="GridCell.Tab.2.bottom" timestamp="1589918993114">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.2.bottom/0.23.1536.871@0.23.1536.871" timestamp="1589918993114" />
-    <state width="1515" height="285" key="GridCell.Tab.2.bottom/0.23.1536.876@0.23.1536.876" timestamp="1589887464373" />
-    <state width="1515" height="285" key="GridCell.Tab.2.bottom/0.23.1536.877@0.23.1536.877" timestamp="1589887305624" />
-    <state width="1515" height="285" key="GridCell.Tab.2.center" timestamp="1589918993113">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.2.center/0.23.1536.871@0.23.1536.871" timestamp="1589918993113" />
-    <state width="1515" height="285" key="GridCell.Tab.2.center/0.23.1536.876@0.23.1536.876" timestamp="1589887464372" />
-    <state width="1515" height="285" key="GridCell.Tab.2.center/0.23.1536.877@0.23.1536.877" timestamp="1589887305624" />
-    <state width="1515" height="285" key="GridCell.Tab.2.left" timestamp="1589918993113">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.2.left/0.23.1536.871@0.23.1536.871" timestamp="1589918993113" />
-    <state width="1515" height="285" key="GridCell.Tab.2.left/0.23.1536.876@0.23.1536.876" timestamp="1589887464372" />
-    <state width="1515" height="285" key="GridCell.Tab.2.left/0.23.1536.877@0.23.1536.877" timestamp="1589887305624" />
-    <state width="1515" height="285" key="GridCell.Tab.2.right" timestamp="1589918993114">
-      <screen x="0" y="23" width="1536" height="871" />
-    </state>
-    <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.871@0.23.1536.871" timestamp="1589918993114" />
-    <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.876@0.23.1536.876" timestamp="1589887464372" />
-    <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.877@0.23.1536.877" timestamp="1589887305624" />
-    <state x="412" y="173" key="SettingsEditor" timestamp="1590054473645">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state x="412" y="173" key="SettingsEditor/1792.23.1920.1101/0.23.1792.1097@1792.23.1920.1101" timestamp="1590054473645" />
-    <state x="412" y="173" key="SettingsEditor/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" timestamp="1589886009065" />
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1589986830647">
-      <screen x="0" y="23" width="1792" height="1024" />
-    </state>
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2/0.23.1536.867@0.23.1536.867" timestamp="1589886009065" />
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1589886009065" />
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" timestamp="1589986830647" />
-    <state x="609" y="312" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1589886009065" />
-    <state x="609" y="312" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1589886009065" />
-    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589986749937">
-      <screen x="0" y="23" width="1792" height="1024" />
-    </state>
-    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1589886009065" />
-    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" timestamp="1589986749937" />
+    <state x="336" y="25" key="CommitChangelistDialog2" />
+    <state x="336" y="25" key="CommitChangelistDialog2/0.23.1536.867@0.23.1536.867" />
+    <state width="1515" height="285" key="GridCell.Tab.0.bottom" />
+    <state width="1515" height="285" key="GridCell.Tab.0.bottom/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.0.bottom/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.0.bottom/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.0.center" />
+    <state width="1515" height="285" key="GridCell.Tab.0.center/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.0.center/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.0.center/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.0.left" />
+    <state width="1515" height="285" key="GridCell.Tab.0.left/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.0.left/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.0.left/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.0.right" />
+    <state width="1515" height="285" key="GridCell.Tab.0.right/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.0.right/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.0.right/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.1.bottom" />
+    <state width="1515" height="285" key="GridCell.Tab.1.bottom/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.1.bottom/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.1.bottom/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.1.center" />
+    <state width="1515" height="285" key="GridCell.Tab.1.center/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.1.center/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.1.center/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.1.left" />
+    <state width="1515" height="285" key="GridCell.Tab.1.left/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.1.left/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.1.left/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.1.right" />
+    <state width="1515" height="285" key="GridCell.Tab.1.right/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.1.right/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.1.right/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.2.bottom" />
+    <state width="1515" height="285" key="GridCell.Tab.2.bottom/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.2.bottom/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.2.bottom/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.2.center" />
+    <state width="1515" height="285" key="GridCell.Tab.2.center/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.2.center/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.2.center/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.2.left" />
+    <state width="1515" height="285" key="GridCell.Tab.2.left/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.2.left/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.2.left/0.23.1536.877@0.23.1536.877" />
+    <state width="1515" height="285" key="GridCell.Tab.2.right" />
+    <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.871@0.23.1536.871" />
+    <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.876@0.23.1536.876" />
+    <state width="1515" height="285" key="GridCell.Tab.2.right/0.23.1536.877@0.23.1536.877" />
+    <state x="412" y="173" key="SettingsEditor" />
+    <state x="412" y="173" key="SettingsEditor/1792.23.1920.1101/0.23.1792.1097@1792.23.1920.1101" />
+    <state x="412" y="173" key="SettingsEditor/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2/0.23.1536.867@0.23.1536.867" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" />
+    <state x="609" y="312" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" />
+    <state x="609" y="312" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" />
+    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" />
+    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" />
+    <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/csvtoarray2.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparqlQuery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-474" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1025">
+          <caret line="708" selection-start-line="708" selection-end-line="708" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/csvtoarray.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/graphbuildstyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="6" lean-forward="true" selection-start-column="6" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/amchartgraphbuid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="120" selection-start-line="120" selection-end-line="130" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/homepage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="43" column="30" lean-forward="true" selection-start-line="43" selection-end-line="44" />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
