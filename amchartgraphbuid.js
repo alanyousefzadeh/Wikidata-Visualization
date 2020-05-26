@@ -1,3 +1,5 @@
+// var legend  = null;
+
 function buildGraph(info) {
   console.log(info)
   info=JSON.parse(info)
@@ -17,6 +19,21 @@ function buildGraph(info) {
 
 
   chart.legend = new am4charts.Legend();
+  // legend = chart.legend;
+
+
+  // chart.legend.itemContainers.template.events.on("toggled", function(event) {
+  //   var seriesDataItem = event.target.dataItem.dataContext.seriesDataItem;
+  //   if (event.target.isActive) {
+  //     console.log(seriesDataItem);
+  //
+  //     // seriesDataItem.hide(series2.interpolationDuration, 0, 0, ["valueX"]);
+  //   }
+  //   else {
+  //     // seriesDataItem.show(series2.interpolationDuration, 0, ["valueX"]);
+  //   }
+  // });
+
   //
   //
   // //chart.exporting.menu = new am4core.ExportMenu();
@@ -29,13 +46,16 @@ function buildGraph(info) {
   chart.legend.scrollable = true;
   // chart.legend.itemContainers.template.cursorOverStyle = am4core.MouseCursorStyle.default;
 
-  // chart.legend.nodes.template.events.on("hit", function(ev) {
-  //   console.log("here in legendddddd");
-  //   console.log(ev.target);
-  //
+  // chart.legend.dataItem.events.on()("hit", function(ev) {
+  //   var targetNode = ev.target;
+  //   if (targetNode.isActive) {
+  //     networkSeries.nodes.each(function(node) {
+  //       if (targetNode !== node && node.isActive && targetNode.dataItem.level === node.dataItem.level) {
+  //         node.isActive = false;
+  //       }
+  //     });
+  //   }
   // });
-  //
-  //
 
 
 
