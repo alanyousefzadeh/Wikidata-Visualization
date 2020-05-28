@@ -6,16 +6,16 @@ var checkersActiv = false;
 var work = "";
 var bOrA="";
 
-function showpb()
-{
-    document.getElementById("myBar").style.display = "block";
+document.getElementById("loading").style.display = "none";
 
+function showloading()
+{
+    document.getElementById("loading").style.display = "block";
 }
 
-function hidepb()
+function hideLoading()
 {
-    document.getElementById("myBar").style.display = "none";
-
+    document.getElementById("loading").style.display = "none";
 }
 
 window.onload = function init(){
@@ -162,6 +162,19 @@ function initPage() {
 // var checkersActiv = false;
 // var work = "";
 
+
+/*var loader;
+
+function loading(time) {
+    loader = setTimeout(showPage, time);
+}
+
+function showPage() {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("loader").style.display = "block";
+}*/
+
+
 function chooseSubject(){
     console.log("in chooseSubject     " + entities[0]);
 
@@ -246,13 +259,18 @@ function chooseSubject(){
                 console.log("bands");
                 bOrA="bands"
                 entities = getbands()
-                createEntityChoice();
+                showloading();
+                setTimeout(function(){createEntityChoice(); hideLoading()
+                },2000);
+
             }
             else if (ele[1].checked){
                 console.log("artists");
                 bOrA="artists"
                 entities = getartists()
-                createEntityChoice();
+                showloading();
+                setTimeout(function(){createEntityChoice(); hideLoading()
+                },2000);
             }
             else{
                 tryAgain();
@@ -271,6 +289,7 @@ function chooseSubject(){
     else{
         tryAgain();
     }
+
 }
 
 ///////
@@ -303,7 +322,6 @@ function createEntityChoice(){
 
     var searchWork = document.getElementById("workSearchDiv");
     if (searchWork){
-
         searchWork.style.display = "none";
     }
     // var searchSubject = document.getElementById("searchSubject");
@@ -379,8 +397,8 @@ function chooseEntity(){
     //
     entity = document.getElementById("searchEntity").value;
     if(entity === ""){
-            return;
-        }
+        return;
+    }
     else if(entities.indexOf(entity) === -1){
         document.getElementById("searchEntity").value = "";
         entity = "";
@@ -393,6 +411,7 @@ function chooseEntity(){
     console.log("calling" + bOrA)
     req(entity,bOrA);
     albumreq(entity,bOrA)
+    songsreq(entity,bOrA)
     console.log(entity);
 
     document.getElementById("searchEntity").disabled = true;
@@ -404,13 +423,13 @@ function chooseEntity(){
     if(err){
         err.remove();
     }
-    createCheckBtns();
+
+    showloading();
+    setTimeout(function(){createCheckBtns();hideLoading()
+    },5000);
+
 
 }
-
-
-
-
 
 ///////////////
 //////back button
@@ -464,6 +483,8 @@ function tryAgain() {
 }
 
 //////////////////
+var ref ="";
+
 function createCheckBtns(){
     var searchDiv = document.getElementById("searchEntityDiv");// main to div
     //generate command for user
@@ -533,6 +554,7 @@ function createCheckBtns(){
 
             if (ele[0].checked){
                 console.log("albums");
+                ref="Albums";
                 //load album list here
                 console.log(works)
                 entityWork();
@@ -540,6 +562,7 @@ function createCheckBtns(){
             }
             else if (ele[1].checked){
                 console.log("songs");
+                ref="songs";
                 //load songs list here
                 //works=albumreq(entity,bOrA)
                 console.log(works)
@@ -574,7 +597,7 @@ function createCheckBtns(){
     //append command div to main div
     searchDiv.appendChild(checkDiv);
 
-   }
+}
 
 //////////
 function entityWork(){
@@ -590,6 +613,8 @@ function entityWork(){
 
     document.getElementById("searchEntityDiv").style.display = "none";
     //search.innerHTML = "";//erase search div content
+
+    goBackButton("checkers");
 
     // if went back
     var searchWork = document.getElementById("workSearchDiv");
@@ -616,32 +641,38 @@ function entityWork(){
 
         const db = firebase.database();
         var usersRef =""
+        var tempRef= "";
+        console.log(ref)
         if(bOrA==="artists")
         {
-            usersRef= db.ref('artistWorks/'+entity);
+            usersRef= db.ref('artist'+ref+'/'+entity);
 
         }else if(bOrA==="bands")
         {
-            usersRef=db.ref('bandsWorks/'+entity);
+            usersRef=db.ref('bands'+ref+'/'+entity);
 
         }
         //usersRef = db.ref('artist/'+ entity)
-        showpb()
         usersRef.once('value').then(function (snapshot) {
             //here we will get data
             //enter your field name
-            hidepb();
-            works = snapshot.val().albums;
+            //while (snapshot.val().albums===null){}
+            if(ref==="Albums") {
+                works = snapshot.val().albums;
+            }else if(ref==="songs")
+            {
+                works = snapshot.val().songs;
+            }
             var list = document.getElementById('works');
             works.forEach(function(item){
                 var option = document.createElement('option');
                 option.value = item;
                 list.appendChild(option);
             });
-        })
-            .catch(error => {hidepb()})
-
-
+        },function(error) {
+            // The callback failed.
+            console.error(error);
+        });
 
         //initialize button
         var button =document.createElement("input");
@@ -650,26 +681,31 @@ function entityWork(){
         // button.onclick = chooseWork;
         button.onclick = chooseWork;
 
-
         button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
         search.appendChild(button);
 
         var mainDiv = document.getElementById("mainPage");// main to div
         mainDiv.appendChild(search);
 
-        goBackButton("checkers");
+        // goBackButton("checkers");
 
         //
         document.getElementById("searchWork").value = work;
     }
-
 }
-
-
 ////////
 function chooseWork() {
+
+    goBackButton("works");
+
     work = document.getElementById("searchWork").value;
-    albumInfoReq(work, bOrA);
+    if(ref==="Albums") {
+        albumInfoReq(work, bOrA);
+    }
+    else if (ref==="songs")
+    {
+        songsInfoReq(work,bOrA)
+    }
     console.log(work);
     var worksBtn = document.getElementById("worksBtn");
     worksBtn.remove();
@@ -677,103 +713,65 @@ function chooseWork() {
     if (err) {
         err.remove();
     }
+
     const db = firebase.database();
     var usersRef = ""
-    var album = "";
+    console.log(bOrA)
     if (bOrA === "artists") {
-        usersRef = db.ref('/artistAlbumInfo');
+        usersRef = db.ref('artist'+ref+'Info/'+work);
 
     } else if (bOrA === "bands") {
-        usersRef = db.ref('/bandsAlbumInfo');
+        usersRef = db.ref('bands'+ref+'Info/'+work);
 
     }
 
-    showpb();
-    usersRef.once('value').then(function (snapshot) {
-        //here we will get data
-        //enter your field name
-        hidepb();
-        album = snapshot.val().albumInfo;
-        //////////////
-        //////
-        console.log(album)
-        document.getElementById("chartdivwrapper").style.height = "100vh";
+    console.log(usersRef);
+    showloading()
+    setTimeout(function(){
+        var usersRef = ""
+        var albumsInfojson = "";
+        console.log(bOrA)
+        if (bOrA === "artists") {
+            usersRef = db.ref('artist'+ref+'Info/'+work);
 
-        buildGraph(album)
-    })
+        } else if (bOrA === "bands") {
+            usersRef = db.ref('bands'+ref+'Info/'+work);
 
-        .catch(error => {hidepb()})
-    goBackButton("works");
+        }
+        usersRef.once('value').then(function (snapshot) {
+
+            if(ref==="Albums") {
+
+                albumsInfojson = snapshot.val().albumInfo;
+            }
+            else if(ref==="songs")
+            {
+                albumsInfojson = snapshot.val().songsInfo;
+            }
+            console.log(albumsInfojson)
+            document.getElementById("chartdivwrapper").style.height = "100vh";
+            buildGraph(albumsInfojson)
+            //albumsInfojson = snapshot.val().albumInfo;
+            //////////////
+            //////
+            //
+            //console.log(albumsInfojson)
+            // document.getElementById("chartdivwrapper").style.height = "100vh";
+            //buildGraph(albumsInfojson)
+            hideLoading()
+        },function(error) {
+            // The callback failed.
+            console.error(error);
+        }); }, 7000);
+
+
+    // goBackButton("works");
     ///////////////
 
 
-        // //workSearchDiv
-        //
-        // var submit = document.getElementById("worksBtn");
-        // submit.remove();//.style.display = "none";
-        //
-        // var workSearchDiv = document.getElementById("workSearchDiv");// searchSubject div
-        // workSearchDiv.appendChild(document.createElement("br"));
-        //
-        // // searchSubjectDiv.appendChild(document.createTextNode("select: "));
-        // var select = document.createElement("h4");
-        // select.innerText = "select : ";
-        // workSearchDiv.appendChild(select);
-        //
-        //
-        // var radioDiv = document.createElement("form");
-        // radioDiv.id = "radioDiv";
-        //
-        // var albums = document.createElement("input");
-        // albums.type = "radio";
-        // albums.name = "choice";
-        // var textAlbums = document.createTextNode("albums");
-        // albums.innerHTML = "albums     ";
-        //
-        // var songs = document.createElement("input");
-        // songs.type = "radio";
-        // songs.name = "choice";
-        // songs.value = "songs";
-        // var textSongs = document.createTextNode("songs");
-        //
-        //
-        // radioDiv.appendChild(albums);
-        // radioDiv.appendChild(textAlbums);
-        // radioDiv.appendChild(document.createElement("br"));
-        //
-        // radioDiv.appendChild(songs);
-        // radioDiv.appendChild(textSongs);
-        //
-        // workSearchDiv.appendChild(radioDiv);
-        //
-        // var button = document.createElement("button");
-        // // button.onclick = artistOrBand;
-        // button.innerText="ok";
-        // button.style.marginBottom = "10px"; //    margin-bottom: 10px;
-        // button.onclick = () => {
-        //     var ele = document.getElementsByName('choice');
-        //
-        //     if (ele[0].checked){
-        //         console.log("albums");
-        //
-        //     }
-        //     else if (ele[1].checked){
-        //         console.log("songs");
-        //     }
-        //     else{
-        //         tryAgain();
-        //     }
-        //
-        // };
-        // workSearchDiv.appendChild(document.createElement("br"));
-        //
-        // workSearchDiv.appendChild(button);
-
-        // goBackButton("works");
-
-        /////////////////
-        /////show graph here
 }
+
+
 var personalInfo=""
 function entityPersonal(){
     checkersActiv = true;
@@ -782,10 +780,20 @@ function entityPersonal(){
         checker.remove();
     }
     const db = firebase.database();
-    var uref = db.ref('artist/'+ entity)
+    var uref = ""
+
+    if (bOrA === "artists") {
+        uref = db.ref('artist/'+entity);
+
+    } else if (bOrA === "bands") {
+        uref = db.ref('bands/'+entity);
+
+    }
+
     uref.once('value').then(function (snapshot) {
         //here we will get data
         //enter your field name
+        while (snapshot.val().personal===null){}
         personalInfo = snapshot.val().personal;
         //////////////
         //////
