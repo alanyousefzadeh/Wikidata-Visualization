@@ -22,16 +22,6 @@ window.onload = function init(){
     // entities=getentity();
     console.log("in init" + entities[0]);
     initPage();
-    // var searchEntity = document.getElementById("searchEntityDiv");
-    // var list = document.getElementById('entities');
-    //
-    //
-    // entities.forEach(function(item){
-    //     var option = document.createElement('option');
-    //     option.value = item;
-    //     list.appendChild(option);
-    // });
-    // searchEntity.style.display = "none";
 };
 
 function initPage() {
@@ -153,27 +143,6 @@ function initPage() {
     }
 
 }
-
-
-////////
-
-// var subject="";
-// var entity="";
-// var checkersActiv = false;
-// var work = "";
-
-
-/*var loader;
-
-function loading(time) {
-    loader = setTimeout(showPage, time);
-}
-
-function showPage() {
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("loader").style.display = "block";
-}*/
-
 
 function chooseSubject(){
     console.log("in chooseSubject     " + entities[0]);
@@ -324,46 +293,6 @@ function createEntityChoice(){
     if (searchWork){
         searchWork.style.display = "none";
     }
-    // var searchSubject = document.getElementById("searchSubject");
-    // searchSubject.style.display = "none";
-    //
-    // var searchEntity = document.getElementById("searchEntityDiv");
-    // searchEntity.style.display = "block";
-
-
-    // var search = document.getElementById("searchSubject");
-    //
-    //
-    // search.innerHTML = "";//erase subject search bar
-    // //initializing input
-    // var input = document.createElement("input");
-    // input.id = "searchEntity";
-    // input.setAttribute("list", "entities");
-    // input.name = "entity";
-    // input.style = "border-radius: 5px;width:200px; height:30px;";
-    // search.appendChild(input);
-    // //initializing datalist
-    // var datalist =document.createElement("datalist");
-    // datalist.id = "entities";
-    // search.appendChild(datalist);
-    //fill data list
-    // var list = document.getElementById('entities');
-    //
-    //
-    // entities.forEach(function(item){
-    //     var option = document.createElement('option');
-    //     option.value = item;
-    //     list.appendChild(option);
-    // });
-
-    // //initialize button
-    // var button =document.createElement("input");
-    // button.id = "entityBtn";
-    // button.type = "submit";
-    // button.onclick = chooseEntity;
-    // button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
-    // // searchEntity.appendChild(button);
-    // search.appendChild(button);
 
     //back button
     goBackButton("init");
@@ -408,18 +337,17 @@ function chooseEntity(){
         }
         tryAgain();
     }
-    console.log("calling" + bOrA)
+    console.log("calling" + bOrA);
     req(entity,bOrA);
-    albumreq(entity,bOrA)
-    songsreq(entity,bOrA)
+    albumreq(entity,bOrA);
+    songsreq(entity,bOrA);
     console.log(entity);
 
     document.getElementById("searchEntity").disabled = true;
     //document.getElementById("searchEntity").value= "";
     var btn = document.getElementById("entityBtn");
     btn.style.display = "none";
-    //btn.remove();
-    err = document.getElementById("err");
+    var err = document.getElementById("err");
     if(err){
         err.remove();
     }
@@ -431,8 +359,10 @@ function chooseEntity(){
 
 }
 
-///////////////
-//////back button
+
+
+////////////////////////////////////////////////////////////////////////////////////
+/////////////////////back button///////////////////////////////////////////////////
 function goBackButton(backTo) {
     var mainPage = document.getElementById("mainPage");
     var btn = document.getElementById("backBtn");
@@ -458,12 +388,17 @@ function goBackButton(backTo) {
     }
     else if (backTo === "works"){
         backButton.onclick = entityWork;
+
     }
     backButton.innerText = "Go Back";
     mainPage.appendChild(backButton);
 }
-//////////////////////////
-/////////////////
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////
+/////////////////////try again pop up //////////////////////////////////////////////
 function tryAgain() {
     var err = document.getElementById("err");
     if(err){
@@ -481,11 +416,14 @@ function tryAgain() {
     var currentDiv = document.getElementsByClassName("content");// add the newly created element and its content into the DOM
     document.body.appendChild(errorDiv, currentDiv);
 }
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////
+
 var ref ="";
 
 function createCheckBtns(){
+
     var searchDiv = document.getElementById("searchEntityDiv");// main to div
     //generate command for user
     var checkDiv = document.createElement("div");
@@ -496,23 +434,14 @@ function createCheckBtns(){
     var text = document.createTextNode("Are You Interested in");
     commandText.appendChild(text);
     checkDiv.appendChild(commandText);
-    //set button
+
+    //creating button for work content
     var worksBtn = document.createElement('input');
     worksBtn.id="work";
     worksBtn.type = "submit";
-    // worksBtn.onclick = entityWork;
-
 
     worksBtn.onclick = ()=>{
-        //checkDiv
-        //
-        // var submit = document.getElementById("worksBtn");
-        // submit.remove();//.style.display = "none";
-
-        // var workSearchDiv = document.getElementById("workSearchDiv");// searchSubject div
         checkDiv.appendChild(document.createElement("br"));
-
-        // searchSubjectDiv.appendChild(document.createTextNode("select: "));
         var select = document.createElement("h4");
         select.innerText = "select : ";
         checkDiv.appendChild(select);
@@ -546,7 +475,6 @@ function createCheckBtns(){
         checkDiv.appendChild(radioDiv);
 
         var button = document.createElement("button");
-        // button.onclick = artistOrBand;
         button.innerText="ok";
         button.style.marginBottom = "10px"; //    margin-bottom: 10px;
         button.onclick = () => {
@@ -556,7 +484,7 @@ function createCheckBtns(){
                 console.log("albums");
                 ref="Albums";
                 //load album list here
-                console.log(works)
+                console.log(works);
                 entityWork();
 
             }
@@ -564,8 +492,7 @@ function createCheckBtns(){
                 console.log("songs");
                 ref="songs";
                 //load songs list here
-                //works=albumreq(entity,bOrA)
-                console.log(works)
+                console.log(works);
                 entityWork();
             }
             else{
@@ -579,16 +506,15 @@ function createCheckBtns(){
 
     };
 
-
-    //worksBtn.setAttribute("onclick", "entityWork");
     worksBtn.value ="work content" ;
     worksBtn.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px;";
     checkDiv.appendChild(worksBtn);
+
+    //creating button for personal content
     var personalBtn = document.createElement('input');
     personalBtn.id="personal";
     personalBtn.type = "submit";
     personalBtn.onclick = entityPersonal;
-    //personalBtn.setAttribute("onclick", "entityPersonal");
     personalBtn.value ="personal content" ;
 
     personalBtn.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px;";
@@ -603,7 +529,6 @@ function createCheckBtns(){
 function entityWork(){
     checkersActiv = true;
     document.getElementById("searchEntityDiv").style.display = "block";
-    // goBackButton("checkers");
     var checker = document.getElementById("checkDiv");
     if(checker){
         checker.style.display = "none";
@@ -612,92 +537,82 @@ function entityWork(){
     command.getElementsByTagName('h1')[0].innerHTML = 'Choose Desired Work';
 
     document.getElementById("searchEntityDiv").style.display = "none";
-    //search.innerHTML = "";//erase search div content
-
-    goBackButton("checkers");
 
     // if went back
     var searchWork = document.getElementById("workSearchDiv");
     if (searchWork){
-        searchWork.style.display = "block";
+        searchWork.remove();
     }
-    else {
-        var search = document.createElement("div")
-        search.id = "workSearchDiv"
-        //initializing input
-        var input = document.createElement("input");
-        input.id = "searchWork";
-        input.setAttribute("list", "works");
-        input.name = "work";
-        input.style = "border-radius: 5px;width:200px; height:30px;";
-        search.appendChild(input);
-        //initializing datalist
-        var datalist =document.createElement("datalist");
-        datalist.id = "works";
-        search.appendChild(datalist);
-        //fill data list
-        //works=albumreq(entity)
-        // console.log(works)
+    var search = document.createElement("div");
+    search.id = "workSearchDiv";
+    //initializing input
+    var input = document.createElement("input");
+    input.id = "searchWork";
+    input.setAttribute("list", "works");
+    input.name = "work";
+    input.style = "border-radius: 5px;width:200px; height:30px;";
+    search.appendChild(input);
+    //initializing datalist
+    var datalist =document.createElement("datalist");
+    datalist.id = "works";
+    search.appendChild(datalist);
 
-        const db = firebase.database();
-        var usersRef =""
-        var tempRef= "";
-        console.log(ref)
-        if(bOrA==="artists")
+    //initialize button
+    var button =document.createElement("input");
+    button.id = "worksBtn";
+    button.type = "submit";
+    // button.onclick = chooseWork;
+    button.onclick = chooseWork;
+
+    button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
+    search.appendChild(button);
+
+    var mainDiv = document.getElementById("mainPage");// main to div
+    mainDiv.appendChild(search);
+
+    //fill data list
+    const db = firebase.database();
+    var usersRef ="";
+    var tempRef= "";
+    console.log(ref);
+    if(bOrA==="artists")
+    {
+        usersRef= db.ref('artist'+ref+'/'+entity);
+
+    }else if(bOrA==="bands")
+    {
+        usersRef=db.ref('bands'+ref+'/'+entity);
+
+    }
+    usersRef.once('value').then(function (snapshot) {
+        //here we will get data
+        //enter your field name
+        //while (snapshot.val().albums===null){}
+        if(ref==="Albums") {
+            works = snapshot.val().albums;
+        }else if(ref==="songs")
         {
-            usersRef= db.ref('artist'+ref+'/'+entity);
-
-        }else if(bOrA==="bands")
-        {
-            usersRef=db.ref('bands'+ref+'/'+entity);
-
+            works = snapshot.val().songs;
         }
-        //usersRef = db.ref('artist/'+ entity)
-        usersRef.once('value').then(function (snapshot) {
-            //here we will get data
-            //enter your field name
-            //while (snapshot.val().albums===null){}
-            if(ref==="Albums") {
-                works = snapshot.val().albums;
-            }else if(ref==="songs")
-            {
-                works = snapshot.val().songs;
-            }
-            var list = document.getElementById('works');
-            works.forEach(function(item){
-                var option = document.createElement('option');
-                option.value = item;
-                list.appendChild(option);
-            });
-        },function(error) {
-            // The callback failed.
-            console.error(error);
+        var list = document.getElementById('works');
+        works.forEach(function(item){
+            var option = document.createElement('option');
+            option.value = item;
+            list.appendChild(option);
         });
 
-        //initialize button
-        var button =document.createElement("input");
-        button.id = "worksBtn";
-        button.type = "submit";
-        // button.onclick = chooseWork;
-        button.onclick = chooseWork;
+    },function(error) {
+        // The callback failed.
+        console.error(error);
+    });
 
-        button.style = "height:30px;border-radius: 5px;background: #7ea3d0; margin: 5px";
-        search.appendChild(button);
+    goBackButton("checkers");
 
-        var mainDiv = document.getElementById("mainPage");// main to div
-        mainDiv.appendChild(search);
-
-        // goBackButton("checkers");
-
-        //
-        document.getElementById("searchWork").value = work;
-    }
+    //
+    document.getElementById("searchWork").value = work;
 }
 ////////
 function chooseWork() {
-
-    goBackButton("works");
-
     work = document.getElementById("searchWork").value;
     if(ref==="Albums") {
         albumInfoReq(work, bOrA);
@@ -707,6 +622,8 @@ function chooseWork() {
         songsInfoReq(work,bOrA)
     }
     console.log(work);
+    // document.getElementById("worksBtn").style.display = "none";
+    //
     var worksBtn = document.getElementById("worksBtn");
     worksBtn.remove();
     var err = document.getElementById("err");
@@ -715,8 +632,8 @@ function chooseWork() {
     }
 
     const db = firebase.database();
-    var usersRef = ""
-    console.log(bOrA)
+    var usersRef = "";
+    console.log(bOrA);
     if (bOrA === "artists") {
         usersRef = db.ref('artist'+ref+'Info/'+work);
 
@@ -726,11 +643,11 @@ function chooseWork() {
     }
 
     console.log(usersRef);
-    showloading()
+    showloading();
     setTimeout(function(){
-        var usersRef = ""
+        var usersRef = "";
         var albumsInfojson = "";
-        console.log(bOrA)
+        console.log(bOrA);
         if (bOrA === "artists") {
             usersRef = db.ref('artist'+ref+'Info/'+work);
 
@@ -748,17 +665,12 @@ function chooseWork() {
             {
                 albumsInfojson = snapshot.val().songsInfo;
             }
-            console.log(albumsInfojson)
+            console.log(albumsInfojson);
             document.getElementById("chartdivwrapper").style.height = "100vh";
-            buildGraph(albumsInfojson)
-            //albumsInfojson = snapshot.val().albumInfo;
-            //////////////
-            //////
-            //
-            //console.log(albumsInfojson)
-            // document.getElementById("chartdivwrapper").style.height = "100vh";
-            //buildGraph(albumsInfojson)
-            hideLoading()
+            buildGraph(albumsInfojson);
+            hideLoading();
+            goBackButton("checkers");
+
         },function(error) {
             // The callback failed.
             console.error(error);
@@ -772,7 +684,7 @@ function chooseWork() {
 }
 
 
-var personalInfo=""
+var personalInfo="";
 function entityPersonal(){
     checkersActiv = true;
     var checker = document.getElementById("checkDiv");
