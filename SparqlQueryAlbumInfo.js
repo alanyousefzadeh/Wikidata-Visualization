@@ -15,59 +15,83 @@ async function albumInfoReq(qid,type) {
 
     var endpointUrl = 'https://query.wikidata.org/sparql',
         sparqlQuery = "PREFIX entity: <http://www.wikidata.org/entity/> \n" +
+            "             \n" +
+            "             SELECT ?propLabel ?valUrl ?val ?article\n" +
+            "             WHERE\n" +
+            "             { \n" +
+            "             	hint:Query hint:optimizer 'None'\n" +
+            "             	{	BIND(entity:"+qID+" AS ?valUrl) .\n" +
+            "             	BIND(\"N/A\" AS ?propUrl ) .\n" +
+            "             	BIND(\"Name\"@en AS ?propLabel ) .\n" +
+            "                   entity:"+qID+" rdfs:label ?val .\n" +
+            "                  \n" +
+            "                     FILTER (LANG(?val) = \"en\")\n" +
+            "             } \n" +
+            "              \n" +
+            "                UNION\n" +
+            "                 {   BIND(entity:"+qID+" AS ?valUrl) .\n" +
+            "                     BIND(\"AltLabel\"@en AS ?propLabel ) .\n" +
+            "                     optional{entity:"+qID+" skos:altLabel ?val}.\n" +
+            "                     FILTER (LANG(?val) = \"en\") \n" +
+            "                 }\n" +
+            "                 UNION\n" +
+            "                 {   BIND(entity:"+qID+" AS ?valUrl) .\n" +
+            "                     BIND(\"Description\"@en AS ?propLabel ) .\n" +
+            "                     optional{entity:"+qID+" schema:description ?val}.\n" +
+            "                     FILTER (LANG(?val) = \"en\") \n" +
+            "                 }\n" +
+            "               \n" +
+            "               UNION\n" +
+            "                     {	entity:"+qID+" ?propUrl ?valUrl .\n" +
+            "             		?property ?ref ?propUrl .\n" +
+            "             		?property rdf:type wikibase:Property .\n" +
+            "             		?property rdfs:label ?propLabel.\n" +
+            "                 	FILTER (lang(?propLabel) = 'en' )\n" +
+            "                     filter  isliteral(?valUrl)\n" +
+            "                     FILTER (!contains(str(?propLabel), \"ID\") )\n" +
+            "                     FILTER (!contains(str(?propLabel), \"name\") )\n" +
+            "                    FILTER (!contains(str(?propLabel), \"Identifier\") )\n" +
+            "                     FILTER (!contains(str(?propLabel), \"ISNI\") )\n" +
+            "                     FILTER (!contains(str(?propLabel), \"Libris-URI\") )\n" +
+            "                     BIND(?valUrl AS ?val)\n" +
+            "             	}\n" +
+            "               UNION\n" +
+            "             	{	entity:"+qID+" ?propUrl ?valUrl . \n" +
+            "             		?property ?ref ?propUrl .\n" +
+            "             		?property rdf:type wikibase:Property . \n" +
+            "             		?property rdfs:label ?propLabel. \n" +
+            "                  	FILTER (lang(?propLabel) = 'en' ) \n" +
+            "                     filter  isIRI(?valUrl) \n" +
+            "                     ?valUrl rdfs:label ?valLabel \n" +
+            "             		FILTER (LANG(?valLabel) = \"en\") \n" +
+            "                    BIND(CONCAT(?valLabel) AS ?val)\n" +
+            "             	}\n" +
+            "               OPTIONAL {\n" +
+            "               ?article schema:about ?valUrl .\n" +
+            "               ?article schema:inLanguage \"en\" .\n" +
+            "                FILTER (SUBSTR(str(?article), 1, 25) = \"https://en.wikipedia.org/\")\n" +
+            "             }\n" +
+            "         }\n" +
+            "      ORDER BY ?propLabel\n" +
             "\n" +
-            "SELECT ?propLabel ?valUrl ?val\n" +
-            "WHERE\n" +
-            "{\n" +
-            "	hint:Query hint:optimizer 'None' .\n" +
-            "	{	BIND(entity:" + qID + " AS ?valUrl) .\n" +
-            "		BIND(\"N/A\" AS ?propUrl ) .\n" +
-            "		BIND(\"Name\"@en AS ?propLabel ) .\n" +
-            "       entity:" + qID + " rdfs:label ?val .\n" +
-            "      \n" +
-            "        FILTER (LANG(?val) = \"en\") \n" +
-            "	}\n" +
-            "  \n" +
-            "   UNION\n" +
-            "    {   BIND(entity:" + qID + " AS ?valUrl) .\n" +
-            "        BIND(\"AltLabel\"@en AS ?propLabel ) .\n" +
-            "        optional{entity:" + qID + " skos:altLabel ?val}.\n" +
-            "        FILTER (LANG(?val) = \"en\") \n" +
-            "    }\n" +
-            "    UNION\n" +
-            "    {   BIND(entity:" + qID + " AS ?valUrl) .\n" +
-            "        BIND(\"Description\"@en AS ?propLabel ) .\n" +
-            "        optional{entity:" + qID + " schema:description ?val}.\n" +
-            "        FILTER (LANG(?val) = \"en\") \n" +
-            "    }\n" +
-            "  \n" +
-            "  UNION\n" +
-            "	{	entity:" + qID + " ?propUrl ?valUrl .\n" +
-            "		?property ?ref ?propUrl .\n" +
-            "		?property rdf:type wikibase:Property .\n" +
-            "		?property rdfs:label ?propLabel.\n" +
-            "     	FILTER (lang(?propLabel) = 'en' )\n" +
-            "        filter  isliteral(?valUrl) \n" +
-            "        FILTER (!contains(str(?propLabel), \"ID\") )\n" +
-            "        FILTER (!contains(str(?propLabel), \"name\") )\n" +
-            "        FILTER (!contains(str(?propLabel), \"Identifier\") )\n" +
-            "        FILTER (!contains(str(?propLabel), \"ISNI\") )\n" +
-            "        FILTER (!contains(str(?propLabel), \"Libris-URI\") )\n" +
-            "        BIND(?valUrl AS ?val)\n" +
-            "	}\n" +
-            "  UNION\n" +
-            "	{	entity:" + qID + " ?propUrl ?valUrl .\n" +
-            "		?property ?ref ?propUrl .\n" +
-            "		?property rdf:type wikibase:Property .\n" +
-            "		?property rdfs:label ?propLabel.\n" +
-            "     	FILTER (lang(?propLabel) = 'en' ) \n" +
-            "        filter  isIRI(?valUrl) \n" +
-            "        ?valUrl rdfs:label ?valLabel \n" +
-            "		FILTER (LANG(?valLabel) = \"en\") \n" +
-            "        BIND(CONCAT(?valLabel) AS ?val)\n" +
-            "	}\n" +
-            "}\n" +
-            "ORDER BY ?propLabel";
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "";
 
     await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
             albumSongsReq(qid, type).then(listOfSongs => {

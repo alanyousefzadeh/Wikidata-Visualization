@@ -102,9 +102,22 @@ function buildGraph(info) {
         return target.dataItem.name;
       }
       else{
+        var wikiLink="";
         var name = target.dataItem.name.slice().replace(" ", "_");
-        console.log(name);
-        var link = '<a href="https://en.wikipedia.org/wiki/'+ name +'" target="_blank">More info</a><div class="box" ><iframe src="https://en.wikipedia.org/wiki/' + name + '" width = "500px" height = "700px"></iframe></div> ';
+
+        if(target.dataItem.dataContext.children[0].article==="")
+        {
+          wikiLink='https://en.wikipedia.org/wiki/'+ name;
+        }
+        else{
+          var wikiLink=target.dataItem.dataContext.children[0].article;
+        }
+        console.log(wikiLink);
+        var link = '<a href='+wikiLink+' target="_blank">More info</a><div class="box" ><iframe src='+wikiLink+' width = "500px" height = "700px"></iframe></div> ';
+        console.log(link);
+
+
+       // var link = '<a href="https://en.wikipedia.org/wiki/'+ name +'" target="_blank">More info</a><div class="box" ><iframe src="https://en.wikipedia.org/wiki/' + name + '" width = "500px" height = "700px"></iframe></div> ';
         console.log(link);
         if (target.dataItem) {
           currNode=target;
