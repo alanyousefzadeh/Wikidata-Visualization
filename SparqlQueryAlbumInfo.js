@@ -1,7 +1,7 @@
 var nested_data=""
-
-function albumInfoReq(qid,type) {
-    function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
+var listOfS = "";
+async function albumInfoReq(qid,type) {
+    async function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},
             data: {query: sparqlQuery}
@@ -69,77 +69,109 @@ function albumInfoReq(qid,type) {
             "}\n" +
             "ORDER BY ?propLabel";
 
+    await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+            albumSongsReq(qid, type).then(listOfSongs => {
+                console.log(listOfSongs)
+                var str = "";
+                listOfS=listOfSongs;
+                var name = qid.substring(0, qid.indexOf("("));
+                /*var fixed = "\n\"fixed\":\"true\",\n" +
+                    "  \"x\":\" \",\n" +
+                    "  \"y\":\" \","*/
+                var fixed = "\"fixed\":\"true\",";
+                console.log(name)
 
-    makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-            var str = "";
-            var name = qid.substring(0, qid.indexOf("("));
-            /*var fixed = "\n\"fixed\":\"true\",\n" +
-                "  \"x\":\" \",\n" +
-                "  \"y\":\" \","*/
-            var fixed = "\"fixed\":\"true\",";
-            console.log(name)
+                var d = d3.csvParse(data);
 
-            var d = d3.csvParse(data);
+                nested_data = d3.nest()
+                    //.key(function(d) { return "entity"; })
+                    .key(function (d) {
+                        return d.propLabel;
+                    })
+                    .key(function (d) {
+                        return d.val;
+                    })
+                    .entries(d);
 
-            nested_data = d3.nest()
-            //.key(function(d) { return "entity"; })
-                .key(function (d) {
-                    return d.propLabel;
-                })
-                .key(function (d) {
-                    return d.val;
-                })
-                .entries(d);
+                nested_data = d3.hierarchy(nested_data, d.valueLabel)
 
-            nested_data = d3.hierarchy(nested_data, d.valueLabel)
+                nested_data = JSON.stringify(nested_data, null, 2).replace(/"value":/g, '"name":')
 
-            nested_data = JSON.stringify(nested_data, null, 2).replace(/"value":/g, '"name":')
+                nested_data = JSON.parse(nested_data)
 
-            nested_data = JSON.parse(nested_data)
+                nested_data = JSON.stringify(nested_data, null, 2).replace(/"key":/g, '"name":')
 
-            nested_data = JSON.stringify(nested_data, null, 2).replace(/"key":/g, '"name":')
+                nested_data = JSON.parse(nested_data)
 
-            nested_data = JSON.parse(nested_data)
+                nested_data = JSON.stringify(nested_data, null, 2).replace(/"values":/g, '"children":')
 
-            nested_data = JSON.stringify(nested_data, null, 2).replace(/"values":/g, '"children":')
+                nested_data = nested_data.replace("\"data\":", "\"name\":\"" + name + "\"\n," + fixed + "\n\"children\":");
 
-            nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\"\n,"+fixed+"\n\"children\":");
+                nested_data = JSON.parse(nested_data)
 
-            console.log(nested_data)
+                console.log(nested_data)
 
-            nested_data = JSON.parse(nested_data)
+                nested_data = JSON.stringify(nested_data, null, 2).replace(/"data":/g, '"children":')
 
-            nested_data = JSON.stringify(nested_data, null, 2).replace(/"data":/g, '"children":')
+                nested_data = JSON.parse(nested_data)
 
-            nested_data = JSON.parse(nested_data)
+                // nested_data.children[1]={};
+                var index = 0;
+                var nameIndex=0;
+                for(var i=0;i<nested_data.children.length;i++)
+                {
 
-            nested_data= JSON.stringify(nested_data, null, 2)
+                    if(nested_data.children[i].name==="tracklist")
+                    {
+                        index=1;
+                    }
 
-            str=nested_data;
-            const db = firebase.database();
-            var usersRef =""
-            if(type==="artists") {
-                usersRef = db.ref('/artistAlbumsInfo');
-            }
-            else if(type==="bands")
-            {
-                usersRef = db.ref('/bandsAlbumsInfo');
-            }
-            const normalUsersRef = usersRef.child('normal_users');
-            const superUsersRef = usersRef.child('super_users');
-            usersRef.child(qid).once('value', function(snapshot) {
-
-                var exists = (snapshot.val() !== null);
-
-                if (exists) {
-                    console.log("artist already exists")
-                } else {
-                    console.log("artist doesn't exist exists")
-                    usersRef.child(qid).set({albumInfo: str,});
-                    console.log("artist added")
+                    if(nested_data.children[i].name==="Name")
+                    {
+                        nameIndex=i;
+                    }
                 }
+
+                if(index === 0){
+                    console.log(nested_data)
+                    nested_data.children[nameIndex].name="tracklist"
+                    nested_data.children[nameIndex].children[0].name="tracklist"
+                    nested_data.children[nameIndex].children=listOfS.children
+                    console.log(nested_data)
+                }
+
+                console.log(nested_data)
+
+                nested_data = JSON.stringify(nested_data, null, 2)
+
+                str = nested_data;
+
+                nested_data = JSON.parse(nested_data)
+
+                const db = firebase.database();
+                var usersRef = ""
+                if (type === "artists") {
+                    usersRef = db.ref('/artistAlbumsInfo');
+                } else if (type === "bands") {
+                    usersRef = db.ref('/bandsAlbumsInfo');
+                }
+                const normalUsersRef = usersRef.child('normal_users');
+                const superUsersRef = usersRef.child('super_users');
+                usersRef.child(qid).once('value', function (snapshot) {
+
+                    var exists = (snapshot.val() !== null);
+
+                    if (exists) {
+                        console.log("artist already exists")
+                    } else {
+                        console.log("artist doesn't exist exists")
+                        usersRef.child(qid).set({albumInfo: str,});
+                        console.log("artist added")
+                    }
+                });
+                return nested_data;
             });
-            return nested_data;
         }
     );
 }
+

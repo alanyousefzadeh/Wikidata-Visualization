@@ -589,7 +589,13 @@ function entityWork(){
         //enter your field name
         //while (snapshot.val().albums===null){}
         if(ref==="Albums") {
-            works = snapshot.val().albums;
+            if(snapshot.val() === null)
+            {
+                alert("there is no info available")
+            }
+            else {
+                works = snapshot.val().albums;
+            }
         }else if(ref==="songs")
         {
             works = snapshot.val().songs;
