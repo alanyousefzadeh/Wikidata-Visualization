@@ -1,4 +1,4 @@
-var nested_data=""
+var nested_data="";
 
 function req(qid,type) {
      function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
@@ -116,6 +116,7 @@ function req(qid,type) {
                 nested_data= JSON.stringify(nested_data, null, 2)
 
                 str=nested_data;
+                nested_data=JSON.parse(nested_data);
                  const db = firebase.database();
                  var usersRef =""
                  if(type==="artists") {

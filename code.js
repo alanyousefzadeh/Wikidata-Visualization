@@ -360,7 +360,6 @@ function chooseEntity(){
 }
 
 
-
 ////////////////////////////////////////////////////////////////////////////////////
 /////////////////////back button///////////////////////////////////////////////////
 function goBackButton(backTo) {
@@ -692,7 +691,7 @@ function entityPersonal(){
         checker.remove();
     }
     const db = firebase.database();
-    var uref = ""
+    var uref = "";
 
     if (bOrA === "artists") {
         uref = db.ref('artist/'+entity);
@@ -712,7 +711,7 @@ function entityPersonal(){
         document.getElementById("chartdivwrapper").style.height="100vh";
 
         buildGraph(personalInfo)
-    })
+    });
     /////show graph here
     //document.getElementById("command").getElementsByTagName('h1')[0].innerHTML = 'Show Personal Content';
     //document.getElementById("search").style.display = "none";

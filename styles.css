@@ -104,3 +104,10 @@ input[type="radio" i] {
     margin:auto;
     z-index: 100;
 }
+
+
+/*a:hover + .box,.box:hover{*/
+    /*display: block;*/
+    /*position: relative;*/
+    /*z-index: 100;*/
+/*}*/
