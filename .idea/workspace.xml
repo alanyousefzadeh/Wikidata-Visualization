@@ -19,24 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SparqlQueryAlbumTracks.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/SparqlQueryAlbumTracks.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/queryTest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Wikidata-Visualization.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Wikidata-Visualization.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amchartgraphbuid.js" beforeDir="false" afterPath="$PROJECT_DIR$/amchartgraphbuid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/code.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homepage.html" beforeDir="false" afterPath="$PROJECT_DIR$/homepage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparqlQuerySongsInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/SparqlQuerySongsInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/SparqlQueryAlbumInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/SparqlQueryAlbumInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/SparqlQuerySongsInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/SparqlQuerySongsInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/amchartgraphbuid.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/amchartgraphbuid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/code.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlQuery.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +118,7 @@
       <workItem from="1591535280157" duration="16000" />
       <workItem from="1591535326227" duration="5501000" />
       <workItem from="1591604894075" duration="21222000" />
-      <workItem from="1591794357762" duration="11956000" />
+      <workItem from="1591794357762" duration="15220000" />
     </task>
     <task id="LOCAL-00001" summary="Created validation to check if artist already exists in db">
       <created>1588685466025</created>
@@ -178,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589986827751</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums">
+      <created>1592059012476</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1592059012476</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -214,7 +212,8 @@
     <MESSAGE value="Created validation to check if artist already exists in db" />
     <MESSAGE value="design improvement" />
     <MESSAGE value="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List" />
-    <option name="LAST_COMMIT_MESSAGE" value="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List" />
+    <MESSAGE value="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums" />
+    <option name="LAST_COMMIT_MESSAGE" value="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums" />
   </component>
   <component name="WindowStateProjectService">
     <state x="556" y="244" width="815" height="439" key="#Web_Browsers" timestamp="1591277542180">
@@ -319,9 +318,12 @@
     <state x="412" y="171" key="SettingsEditor/0.23.1536.873@0.23.1536.873" timestamp="1591277188838" />
     <state x="412" y="173" key="SettingsEditor/1792.23.1920.1101/0.23.1792.1097@1792.23.1920.1101" timestamp="1591020989774" />
     <state x="412" y="173" key="SettingsEditor/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" timestamp="1591020989774" />
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1591020989774" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1592059015633">
+      <screen x="0" y="23" width="1792" height="1022" />
+    </state>
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/0.23.1536.867@0.23.1536.867" timestamp="1591020989774" />
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1591020989774" />
+    <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" timestamp="1592059015633" />
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" timestamp="1591020989774" />
     <state x="605" y="229" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1591020991940">
       <screen x="0" y="23" width="1792" height="1030" />
