@@ -11,7 +11,7 @@ async function albumInfoReq(qid,type) {
 
     var regExp = /\(([^)]+)\)/;
     var identifier = regExp.exec(qid);
-    var qID = identifier[1]
+    var qID = identifier[1];
 
     var endpointUrl = 'https://query.wikidata.org/sparql',
         sparqlQuery = "PREFIX entity: <http://www.wikidata.org/entity/> \n" +
@@ -157,23 +157,23 @@ async function albumInfoReq(qid,type) {
                 }
 
                 if(index === 0){
-                    console.log(nested_data)
-                    nested_data.children[nameIndex].name="tracklist"
-                    nested_data.children[nameIndex].children[0].name="tracklist"
-                    nested_data.children[nameIndex].children=listOfS.children
+                    console.log(nested_data);
+                    nested_data.children[nameIndex].name="tracklist";
+                    nested_data.children[nameIndex].children[0].name="tracklist";
+                    nested_data.children[nameIndex].children=listOfS.children;
                     console.log(nested_data)
                 }
 
-                console.log(nested_data)
+                console.log(nested_data);
 
-                nested_data = JSON.stringify(nested_data, null, 2)
+                nested_data = JSON.stringify(nested_data, null, 2);
 
                 str = nested_data;
 
-                nested_data = JSON.parse(nested_data)
+                nested_data = JSON.parse(nested_data);
 
                 const db = firebase.database();
-                var usersRef = ""
+                var usersRef = "";
                 if (type === "artists") {
                     usersRef = db.ref('/artistAlbumsInfo');
                 } else if (type === "bands") {
@@ -186,9 +186,9 @@ async function albumInfoReq(qid,type) {
                     var exists = (snapshot.val() !== null);
 
                     if (exists) {
-                        console.log("artist already exists")
+                        console.log("artist already exists");
                     } else {
-                        console.log("artist doesn't exist exists")
+                        console.log("artist doesn't exist exists");
                         usersRef.child(qid).set({albumInfo: str,});
                         console.log("artist added")
                     }

@@ -25,13 +25,6 @@ window.onload = function init(){
 };
 
 function initPage() {
-    // //if went back
-    // var searchEntity = document.getElementById("searchEntityDiv");
-    // if (searchEntity){
-    //     searchEntity.remove();
-    // }
-
-
     var currentDiv = document.getElementById("mainPage");// main to div
     currentDiv.innerHTML = ""; //empty mainPage
     //initializing command div
@@ -110,16 +103,7 @@ function initPage() {
     //console.log(entities);
     console.log("in onInit " + entities[0]);
 
-    // for (var i = 0 ; i<3;i++){
-    //     console.log(entities[i]);
-    // }
 
-    // entities.forEach(function(e){
-    //     console.log(e);
-    //     var option = document.createElement('option');
-    //     option.value = e;
-    //     datalist.appendChild(option);
-    // });
 
 
     //initialize button
@@ -408,7 +392,7 @@ function tryAgain() {
     errorDiv.style.textAlign = 'center';
     var errorContent1 = document.createTextNode("Your Choice Is Currently Unavailable");
     errorDiv.appendChild(errorContent1);// add the text node to the newly created div
-    var linebreak = document.createElement('br')
+    var linebreak = document.createElement('br');
     errorDiv.appendChild(linebreak);
     var errorContent2 = document.createTextNode("Please Try Again");
     errorDiv.appendChild(errorContent2);
