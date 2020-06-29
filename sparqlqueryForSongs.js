@@ -1,4 +1,11 @@
 function songsreq (qid,type) {
+
+
+
+
+
+
+
     function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},

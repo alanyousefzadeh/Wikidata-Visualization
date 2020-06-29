@@ -197,13 +197,23 @@
 
                 ////////////////////////////
             }
-            else{//band is in DB
+            else{//artist is in DB
+                //get entity's personal data , list of songs and list of albums
+                console.log(searchEntity.value);
 
-                var labelAndQid = searchEntity.value.slice(0, -1).split('(');
-                //redirect to workOrPersonalContent.html and send label and QID
-                var dirLocation = location.href;
-                dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/workOrPersonalContent.html');
-                window.location.href = dirLocation + '?label=' + labelAndQid[0] +'&qid='+ labelAndQid[1]+'&bOrA='+ bOrA; // go to workOrPersonalContent  page
+                req(searchEntity.value,bOrA);
+                songsreq(searchEntity.value,bOrA);
+                albumreq(searchEntity.value,bOrA);
+
+                showloading();
+                setTimeout(function(){
+                    //redirect to workOrPersonalContent.html and send label and QID
+                    var labelAndQid = searchEntity.value.slice(0, -1).split('(');
+                    var dirLocation = location.href;
+                    dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/workOrPersonalContent.html');
+                    window.location.href = dirLocation + '?label=' + labelAndQid[0] +'&qid='+ labelAndQid[1]+'&bOrA='+ bOrA; // go to workOrPersonalContent  page                    hideLoading();
+                },10000);
+
             }
         };
 

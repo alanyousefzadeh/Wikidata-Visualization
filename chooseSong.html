@@ -172,7 +172,7 @@
             var song = document.getElementById("searchSong").value;
             songsInfoReq(song,bOrA);
 
-            const db = firebase.database();
+            // const db = firebase.database();
             var usersRef = "";
             var albumsInfojson = "";//WHY IS THIS VAR NAMED KIKE THIS??????
 
@@ -187,21 +187,23 @@
             console.log(usersRef);
 
             showloading();
+            setTimeout(function(){
+                //GENERATE GRAPH
+                usersRef.once('value').then(function (snapshot) {
 
-            //GENERATE GRAPH
-            usersRef.once('value').then(function (snapshot) {
+                    albumsInfojson = snapshot.val().songsInfo;
 
-                albumsInfojson = snapshot.val().songsInfo;
+                    console.log(albumsInfojson);
+                    // document.getElementById("chartdivwrapper").style.height = "100vh";
+                    buildGraph(albumsInfojson);
+                    hideLoading();
 
-                console.log(albumsInfojson);
-                // document.getElementById("chartdivwrapper").style.height = "100vh";
-                buildGraph(albumsInfojson);
-                hideLoading();
+                },function(error) {
+                    // The callback failed.
+                    console.error(error);
+                });                hideLoading();
+            },5000);
 
-            },function(error) {
-                // The callback failed.
-                console.error(error);
-            });
 
 
 
