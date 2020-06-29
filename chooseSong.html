@@ -112,9 +112,6 @@
 <script src="./SparqlQueryAlbumTracks.js"></script>
 
 <script>
-
-
-
     var label= document.getElementById("label");//
     //get entity's name and QID from previous page
     const params = new URLSearchParams(window.location.search);
@@ -129,7 +126,7 @@
 
     function showloading() {loading.style.display = "block";}
     function hideLoading() {loading.style.display = "none";}
-
+    songsreq (entity,bOrA)
     //fill data list
     const db = firebase.database();
     var usersRef ="";
@@ -146,49 +143,49 @@
 
     }
     var works = [];
-    usersRef.once('value').then(function (snapshot) {
-        //here we will get data
-        //enter your field name
-        //while (snapshot.val().albums===null){}
-        if(snapshot.val() === null)
-        {
-            alert("there is no info available")
-        }
-        else {
-            works = snapshot.val().songs;
-        }
-        var songsList = document.getElementById("songs");
-        works.forEach(function(item){
-            var option = document.createElement('option');
-            option.value = item;
-            songsList.appendChild(option);
-        });
+
+        showloading();
+        setTimeout(function(){usersRef.once('value').then(function (snapshot) {
+            //here we will get data
+            //enter your field name
+            //while (snapshot.val().albums===null){}
+            if (snapshot.val() === null) {
+                alert("there is no info available")
+            } else {
+                works = snapshot.val().songs;
+            }
+            var songsList = document.getElementById("songs");
+            works.forEach(function (item) {
+                var option = document.createElement('option');
+                option.value = item;
+                songsList.appendChild(option);
+            });hideLoading()
+        },5000);
 
 
 
 
         var songBtn = document.getElementById("songBtn");
-        songBtn.onclick = ()=>{
+        songBtn.onclick = () => {
             var song = document.getElementById("searchSong").value;
-            songsInfoReq(song,bOrA);
+            songsInfoReq(song, bOrA);
 
-            // const db = firebase.database();
+            const db = firebase.database();
             var usersRef = "";
             var albumsInfojson = "";//WHY IS THIS VAR NAMED KIKE THIS??????
 
             console.log(bOrA);
             if (bOrA === "artists") {
-                usersRef = db.ref('artist'+ref+'Info/'+song);
+                usersRef = db.ref('artist' + ref + 'Info/' + song);
 
             } else if (bOrA === "bands") {
-                usersRef = db.ref('bands'+ref+'Info/'+song);
+                usersRef = db.ref('bands' + ref + 'Info/' + song);
 
             }
             console.log(usersRef);
 
             showloading();
-            setTimeout(function(){
-                //GENERATE GRAPH
+            setTimeout(function () {
                 usersRef.once('value').then(function (snapshot) {
 
                     albumsInfojson = snapshot.val().songsInfo;
@@ -196,34 +193,11 @@
                     console.log(albumsInfojson);
                     // document.getElementById("chartdivwrapper").style.height = "100vh";
                     buildGraph(albumsInfojson);
-                    hideLoading();
-
-                },function(error) {
-                    // The callback failed.
-                    console.error(error);
-                });                hideLoading();
-            },5000);
-
-
-
-
-
-        };
-
-
-
-
-
-
-    },function(error) {
-        // The callback failed.
-        console.error(error);
-    });
-
-
-
-
-
+                });
+                hideLoading()
+            }, 3000);
+        }
+    })
 </script>
 
 

@@ -1,16 +1,21 @@
 var legend  = null;
-var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree, am4charts.XYChart);
+var chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+chart.logo.disabled = true;
+
 var networkSeries = null;
 function buildGraph(info) {
   if(chart._disposed===true)
   {
-     chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree, am4charts.XYChart);
+     chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+    chart.logo.disabled = true;
+
   }
   console.log(info)
   info=JSON.parse(info)
   am4core.useTheme(am4themes_animated);
 //var chart = am4core.create("zoom",am4charts.XYChart);
 
+  chart.logo.disabled = true;
 
   //
   // chart.legend = new am4charts.Legend();

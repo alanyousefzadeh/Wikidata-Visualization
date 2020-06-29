@@ -1,13 +1,9 @@
 var nested_data="";
+var promiseRes = ""
+var res=""
+var getdata=""
 
-function req(qid,type) {
-
-
-
-
-
-
-
+async function req(qid,type) {
      function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},
@@ -101,13 +97,13 @@ function req(qid,type) {
              "";
 
 
-     makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
           var str = "";
             var name = qid.substring(0, qid.indexOf("("));
             /*var fixed = "\n\"fixed\":\"true\",\n" +
                 "  \"x\":\" \",\n" +
                 "  \"y\":\" \","*/
-            var fixed = "\n\"fixed\":\"true\",";
+          //  var fixed = "\n\"fixed\":\"false\",";
             console.log(name)
 
                 var d = d3.csvParse(data);
@@ -134,7 +130,7 @@ function req(qid,type) {
 
                 nested_data = JSON.stringify(nested_data, null, 2).replace(/"values":/g, '"children":')
 
-                nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\","+fixed+"\n\"children\":");
+                nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\",\n\"children\":");
 
                 console.log(nested_data)
 
@@ -170,13 +166,16 @@ function req(qid,type) {
                  console.log("artist already exists")
              } else {
                  console.log("artist doesn't exist exists")
-                 usersRef.child(qid).set({personal: str,});
+                 usersRef.child(qid).set({personal: str,})
                  console.log("artist added")
              }
          });
          return nested_data;
-
             }
-        );
-
+        ).then(function (result) {
+        res=result;
+        return result
+    })
+    res = Promise.resolve(res)
+    return res ;
 }
