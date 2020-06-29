@@ -165,22 +165,22 @@
         //retrieve personal data from  Wikidata
         // if already been requested, retrieve from firebase
         console.log("calling" + bOrA);
-        req(entity,bOrA);
+        req(entity,bOrA)
 
-        //GENERATE GRAPH
+            console.log(res)
+            const db = firebase.database();
+            var uref = "";
 
-        const db = firebase.database();
-        var uref = "";
+            if (bOrA === "artists") {
+                uref = db.ref('artist/'+entity);
 
-        if (bOrA === "artists") {
-            uref = db.ref('artist/'+entity);
+            } else if (bOrA === "bands") {
+                uref = db.ref('bands/'+entity);
 
-        } else if (bOrA === "bands") {
-            uref = db.ref('bands/'+entity);
+            }
 
-        }
-
-        uref.once('value').then(function (snapshot) {
+        showloading();
+        setTimeout(function(){ uref.once('value').then(function (snapshot) {
             //here we will get data
             //enter your field name
             while (snapshot.val().personal===null){}
@@ -191,15 +191,14 @@
             // document.getElementById("chartdivwrapper").style.height="100vh";
 
             buildGraph(personalInfo)
-        });
+        });hideLoading()
+        },3000);
 
+
+
+        //GENERATE GRAPH
     };
-
-
-
 </script>
 <!--<script src="./chooseSubject.html"></script>-->
-
-
 </body>
 </html>
