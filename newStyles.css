@@ -1,12 +1,119 @@
+/*!*    homepage styles     *!*/
+
+/*!* Header/Logo Title *!*/
+/*.col-3*/
+/*{*/
+    /*position: fixed;*/
+    /*background: #5282bc;*/
+
+/*}*/
+
+/*#sticky-sidebar*/
+/*{*/
+    /*min-height: calc(100vh);*/
+    /*display: inline-block;*/
+/*}*/
 
 
-.container-fluid{
-    padding-right:0;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+/*.header {*/
 
+    /*position: absolute;*/
+    /*!*float: left;*!*/
+    /*padding: 10.5px;*/
+    /*text-align: center;*/
+    /*background: #5282bc;*/
+    /*color: white;*/
+    /*!**/
+    /*font: Candara;*/
+    /*font-family: Tahoma, Verdana, Segoe, sans-serif;*/
+    /**!*/
+    /*font-size: 30px;*/
+    /*width: 25%;*/
+/*}*/
+/*!* Page Content *!*/
+/*.content {*/
+    /*padding:20px;*/
+    /*text-align: center;*/
+/*}*/
+/*.search-container button {*/
+    /*padding: 6px 10px;*/
+    /*margin-top: 8px;*/
+    /*margin-right: 16px;*/
+    /*background: #ddd;*/
+    /*!*font-size: 17px; *!*/
+    /*border: none;*/
+    /*cursor: pointer;*/
+/*}*/
+/*input[type=text] {*/
+    /*padding: 5px 10px;*/
+    /*margin-top: 8px;*/
+    /*font-size: 17px;*/
+    /*box-sizing: border-box;}*/
+
+/*.search-container button:hover {*/
+    /*background: #ccc;*/
+/*}*/
+/*body {*/
+    /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";*/
+    /*background-color: #ffffff;*/
+    /*overflow: hidden;*/
+    /*margin: 0;*/
+/*}*/
+/*#mainPage*/
+/*{*/
+    /*height: 100%;*/
+    /*width: 25%;*/
+    /*position: fixed;*/
+    /*z-index: 1;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*background-color: #5282bc;*/
+    /*overflow-x: hidden;*/
+    /*text-align: center;*/
+    /*color: white;*/
+    /*padding: 16px;*/
+    /*font-size: 30px;*/
+/*}*/
+/*#chartdiv {*/
+    /*width: 100%;*/
+    /*height: 100vh;*/
+    /*overflow-x: auto;*/
+    /*overflow-y: auto;*/
+/*}*/
+/*#zoom*/
+/*{*/
+    /*position:absolute;*/
+    /*top:0;*/
+    /*right:0;*/
+/*}*/
+/*#chartdivwrapper {*/
+    /*width: 76.5%;*/
+    /*margin-left: 332px;*/
+    /*height:10vh;*/
+    /*max-height: 100vh;*/
+    /*overflow-x: auto;*/
+    /*overflow-y: auto;*/
+/*}*/
+/*!*form {*!*/
+/*!*border-color: black;*!*/
+/*!*}*!*/
+/*input[type="radio" i] {*/
+    /*padding :10px;*/
+    /*margin: 9px;*/
+/*}*/
+
+#youtubeLabel
+{
+    display: none;
 }
+
+/*.container-fluid{*/
+/*    padding-right:0;*/
+/*    padding-left: 15px;*/
+/*    margin-right: auto;*/
+/*    margin-left: auto;*/
+
+/*}*/
 
 
 .row.content {
@@ -62,16 +169,16 @@ footer {
 
 
 #chartdiv {
-    /*width: 100%;*/
-    position: relative;
+/width: 100%;/
+position: relative;
     height: 700px;
-    /*max-height: 100vh;*/
-    /*overflow-x: auto;*/
-    /*overflow-y: auto;*/
+/max-height: 100vh;/
+/overflow-x: auto;/
+/overflow-y: auto;/
 }
 
-/*#legenddiv {*/
-    /*position: relative;*/
+/*/#legenddiv {/*/
+/* /position: relative;/*/
 
-    /*height: 100vh;*/
-/*}*/
+/* /height: 100vh;/*/
+/* /}/*/

@@ -1,7 +1,7 @@
 var songslist ="";
 var promiseRes = ""
 var res=""
-async function albumSongsReq (qid,type) {
+async function albumSongsReq (qid) {
     function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},
@@ -26,6 +26,9 @@ async function albumSongsReq (qid,type) {
             "          ";
 
 
+
+
+    wd:" + qID + "
     promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         //    var name = qid.substring(0, qid.indexOf("("));
 
