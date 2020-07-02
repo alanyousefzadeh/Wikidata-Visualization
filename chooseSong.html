@@ -83,10 +83,14 @@
             </div>
             <h4 id="youtubeLabel">Youtube Video</h4>
             <div class="embed-responsive embed-responsive-16by9" id="youtube"></div>
+            <div id="lyrics" style="height: 100px;width:100px" class="overflow-auto"></div>
+
         </div>
 
         <!--graph and legend-->
-        <div class="col-sm-9" id="chartdiv"></div>
+        <div  class="col-sm-9" >
+            <div id="chartdiv"></div>
+        </div>
 
         <div id="loading" style="display: none;">
             <img id="loading-image" src="images/ajax-loader.gif" alt="Loading...">
@@ -299,7 +303,7 @@
                       var artist = entity;
                        artist = artist.substring(0,artist.indexOf("("));
                        console.log(artist)
-                      for (var i=0 ; i<r.response.hits.length;i++)
+                      for (var i=0;i<r.response.hits.length;i++)
                       {
                           if(r.response.hits[i].result.primary_artist.name.includes(artist)===true)
                           {
@@ -343,7 +347,41 @@
 
                       });
                   });
-    };
+                  var lyrics = document.getElementById('lyrics');
+                  var songName = song
+                  console.log(songName)
+                  songName = songName.substring(0,songName.indexOf("("));
+                  songName=songName.split(' ').join('%2520')
+                  console.log(songName)
+                  var artistName = entity;
+                  artistName = artistName.substring(0,clip.indexOf("("));
+                  var settings = {
+                      "async": true,
+                      "crossDomain": true,
+                      "url": "https://canarado-lyrics.p.rapidapi.com/lyrics/"+songName+"",
+                      "method": "GET",
+                      "headers": {
+                          "x-rapidapi-host": "canarado-lyrics.p.rapidapi.com",
+                          "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+                      }
+                  }
+                  $.ajax(settings).done(function (response) {
+                      console.log(response);
+                  }).then(r=>{
+                      console.log(r)
+                      var index = 0;
+                      for(var i=0;i<r.content.length;i++)
+                      {
+                          if(r.content[i].artist.includes(artistName)===true)
+                          {
+                              index = i
+                          }
+                      }
+                      var text = r.content[index].lyrics
+
+                      //lyrics.innerHTML += text;
+                  });
+              };
 
 
 

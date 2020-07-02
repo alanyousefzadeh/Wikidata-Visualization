@@ -107,13 +107,13 @@
     display: none;
 }
 
-.container-fluid{
-    padding-right:0;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+/*.container-fluid{*/
+/*    padding-right:0;*/
+/*    padding-left: 15px;*/
+/*    margin-right: auto;*/
+/*    margin-left: auto;*/
 
-}
+/*}*/
 
 
 .row.content {

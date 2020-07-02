@@ -210,73 +210,42 @@ function buildGraph(info) {
     }
   })
 
-
-  // networkSeries.events.on("inited", function() {
-  //   networkSeries.animate({
-  //     property: "velocityDecay",
-  //     to: 1
-  //   }, 3000);
-  // });
-
-
-}
-/*networkSeries.nodes.template.events.on("hit", function(ev) {
-  var targetNode = ev.target;
-  if (targetNode.isActive) {
-    networkSeries.nodes.each(function(node) {
-      if (targetNode !== node && node.isActive && targetNode.dataItem.level == node.dataItem.level) {
-        node.isActive = false;
+  //add listener for Wikipedia page display
+  // Set up tooltips
+  networkSeries.tooltip.label.interactionsEnabled = true;
+  networkSeries.tooltip.keepTargetHover = true;
+  networkSeries.nodes.template.adapter.add("tooltipHTML", function(text, target) {
+    if(target.dataItem.name){
+      if(target.dataItem.level === 0 || target.dataItem.level === 1){
+        return target.dataItem.name;
       }
-    });
-  }
-});*/
+      else{
+        var wikiLink="";
+        var name = target.dataItem.name.slice().replace(" ", "_");
 
-/*networkSeries.nodes.template.adapter.add("tooltipText", function(text, target) {
-  if (target.dataItem) {
-    switch(target.dataItem.level) {
-      case 0:
-        return "#1: {name}";
-      case 1:
-        return "#2: {parent.name} > {name} ({value})";
-      case 2:
-        return "#3: {parent.parent.name} > {parent.name} > {name} ({value})";
+        if(target.dataItem.dataContext.children[0].article==="")
+        {
+          wikiLink='https://en.wikipedia.org/wiki/'+ name;
+        }
+        else{
+          var wikiLink=target.dataItem.dataContext.children[0].article;
+        }
+        console.log(wikiLink);
+        var link = '<a href='+wikiLink+' target="_blank">Go to Wikipedia!</a><div class="embed-responsive embed-responsive-16by9" style="height:300px ; width: 600px; "><iframe class="embed-responsive-item" src='+wikiLink+'></iframe></div> ';
+        console.log(link);
+
+
+        // var link = '<a href="https://en.wikipedia.org/wiki/'+ name +'" target="_blank">More info</a><div class="box" ><iframe src="https://en.wikipedia.org/wiki/' + name + '" width = "500px" height = "700px"></iframe></div> ';
+        console.log(link);
+        if (target.dataItem) {
+          currNode=target;
+          if (target.dataItem.level===2){
+            //info.children[0].children[1].children[0].valUrl
+            return link;
+          }
+        }
+        return text;
+      }
     }
-  }
-  return text;
-});
-
-
-/*networkSeries.dataFields.value = "value";
-networkSeries.dataFields.name = "name";
-networkSeries.dataFields.children = "children";
-networkSeries.nodes.template.tooltipText = "{name}:{value}";
-networkSeries.nodes.template.fillOpacity = 1;
-
-networkSeries.nodes.template.label.text = "{name}"
-networkSeries.fontSize = 10;
-
-networkSeries.links.template.strokeWidth = 1;
-
-var hoverState = networkSeries.links.template.states.create("hover");
-hoverState.properties.strokeWidth = 3;
-hoverState.properties.strokeOpacity = 1;
-
-networkSeries.nodes.template.events.on("over", function(event) {
-  event.target.dataItem.childLinks.each(function(link) {
-    link.isHover = true;
-  })
-  if (event.target.dataItem.parentLink) {
-    event.target.dataItem.parentLink.isHover = true;
-  }
-
-})
-
-networkSeries.nodes.template.events.on("out", function(event) {
-  event.target.dataItem.childLinks.each(function(link) {
-    link.isHover = false;
-  })
-  if (event.target.dataItem.parentLink) {
-    event.target.dataItem.parentLink.isHover = false;
-  }
-})
-*/
+  });
+}
