@@ -170,12 +170,13 @@ async function req(qid,type) {
                  console.log("artist added")
              }
          });
-         return nested_data;
+         return str;
             }
         ).then(function (result) {
         res=result;
         return result
     })
     res = Promise.resolve(res)
+    console.log(res)
     return res ;
 }

@@ -1,4 +1,6 @@
-function albumreq (qid,type) {
+var promiseRes = ""
+var res=""
+async function albumreq (qid,type) {
     function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},
@@ -19,7 +21,7 @@ function albumreq (qid,type) {
             "}";
 
     var albumlist = [];
-    makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         //    var name = qid.substring(0, qid.indexOf("("));
 
         var d = d3.csvParse(data);
@@ -84,29 +86,14 @@ function albumreq (qid,type) {
                     usersRef.child(qid).set({albums: str,});
                     console.log(type+" artist added")
                 }
-
-                /*const db = firebase.database();
-
-                var usersRef = db.ref('/artist');
-                const normalUsersRef = usersRef.child('normal_users');
-                const superUsersRef = usersRef.child('super_users');
-
-                usersRef.child(qid).once('value', function(snapshot) {
-
-                    var exists = (snapshot.val() !== null);
-
-                    if (exists) {
-                        console.log("artist already exists")
-                    } else {
-                        console.log("artist doesn't exist exists")
-                        usersRef.child(qid).set({works: nested_data,});
-                        console.log("artist added")
-                    }
-                });
-                return nested_data;*/
-
             }
         );
-    });
-    return albumlist;
+        return str;
+    }).then(function (result) {
+        res=result;
+        return result
+    })
+    res = Promise.resolve(res)
+    console.log(res)
+    return res ;
 }

@@ -130,48 +130,154 @@
     //fill data list
     const db = firebase.database();
     var usersRef ="";
+    var uref = "";
     var tempRef= "";
     ref="Albums";
     console.log(ref);
+
     if(bOrA==="artists")
     {
+        uref= db.ref('/artistAlbums');
         usersRef= db.ref('artist'+ref+'/'+entity);
 
     }else if(bOrA==="bands")
     {
+        uref= db.ref('/bandsAlbums')
         usersRef=db.ref('bands'+ref+'/'+entity);
 
     }
     var works = [];
 
-    usersRef.once('value').then(function (snapshot) {
-        //here we will get data
-        //enter your field name
-        //while (snapshot.val().albums===null){}
-        if(snapshot.val() === null)
-        {
-            alert("there is no info available")
+
+    uref.child(entity).once('value', function(snapshot) {
+
+        var exists = (snapshot.val() !== null);
+
+        //if list of albums already exist make firebase req
+        if (exists) {
+            console.log("artist already exists")
+            showloading()
+            usersRef.once('value').then(function (snapshot) {
+                //here we will get data
+                //enter your field name
+                //while (snapshot.val().albums===null){}
+                    works = snapshot.val().albums;
+                var albumsList = document.getElementById("albums");
+                works.forEach(function(item){
+                    var option = document.createElement('option');
+                    option.value = item;
+                    albumsList.appendChild(option);
+                });
+                hideLoading()
+            })
+
+        } else {
+            //if list of albums doesn not exist wait from promise req
+            showloading()
+            albumreq(entity,bOrA).then(res=>
+            {
+                var albumsList = document.getElementById("albums");
+                res.forEach(function(item){
+                    var option = document.createElement('option');
+                    option.value = item;
+                    albumsList.appendChild(option);
+                    hideLoading()
+                });
+            })
         }
-        else {
-            works = snapshot.val().albums;
-        }
-        var albumsList = document.getElementById("albums");
-        works.forEach(function(item){
-            var option = document.createElement('option');
-            option.value = item;
-            albumsList.appendChild(option);
-        });
-
-
-        var albumBtn = document.getElementById("albumBtn");
-        albumBtn.onclick = ()=>{
-
-        };
-
-    },function(error) {
-        // The callback failed.
-        console.error(error);
     });
+
+    //album button declaration
+    var albumBtn = document.getElementById("albumBtn");
+    albumBtn.onclick = ()=>{
+
+        var album = document.getElementById("searchAlbum").value;
+        console.log(album);
+        if(bOrA==="artists")
+        {
+            usersRef = db.ref('/artistAlbumsInfo');
+            uref= db.ref('artist'+ref+'Info/'+album);
+
+        }else if(bOrA==="bands")
+        {
+            usersRef = db.ref('/bandsAlbumsInfo');
+            uref=db.ref('bands'+ref+'Info/'+album);
+        }
+
+        usersRef.child(album).once('value', function(snapshot) {
+            var exists = (snapshot.val() !== null);
+
+            //if list of albums info  already exist make firebase req
+
+            if (exists) {
+                showloading()
+                uref.once('value').then(function (snapshot) {
+
+                    while (snapshot.val().personal===null){}
+                    var albuminfo = snapshot.val().albumInfo;
+
+                    buildGraph(albuminfo)
+                    hideLoading()
+                })
+            } else
+            {
+                //if list of albums info doesn not exist wait from promise req
+
+                showloading()
+                albumInfoReq(album,bOrA).then(res=>{
+                    //var r is just used to receive promised but its not implemented
+                    var r = res;
+                    console.log(r)
+                    //we used for this req local storage because of sync problems with this specific promise
+                    var info =localStorage.getItem('res')
+                    console.log(info)
+                    buildGraph(info)
+                    hideLoading();
+                })
+            }
+
+
+        })
+
+
+
+
+
+    };
+
+
+    // usersRef.once('value').then(function (snapshot) {
+    //     //here we will get data
+    //     //enter your field name
+    //     //while (snapshot.val().albums===null){}
+    //     if(snapshot.val() === null)
+    //     {
+    //         alert("there is no info available")
+    //     }
+    //     else {
+    //         works = snapshot.val().albums;
+    //     }
+    //     var albumsList = document.getElementById("albums");
+    //     works.forEach(function(item){
+    //         var option = document.createElement('option');
+    //         option.value = item;
+    //         albumsList.appendChild(option);
+    //     });
+    //
+    //
+    //     var albumBtn = document.getElementById("albumBtn");
+    //     albumBtn.onclick = ()=>{
+    //
+    //     };
+    //
+    // },function(error) {
+    //     // The callback failed.
+    //     console.error(error);
+    // });
+
+
+
+
 
 
 

@@ -165,36 +165,54 @@
         //retrieve personal data from  Wikidata
         // if already been requested, retrieve from firebase
         console.log("calling" + bOrA);
-        req(entity,bOrA)
 
-            console.log(res)
             const db = firebase.database();
             var uref = "";
+            var usersRef =""
 
-            if (bOrA === "artists") {
+
+        if (bOrA === "artists") {
                 uref = db.ref('artist/'+entity);
+                usersRef = db.ref('/artist');
 
             } else if (bOrA === "bands") {
                 uref = db.ref('bands/'+entity);
+                usersRef = db.ref('/bands');
 
             }
 
-        showloading();
-        setTimeout(function(){ uref.once('value').then(function (snapshot) {
-            //here we will get data
-            //enter your field name
-            while (snapshot.val().personal===null){}
-            var personalInfo = snapshot.val().personal;
-            // console.log(personalInfo);
-            //////////////
-            //////
-            // document.getElementById("chartdivwrapper").style.height="100vh";
+        usersRef.child(entity).once('value', function(snapshot) {
 
-            buildGraph(personalInfo)
-        });hideLoading()
-        },3000);
+            var exists = (snapshot.val() !== null);
+            //if personal info of artist already exist make firebase req
+            if (exists) {
+                console.log("artist already exists")
+                showloading()
+                uref.once('value').then(function (snapshot) {
+                    //here we will get data
+                    //enter your field name
+                    while (snapshot.val().personal===null){}
+                    var personalInfo = snapshot.val().personal;
+                    // console.log(personalInfo);
+                    //////////////
+                    //////
+                    // document.getElementById("chartdivwrapper").style.height="100vh";
 
+                    buildGraph(personalInfo)
+                    hideLoading()
+                })
 
+            } else {
+                //if personal info of artist does not exist on firebase wait for promise from req
+                showloading()
+                req(entity,bOrA).then(res=>
+                {
+                    console.log(res)
+                    buildGraph(res)
+                    hideLoading()
+                })
+            }
+        });
 
         //GENERATE GRAPH
     };

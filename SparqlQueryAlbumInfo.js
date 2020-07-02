@@ -1,5 +1,8 @@
 var nested_data=""
 var listOfS = "";
+var promiseRes=""
+var res=""
+var str = "";
 async function albumInfoReq(qid,type) {
     async function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
@@ -93,10 +96,9 @@ async function albumInfoReq(qid,type) {
             "\n" +
             "";
 
-    await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
             albumSongsReq(qid, type).then(listOfSongs => {
                 console.log(listOfSongs)
-                var str = "";
                 listOfS=listOfSongs;
                 var name = qid.substring(0, qid.indexOf("("));
                 /*var fixed = "\n\"fixed\":\"true\",\n" +
@@ -192,10 +194,23 @@ async function albumInfoReq(qid,type) {
                         usersRef.child(qid).set({albumInfo: str,});
                         console.log("artist added")
                     }
+                    //we used for this req local storage because of sync problems with this specific promise
+
+                    localStorage.setItem('res',str);
                 });
-                return nested_data;
+                console.log(str)
+                //we used for this req local storage because of sync problems with this specific promise
+
+                localStorage.setItem('res',str);
+                return str;
             });
-        }
-    );
+    }
+    ).then(function (result) {
+        res=result;
+        return result
+    })
+    res = Promise.resolve(res)
+    console.log(res)
+    return res;
 }
 

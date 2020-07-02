@@ -1,6 +1,8 @@
 var nested_data=""
+var res = "";
+var promiseRes = ""
 
-function songsInfoReq(qid,type) {
+async function songsInfoReq(qid,type) {
     function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},
@@ -94,7 +96,7 @@ function songsInfoReq(qid,type) {
             "";
 
 
-    makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
             var str = "";
             var name = qid.substring(0, qid.indexOf("("));
             /*var fixed = "\n\"fixed\":\"true\",\n" +
@@ -163,8 +165,14 @@ function songsInfoReq(qid,type) {
                     console.log("artist added")
                 }
             });
-            return nested_data;
+            return str;
 
         }
-    );
+    ).then(function (result) {
+        res=result;
+        return result
+    })
+    res = Promise.resolve(res)
+    console.log(res)
+    return res;
 }
