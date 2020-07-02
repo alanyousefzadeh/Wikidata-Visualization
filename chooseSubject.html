@@ -15,6 +15,10 @@
     <!--<link rel="stylesheet" type="text/css" href="styles.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<style>
+
+
+</style>
 <body>
 
 <!--<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>-->
@@ -47,78 +51,81 @@
 <!--</script>-->
 <script src="./newCode.js"></script>
 
-
-<div class="container-fluid">
-    <div class="row content">
-        <div class="col-sm-3 sidenav" id="mainPage">
-            <div class="container-fluid">
-                <div class="row-fluid" id="header">
-                    <!--<h1>Wikidata<br>Visualization Engine</h1>-->
-                    <h1>Wikidata Visualization Engine</h1>
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3 sidenav" id="mainPage">
+                <div class="container-fluid">
+                    <div class="row-fluid" id="header">
+                        <!--<h1>Wikidata<br>Visualization Engine</h1>-->
+                        <h1>Wikidata Visualization Engine</h1>
+                    </div>
                 </div>
-            </div>
 
-            <!--search subject div-->
-            <div class="container-fluid" id="searchSubject" >
-                <div class="col">
-                    <label for="subjects">
-                        <h4>Please Select Subject</h4>
-                    </label>
-                    <div class="input-group">
-                        <select class="form-control" id="subjects" name="subject" >
-                            <option value="" disabled selected hidden>Click Here to Select</option>
-                            <option value="Music">Music</option>
-                            <option value="Photography" disabled="">Photography</option>
-                            <option value="Movies" disabled="">Movies</option>
-                            <option value="Fashion" disabled="">Fashion</option>
-                            <option value="Literature" disabled="">Literature</option>
-                            <option value="Television" disabled="">Television</option>
-                            <option value="Architecture" disabled="">Architecture</option>
-                            <option value="Artworks" disabled="">Artworks</option>
-                            <option value="Sculpture" disabled="">Sculpture</option>
-                            <option value="Theater" disabled="">Theater</option>
-                            <option value="Typography" disabled="">Typography</option>
-                            <option value="Other" disabled="">Other</option>
-                        </select>
-                        <span class="input-group-btn">
+                <!--search subject div-->
+                <div class="container-fluid" id="searchSubject" >
+                    <div class="col">
+                        <label for="subjects">
+                            <h4>Please Select Subject</h4>
+                        </label>
+                        <div class="input-group">
+                            <select class="form-control" id="subjects" name="subject" >
+                                <option value="" disabled selected hidden>Click Here to Select</option>
+                                <option value="Music">Music</option>
+                                <option value="Photography" disabled="">Photography</option>
+                                <option value="Movies" disabled="">Movies</option>
+                                <option value="Fashion" disabled="">Fashion</option>
+                                <option value="Literature" disabled="">Literature</option>
+                                <option value="Television" disabled="">Television</option>
+                                <option value="Architecture" disabled="">Architecture</option>
+                                <option value="Artworks" disabled="">Artworks</option>
+                                <option value="Sculpture" disabled="">Sculpture</option>
+                                <option value="Theater" disabled="">Theater</option>
+                                <option value="Typography" disabled="">Typography</option>
+                                <option value="Other" disabled="">Other</option>
+                            </select>
+                            <span class="input-group-btn">
                             <!--<button type="button" class="btn btn-primary" id="subjectBtn" onclick = "chooseSubject()">Submit</button>-->
                             <button type="button" class="btn btn-primary" id="subjectBtn" >Submit</button>
 
                         </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container-fluid" id="radioDiv1" >
-                <div class="panel-footer">
-                    <h4>Looking For Bands or Artists?</h4>
-
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <button id="bandsBtn" type="button" class="btn btn-primary">Click For Bands</button>
-                            <!--<input type="radio" name="choice" value="band">band<br>-->
-                        </div>
-                        <div class="col-xs-6">
-                            <button id="artistsBtn" type="button" class="btn btn-primary">Click For Artists</button>
-                            <!--<input type="radio" name="choice" value="artist">artist-->
-
                         </div>
                     </div>
                 </div>
-                <!--<button id="okBtn">ok</button>-->
 
+                <div class="container-fluid" id="radioDiv1" >
+                    <div class="panel-footer">
+                        <h4>Looking For Bands or Artists?</h4>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button id="bandsBtn" type="button" class="btn btn-primary">Click For Bands</button>
+                                <!--<input type="radio" name="choice" value="band">band<br>-->
+                            </div>
+                            <div class="col-xs-6">
+                                <button id="artistsBtn" type="button" class="btn btn-primary">Click For Artists</button>
+                                <!--<input type="radio" name="choice" value="artist">artist-->
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--<button id="okBtn">ok</button>-->
+
+                </div>
             </div>
+            <div id="loading" style="display: none;">
+                <img id="loading-image" src="images/ajax-loader.gif" alt="Loading...">
+            </div>
+            <footer class="footer navbar-fixed-bottom">
+                <p>2020 © All Rights Reserved. </p>
+            </footer>
         </div>
-        <div id="loading" style="display: none;">
-            <img id="loading-image" src="images/ajax-loader.gif" alt="Loading...">
-        </div>
+
+
     </div>
 
-
 </div>
-<footer class="footer navbar-fixed-bottom">
-    <p>2020 © All Rights Reserved. </p>
-</footer>
+
 
 <script>
     var subjectsSelect = document.getElementById("subjects");
