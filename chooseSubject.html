@@ -73,7 +73,7 @@
                                 <option value="" disabled selected hidden>Click Here to Select</option>
                                 <option value="Music">Music</option>
                                 <option value="Photography" disabled="">Photography</option>
-                                <option value="Movies" disabled="">Movies</option>
+                                <option value="Movies" >Movies</option>
                                 <option value="Fashion" disabled="">Fashion</option>
                                 <option value="Literature" disabled="">Literature</option>
                                 <option value="Television" disabled="">Television</option>
@@ -93,24 +93,32 @@
                     </div>
                 </div>
 
-                <div class="container-fluid" id="radioDiv1" >
+                <div class="container-fluid" id="bandsOrArtists" >
                     <div class="panel-footer">
                         <h4>Looking For Bands or Artists?</h4>
-
                         <div class="row">
                             <div class="col-xs-6">
                                 <button id="bandsBtn" type="button" class="btn btn-primary">Click For Bands</button>
-                                <!--<input type="radio" name="choice" value="band">band<br>-->
                             </div>
                             <div class="col-xs-6">
                                 <button id="artistsBtn" type="button" class="btn btn-primary">Click For Artists</button>
-                                <!--<input type="radio" name="choice" value="artist">artist-->
-
                             </div>
                         </div>
                     </div>
-                    <!--<button id="okBtn">ok</button>-->
+                </div>
 
+                <div class="container-fluid" id="actorsOrDirectors" >
+                    <div class="panel-footer">
+                        <h4>Looking For Actors or Directors?</h4>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <button id="actorsBtn" type="button" class="btn btn-primary">Click For Actors</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button id="directorsBtn" type="button" class="btn btn-primary">Click For Directors</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div id="loading" style="display: none;">
@@ -130,17 +138,25 @@
 <script>
     var subjectsSelect = document.getElementById("subjects");
     var subjectBtn = document.getElementById("subjectBtn");
-
-    var radioDiv1 = document.getElementById("radioDiv1");
+    //music entities
+    var bandsOrArtists = document.getElementById("bandsOrArtists");
     var bandsBtn = document.getElementById("bandsBtn");
     var artistsBtn = document.getElementById("artistsBtn");
-
+    //movies entities
+    var actorsOrDirectors = document.getElementById("actorsOrDirectors");
+    var actorsBtn = document.getElementById("actorsBtn");
+    var directorsBtn = document.getElementById("directorsBtn");
+    //
+    var dirLocation = "";
+    var artist = "";
 
     //if user went back show buttons immediately
     window.onload = ()=>{
-        radioDiv1.style.display = "none";
+        bandsOrArtists.style.display = "none";
+        actorsOrDirectors.style.display = "none";
 
-        if(subjectsSelect.value === "Music"){
+
+        if(subjectsSelect.value === "Music" || subjectsSelect.value === "Movies"){
             subjectBtn.click();
         }
     };
@@ -153,20 +169,39 @@
         }
         console.log(subject);
         if(subject === "Music") {
-            radioDiv1.style.display = "block";
-            var dirLocation = location.href;
+            bandsOrArtists.style.display = "block";
+            actorsOrDirectors.style.display = "none";
+
+            dirLocation = location.href;
             bandsBtn.onclick = () => {
+                // artist = "band";
                 dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/chooseBand.html');
-                window.location.href = dirLocation; // go to chooseEntity.html page
+                window.location.href = dirLocation;//  + '?artist=' + artist ; // go to chooseBand.html page
 
             };
             artistsBtn.onclick = () => {
+                artist = "singer";
                 dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/chooseArtist.html');
-                window.location.href = dirLocation; // go to chooseEntity.html page
+                window.location.href = dirLocation + '?artist=' + artist ; // go to chooseArtist.html page
+
+            };
+        }
+        else if(subject === "Movies") {
+            bandsOrArtists.style.display = "none";
+            actorsOrDirectors.style.display = "block";
+            dirLocation = location.href;
+            actorsBtn.onclick = () => {
+                artist = "actor";
+                dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/chooseArtist.html');
+                window.location.href = dirLocation + '?artist=' + artist ; // go to chooseArtist.html page
+            };
+            directorsBtn.onclick = () => {
+                artist = "director";
+                dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/chooseArtist.html');
+                window.location.href = dirLocation + '?artist=' + artist ; // go to chooseArtist.html page
             };
         }
     }
-
 
 
 

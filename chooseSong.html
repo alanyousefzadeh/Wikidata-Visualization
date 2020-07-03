@@ -69,7 +69,7 @@
                     <h4>Search Song</h4>
 
                     <div class="input-group">
-                        <input class="form-control" id="searchSong" list="songs" name="song" placeholder="Type to search..." >
+                        <input class="form-control" id="searchSong" list="songs" name="song" autocomplete="off" placeholder="Type to search..." >
                         <datalist id="songs">
 
                         </datalist>
@@ -132,256 +132,222 @@
 
     function showloading() {loading.style.display = "block";}
     function hideLoading() {loading.style.display = "none";}
+
     //fill data list
-    // const db = firebase.database();
-    // var usersRef ="";
-    // var uref = "";
-    // var tempRef= "";
-    // ref="songs";
-    // console.log(ref);
-    // // if(bOrA==="artists")
-    // // {
-    // //     usersRef= db.ref('artist'+ref+'/'+entity);
-    // //
-    // // }else if(bOrA==="bands")
-    // // {
-    // //     usersRef=db.ref('bands'+ref+'/'+entity);
-    // //
-    // // }
-    // // var works = [];
-    // //
-    // //     showloading();
-    // //     setTimeout(function(){usersRef.once('value').then(function (snapshot) {
-    // //         //here we will get data
-    // //         //enter your field name
-    // //         //while (snapshot.val().albums===null){}
-    // //         if (snapshot.val() === null) {
-    // //             alert("there is no info available")
-    // //         } else {
-    // //             works = snapshot.val().songs;
-    // //         }
-    // //         var songsList = document.getElementById("songs");
-    // //         works.forEach(function (item) {
-    // //             var option = document.createElement('option');
-    // //             option.value = item;
-    // //             songsList.appendChild(option);
-    // //         });hideLoading()
-    // //     },5000);
-    // //
+    const db = firebase.database();
+    var usersRef ="";
+    var uref = "";
+    var tempRef= "";
+    ref="songs";
+    console.log(ref);
 
-            //fill data list
-            const db = firebase.database();
-            var usersRef ="";
-            var uref = "";
-            var tempRef= "";
-            ref="songs";
-            console.log(ref);
-
-            if(bOrA==="artists")
-            {
-                uref= db.ref('/artistsongs');
-                usersRef= db.ref('artist'+ref+'/'+entity);
-
-            }else if(bOrA==="bands")
-            {
-                uref= db.ref('/bandssongs');
-                usersRef=db.ref('bands'+ref+'/'+entity);
-            }
-            var works = [];
+    if(bOrA==="artists")
+    {
+        uref= db.ref('/artistsongs');
+        usersRef= db.ref('artist'+ref+'/'+entity);
+    }
+    else if(bOrA==="bands")
+    {
+        uref= db.ref('/bandssongs');
+        usersRef=db.ref('bands'+ref+'/'+entity);
+    }
+    var works = [];
 
 
     usersRef.child(entity).once('value', function(snapshot) {
+        var exists = (snapshot.val() !== null);
+        //if list of songs already exist make firebase req
+        if (exists) {
+            console.log("artist already exists")
+            showloading();
+            uref.once('value').then(function (snapshot) {
+                //here we will get data
+                //enter your field name
+                //while (snapshot.val().albums===null){}
+                works = snapshot.val().songs;
+                var songsList = document.getElementById("songs");
+                works.forEach(function(item){
+                    var option = document.createElement('option');
+                    option.value = item;
+                    songsList.appendChild(option);
+                });
+                hideLoading()
+            })
 
-                var exists = (snapshot.val() !== null);
-                //if list of songs already exist make firebase req
-                if (exists) {
-                    console.log("artist already exists")
-                    showloading()
-                    uref.once('value').then(function (snapshot) {
-                        //here we will get data
-                        //enter your field name
-                        //while (snapshot.val().albums===null){}
-                        works = snapshot.val().songs;
-                        var songsList = document.getElementById("songs");
-                        works.forEach(function(item){
-                            var option = document.createElement('option');
-                            option.value = item;
-                            songsList.appendChild(option);
-                        });
-                        hideLoading()
-                    })
+        }
+        else {
+            //if list of songs does not exist wait for promise from  req
+            showloading();
+            songsreq(entity,bOrA).then(res=>
+            {
+                var songsList = document.getElementById("songs");
+                res.forEach(function(item){
+                    var option = document.createElement('option');
+                    option.value = item;
+                    songsList.appendChild(option);
+                });
+                hideLoading();
+            })
+        }
+    });
 
-                } else {
-                    //if list of songs does not exist wait for promise from  req
-                    showloading()
-                    songsreq(entity,bOrA).then(res=>
-                    {
-                        var songsList = document.getElementById("songs");
-                        res.forEach(function(item){
-                            var option = document.createElement('option');
-                            option.value = item;
-                            songsList.appendChild(option);
-                        });
-                        hideLoading()
-                    })
+    var songBtn = document.getElementById("songBtn");
+    songBtn.onclick = ()=>{
+
+        var song = document.getElementById("searchSong").value;
+        console.log(song);
+        if(bOrA==="artists")
+        {
+            usersRef = db.ref('/artistsongsInfo');
+            uref= db.ref('artist'+ref+'Info/'+song);
+
+        }
+        else if(bOrA==="bands")
+        {
+            usersRef = db.ref('/bandssongsInfo');
+            uref=db.ref('bands'+ref+'Info/'+song);
+        }
+
+        usersRef.child(song).once('value', function(snapshot) {
+            var exists = (snapshot.val() !== null);
+
+            //if list of songs already exist make firebase req
+
+            if (exists) {
+                showloading();
+                uref.once('value').then(function (snapshot) {
+
+                    while (snapshot.val().personal===null){}
+                    var songsinfo = snapshot.val().songsInfo;
+
+                    buildGraph(songsinfo);
+                    hideLoading();
+
+                })
+            }
+            else
+            {
+                //if list of songs does not exist wait for promise from  req
+                showloading();
+                songsInfoReq(song,bOrA).then(res=>{
+                    var info = res;
+                    buildGraph(info);
+                    hideLoading();
+                })
+            }
+
+
+        });
+
+        var video = document.getElementById("youtube");
+
+        var clip =song;
+        clip = clip.substring(0,clip.indexOf("("));
+
+        clip=clip.split(' ').join('%20');
+
+        console.log(clip);
+        var res="";
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://genius.p.rapidapi.com/search?q="+clip+"",
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "genius.p.rapidapi.com",
+                "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+            }
+        };
+        $.ajax(settings).done(function (response) {
+            //localStorage.setItem('id',response.response.hits[0].result.id)
+            console.log(response)
+            console.log(response.response.hits[0].result.id)
+            //console.log(response.hits[0].id);
+        }).then(r=>{
+            var index;
+            var artist = entity;
+            artist = artist.substring(0,artist.indexOf("("));
+            console.log(artist);
+            for (var i=0;i<r.response.hits.length;i++)
+            {
+                if(r.response.hits[i].result.primary_artist.name.includes(artist)===true)
+                {
+                    console.log(r.response.hits[i].result.primary_artist.name)
+                    index = i;
                 }
-            });
+            }
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://genius.p.rapidapi.com/songs/"+r.response.hits[index].result.id+"",
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "genius.p.rapidapi.com",
+                    "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+                }
+            };
+            $.ajax(settings).done(function (response) {
+                res=response;
+                console.log(response)
+                //localStorage.setItem('link', response.response.song.media[0].url);
+            }).then(r=>{
+                var link="";
+                if(r.response.song.media.length!==0) {
+                    for (var i = 0; i < r.response.song.media.length; i++) {
+                        if (r.response.song.media[i].provider === "youtube") {
+                            link = r.response.song.media[i].url
+                        }
+                    }
+                    //var link = r.response.song.media[0].url;
+                    link = link.split('=')[1];
+                    console.log(link)
 
-        var songBtn = document.getElementById("songBtn");
-              songBtn.onclick = ()=>{
+                    document.getElementById('youtubeLabel').style.display='block'
+                    var linkFormat = "https://www.youtube.com/embed/" + link + "";
+                    console.log(linkFormat);
+                    video.innerHTML = '<iframe src=' + linkFormat + ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                }
+                else
+                {
+                    return "not media found"
+                }
+             });
+        });
+        var lyrics = document.getElementById('lyrics');
+        var songName = song
+        console.log(songName)
+        songName = songName.substring(0,songName.indexOf("("));
+        songName=songName.split(' ').join('%2520')
+        console.log(songName)
+        var artistName = entity;
+        artistName = artistName.substring(0,clip.indexOf("("));
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://canarado-lyrics.p.rapidapi.com/lyrics/"+songName+"",
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "canarado-lyrics.p.rapidapi.com",
+                "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+            }
+        };
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        }).then(r=>{
+            console.log(r)
+            var index = 0;
+            for(var i=0;i<r.content.length;i++)
+            {
+                if(r.content[i].artist.includes(artistName)===true)
+                {
+                    index = i
+                }
+            }
+            var text = r.content[index].lyrics
 
-                  var song = document.getElementById("searchSong").value;
-                  console.log(song);
-                  if(bOrA==="artists")
-                  {
-                      usersRef = db.ref('/artistsongsInfo');
-                      uref= db.ref('artist'+ref+'Info/'+song);
-
-                  }else if(bOrA==="bands")
-                  {
-                      usersRef = db.ref('/bandssongsInfo');
-                      uref=db.ref('bands'+ref+'Info/'+song);
-                  }
-
-                  usersRef.child(song).once('value', function(snapshot) {
-                      var exists = (snapshot.val() !== null);
-
-                      //if list of songs already exist make firebase req
-
-                      if (exists) {
-                          showloading()
-                          uref.once('value').then(function (snapshot) {
-
-                              while (snapshot.val().personal===null){}
-                              var songsinfo = snapshot.val().songsInfo;
-
-                              buildGraph(songsinfo)
-                              hideLoading()
-
-                          })
-                      } else
-                          {
-                              //if list of songs does not exist wait for promise from  req
-
-                              showloading()
-                              songsInfoReq(song,bOrA).then(res=>{
-                                  var info = res;
-                                  buildGraph(info)
-                                  hideLoading();
-                              })
-                          }
-
-
-                  })
-
-                  var video = document.getElementById("youtube")
-
-                  var clip =song
-                  clip = clip.substring(0,clip.indexOf("("));
-
-                  clip=clip.split(' ').join('%20')
-
-                  console.log(clip)
-                  var res=""
-                  var settings = {
-                      "async": true,
-                      "crossDomain": true,
-                      "url": "https://genius.p.rapidapi.com/search?q="+clip+"",
-                      "method": "GET",
-                      "headers": {
-                          "x-rapidapi-host": "genius.p.rapidapi.com",
-                          "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
-                      }
-                  }
-                  $.ajax(settings).done(function (response) {
-                      //localStorage.setItem('id',response.response.hits[0].result.id)
-                      console.log(response)
-                      console.log(response.response.hits[0].result.id)
-                      //console.log(response.hits[0].id);
-                  }).then(r=>{
-                      var index;
-                      var artist = entity;
-                       artist = artist.substring(0,artist.indexOf("("));
-                       console.log(artist)
-                      for (var i=0;i<r.response.hits.length;i++)
-                      {
-                          if(r.response.hits[i].result.primary_artist.name.includes(artist)===true)
-                          {
-                              console.log(r.response.hits[i].result.primary_artist.name)
-                              index = i;
-                          }
-                      }
-                      var settings = {
-                          "async": true,
-                          "crossDomain": true,
-                          "url": "https://genius.p.rapidapi.com/songs/"+r.response.hits[index].result.id+"",
-                          "method": "GET",
-                          "headers": {
-                              "x-rapidapi-host": "genius.p.rapidapi.com",
-                              "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
-                          }
-                      }
-                      $.ajax(settings).done(function (response) {
-                          res=response;
-                          console.log(response)
-                          //localStorage.setItem('link', response.response.song.media[0].url);
-                      }).then(r=>{
-                          var link=""
-                          if(r.response.song.media.length!==0) {
-                              for (var i = 0; i < r.response.song.media.length; i++) {
-                                  if (r.response.song.media[i].provider === "youtube") {
-                                      link = r.response.song.media[i].url
-                                  }
-                              }
-                              //var link = r.response.song.media[0].url;
-                              link = link.split('=')[1];
-                              console.log(link)
-
-                              document.getElementById('youtubeLabel').style.display='block'
-                              var linkFormat = "https://www.youtube.com/embed/" + link + "";
-                              console.log(linkFormat);
-                              video.innerHTML = '<iframe src=' + linkFormat + ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                          }else {
-                              return "not media found"
-                          }
-
-                      });
-                  });
-                  var lyrics = document.getElementById('lyrics');
-                  var songName = song
-                  console.log(songName)
-                  songName = songName.substring(0,songName.indexOf("("));
-                  songName=songName.split(' ').join('%2520')
-                  console.log(songName)
-                  var artistName = entity;
-                  artistName = artistName.substring(0,clip.indexOf("("));
-                  var settings = {
-                      "async": true,
-                      "crossDomain": true,
-                      "url": "https://canarado-lyrics.p.rapidapi.com/lyrics/"+songName+"",
-                      "method": "GET",
-                      "headers": {
-                          "x-rapidapi-host": "canarado-lyrics.p.rapidapi.com",
-                          "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
-                      }
-                  }
-                  $.ajax(settings).done(function (response) {
-                      console.log(response);
-                  }).then(r=>{
-                      console.log(r)
-                      var index = 0;
-                      for(var i=0;i<r.content.length;i++)
-                      {
-                          if(r.content[i].artist.includes(artistName)===true)
-                          {
-                              index = i
-                          }
-                      }
-                      var text = r.content[index].lyrics
-
-                      //lyrics.innerHTML += text;
-                  });
-              };
+            //lyrics.innerHTML += text;
+        });
+    };
 
 
 

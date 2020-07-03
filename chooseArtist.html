@@ -61,58 +61,20 @@
             <!--search entity div-->
             <div class="container-fluid" id="searchEntityDiv">
                 <div class="col">
-                    <h2>Music Entity</h2>
-                    <label>
-                        <h4>Artists Search</h4>
+                    <!-- ADD OPTION FOR MOVIES -->
+                    <h2 id="subjectLabel" ></h2>
+                    <label >
+                        <h4 id="entitiesLabel"></h4>
                     </label>
                     <div class="input-group">
-                        <input class="form-control" id="searchEntity" list="entities" name="entity" placeholder="Type to search..." >
+                        <input class="form-control" id="searchEntity" list="entities" name="entity" autocomplete="off" placeholder="Type to search..." >
                         <datalist id="entities">
 
                         </datalist>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary" id="entityBtn" onclick = "chooseEntity()">Submit</button>
+                            <button type="button" class="btn btn-primary" id="entityBtn" >Submit</button>
                         </span>
-                        <!--<input id="entityBtn" type="submit" onclick = "chooseEntity()">-->
                     </div>
-
-                    <!--<div class="row" id="checkDiv">-->
-                        <!--<div class="panel-footer" >-->
-                            <!--&lt;!&ndash;<div id="checkDiv">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<h4>Are You Interested in</h4>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<input id="work" type="submit" value="work content" >&ndash;&gt;-->
-                            <!--&lt;!&ndash;<input id="personal" type="submit" value="personal content" >&ndash;&gt;-->
-                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                            <!--<h4>Are You Interested in:</h4>-->
-                            <!--<div class="row">-->
-                                <!--<div class="col-xs-6">-->
-                                    <!--<button id="work" type="button" class="btn btn-primary">work content</button>-->
-                                    <!--&lt;!&ndash;<input type="radio" name="choice" value="band">band<br>&ndash;&gt;-->
-                                <!--</div>-->
-                                <!--<div class="col-xs-6">-->
-                                    <!--<button id="personal" type="button" class="btn btn-primary">personal content</button>-->
-                                    <!--&lt;!&ndash;<input type="radio" name="choice" value="artist">artist&ndash;&gt;-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="panel-footer" id="radioDiv2">-->
-                            <!--&lt;!&ndash;<form id="radioDiv2">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<input type="radio" name="albumsOrSongs" value="albums">albums<br>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<input type="radio" name="albumsOrSongs" value="songs">songs&ndash;&gt;-->
-                            <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                            <!--<h4>Are You Interested in:</h4>-->
-                            <!--<div class="row">-->
-                                <!--<div class="col-xs-6">-->
-                                    <!--<button type="button" class="btn btn-primary">Click For Albums</button>-->
-                                <!--</div>-->
-                                <!--<div class="col-xs-6">-->
-                                    <!--<button type="button" class="btn btn-primary">Click For Songs</button>-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-                        <!--</div>-->
-                    <!--</div>-->
-
                 </div>
             </div>
         </div>
@@ -148,34 +110,55 @@
 <script src="./SparqlQueryAlbumTracks.js"></script>
 
 <script>
-    var loading = document.getElementById("loading");
+    //get entity's name and QID from previous page
+    const params = new URLSearchParams(window.location.search);
+    var artist = params.get('artist');
+    console.log(artist);
 
+    var subjectLabel= document.getElementById("subjectLabel");//
+    var entitiesLabel= document.getElementById("entitiesLabel");//
+    //change labels according to subject and entity kind, singer/actor/director
+    if(artist ==='singer'){
+        subjectLabel.innerText= "Music Entity";
+        entitiesLabel.innerText = "Singers Search";
+    }
+    else if(artist ==='actor'){
+        subjectLabel.innerText= "Movies Entity";
+        entitiesLabel.innerText = "Actors Search";
+    }
+    else if(artist ==='director'){
+        subjectLabel.innerText= "Movies Entity";
+        entitiesLabel.innerText = "Directors Search";
+    }
+    ///////////////////
+    var loading = document.getElementById("loading");
     function showloading() {loading.style.display = "block";}
     function hideLoading() {loading.style.display = "none";}
-
-
     var searchEntityDiv = document.getElementById("searchEntityDiv");
     var searchEntity = document.getElementById("searchEntity");
     var entitiesDataList = document.getElementById("entities");
     var entityBtn = document.getElementById("entityBtn");
-    // var checkDiv = document.getElementById("checkDiv");
-    // var workInput = document.getElementById("work");
-    // var personalInput = document.getElementById("personal");
 
-    // searchEntityDiv.style.display = "none";
-    // searchEntity.style.display = "none";
-    // entitiesDataList.style.display = "none";
-    // entityBtn.style.display = "none";
-    // checkDiv.style.display = "none";
-    // workInput.style.display = "none";
-    // personalInput.style.display = "none";
 
     console.log("artists");
     bOrA = "artists";
     var artistsList=[];
     showloading();
     //retrieve list all artists in Wikidata
-    $.getJSON('datafiles/artists.json', function (jd) {
+    var listPath ="";
+    if(artist === 'singer'){
+        listPath = 'datafiles/artists.json';
+    }
+    else if(artist ==='actor'){
+        listPath = 'datafiles/actors.json';
+    }
+    else if(artist ==='director'){
+        listPath = 'datafiles/directors.json';
+    }
+    //
+    //datafiles/filmDirectors.json
+
+    $.getJSON(listPath, function (jd) {
         for (var i = 0; i < jd.results.bindings.length; i++) {
             var parts = jd.results.bindings[i].person.value.split("/");
             var result = parts[parts.length - 1]; // Or parts.pop();
@@ -189,32 +172,18 @@
     }).then(()=>{
         hideLoading();
         searchEntity.value = "";
-
         entityBtn.onclick = ()=>{
-            //if input is invalid
-            if(artistsList.indexOf(searchEntity.value) === -1){
+            if(artistsList.indexOf(searchEntity.value) === -1){//if input is invalid
                 searchEntity.value = "";
                 //
                 //alert or logout a message => "invalid input try again"
-
-                ////////////////////////////
             }
             else{//artist is in DB
-                //get entity's personal data , list of songs and list of albums
-                console.log(searchEntity.value);
-
-                req(searchEntity.value,bOrA);
-                songsreq(searchEntity.value,bOrA);
-                albumreq(searchEntity.value,bOrA);
-
-                showloading();
-                setTimeout(function(){
-                    //redirect to workOrPersonalContent.html and send label and QID
-                    var labelAndQid = searchEntity.value.slice(0, -1).split('(');
-                    var dirLocation = location.href;
-                    dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/workOrPersonalContent.html');
-                    window.location.href = dirLocation + '?label=' + labelAndQid[0] +'&qid='+ labelAndQid[1]+'&bOrA='+ bOrA; // go to workOrPersonalContent  page                    hideLoading();
-                },10000);
+                //redirect to workOrPersonalContent.html and send label and QID
+                var labelAndQid = searchEntity.value.slice(0, -1).split('(');
+                var dirLocation = location.href;
+                dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/workOrPersonalContent.html');
+                window.location.href = dirLocation + '?label=' + labelAndQid[0] +'&qid='+ labelAndQid[1]+'&bOrA='+ bOrA+'&artist='+ artist; // go to workOrPersonalContent
 
             }
         };

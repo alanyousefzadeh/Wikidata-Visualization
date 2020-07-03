@@ -139,7 +139,10 @@
      console.log(params.get('label'));
      console.log(params.get('qid'));
      console.log(params.get('bOrA'));
+     console.log(params.get('artist'));
      var bOrA = params.get('bOrA');
+
+     var artist =params.get('artist');
 
      var entity = params.get('label') +"(" + params.get('qid')+")";
      label.innerText= entity;
@@ -161,10 +164,21 @@
     // var albumsBtn = document.getElementById("albumsBtn");
     // var songsBtn = document.getElementById("songsBtn");
     workBtn.onclick=()=>{
-        //redirect to albumsOrSongsContent.html and send label and QID
-        var dirLocation = location.href;
-        dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/albumsOrSongsContent.html');
-        window.location.href = dirLocation + '?label=' + params.get('label') +'&qid='+ params.get('qid')+'&bOrA='+ bOrA; // go to albumsOrSongsContent.html  page
+        //IF IN MOVIES
+        // GO TO CHOOSE FEATURED MOVIES
+        // NEW PAGES, NEED TO CREATE NEW PAGE OR USE CHOOSE SONG GENERICALLY
+        if(artist ==="actor" || artist ==="director"){//in Movies
+            //redirect to choose movie
+
+        }
+        else if(artist ==="singer" || artist ==="band"){//in Music
+
+            //redirect to albumsOrSongsContent.html and send label and QID
+            var dirLocation = location.href;
+            dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/albumsOrSongsContent.html');
+            window.location.href = dirLocation + '?label=' + params.get('label') +'&qid='+ params.get('qid')+'&bOrA='+ bOrA; // go to albumsOrSongsContent.html
+        }
+
     };
 
     personalBtn.onclick= ()=>{
@@ -176,7 +190,7 @@
 
             const db = firebase.database();
             var uref = "";
-            var usersRef =""
+            var usersRef ="";
 
 
         if (bOrA === "artists") {
@@ -194,8 +208,8 @@
             var exists = (snapshot.val() !== null);
             //if personal info of artist already exist make firebase req
             if (exists) {
-                console.log("artist already exists")
-                showloading()
+                console.log("artist already exists");
+                showloading();
                 uref.once('value').then(function (snapshot) {
                     //here we will get data
                     //enter your field name
@@ -206,18 +220,18 @@
                     //////
                     // document.getElementById("chartdivwrapper").style.height="100vh";
 
-                    buildGraph(personalInfo)
+                    buildGraph(personalInfo);
                     hideLoading()
                 })
 
             } else {
                 //if personal info of artist does not exist on firebase wait for promise from req
-                showloading()
+                showloading();
                 req(entity,bOrA).then(res=>
                 {
-                    console.log(res)
-                    buildGraph(res)
-                    hideLoading()
+                    console.log(res);
+                    buildGraph(res);
+                    hideLoading();
                 })
             }
         });

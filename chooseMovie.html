@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="newStyles.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--<title>Wikidata Visualization Engine</title>-->
+    <!--<link rel="stylesheet" type="text/css" href="styles.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-hierarchy.v1.min.js"></script>
+<script src="AmchartGraph/core.js"></script>
+<script src="AmchartGraph/charts.js"></script>
+<script src="AmchartGraph/themes/animated.js"></script>
+<script src="AmchartGraph/plugins/forceDirected.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCaxMo8rfeEkDWTlAXZy_-rNcTqxpFLh_s",
+        authDomain: "wikidata-visualization.firebaseapp.com",
+        databaseURL: "https://wikidata-visualization.firebaseio.com",
+        projectId: "wikidata-visualization",
+        storageBucket: "wikidata-visualization.appspot.com",
+        messagingSenderId: "44744854813",
+        appId: "1:44744854813:web:af01dc81d43b150c6565f4",
+        measurementId: "G-JZDLW4MY64"
+    };
+    firebase.initializeApp(firebaseConfig);
+</script>
+<script src="./newCode.js"></script>
+
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-3 sidenav" id="mainPage">
+            <div class="container-fluid">
+                <div class="row-fluid" id="header">
+                    <!--<h1>Wikidata<br>Visualization Engine</h1>-->
+                    <h1>Wikidata Visualization Engine</h1>
+                </div>
+            </div>
+
+
+            <!--search entity div-->
+            <div class="container-fluid" id="searchEntityDiv">
+                <div class="col">
+                    <h2>Movie Entity</h2>
+                    <label>
+                        <h3 id="label"></h3>
+                    </label>
+
+                    <h4>Search Movie</h4>
+
+                    <div class="input-group">
+                        <input class="form-control" id="searchMovie" list="movies" name="movie" autocomplete="off" placeholder="Type to search..." >
+                        <datalist id="movies">
+
+                        </datalist>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary" id="songBtn">Submit</button>
+                        </span>
+                        <!--<input id="entityBtn" type="submit" onclick = "chooseEntity()">-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--graph and legend-->
+        <div  class="col-sm-9" >
+            <div id="chartdiv"></div>
+        </div>
+
+        <div id="loading" style="display: none;">
+            <img id="loading-image" src="images/ajax-loader.gif" alt="Loading...">
+        </div>
+    </div>
+
+
+</div>
+<footer class="footer navbar-fixed-bottom">
+    <p>2020 © All Rights Reserved. </p>
+</footer>
+
+
+
+<!--<script src="./chooseSubject.html"></script>-->
+
+<script src="./amchartgraphbuid.js"></script>
+
+
+<script>
+    var label= document.getElementById("label");//
+    //get entity's name and QID from previous page
+    const params = new URLSearchParams(window.location.search);
+    console.log(params.get('label'));
+    console.log(params.get('qid'));
+    console.log(params.get('artist'));
+    var artist = params.get('artist');
+    var entity = params.get('label') +"(" + params.get('qid')+")";
+    label.innerText= entity;
+
+    var loading = document.getElementById("loading");
+
+    function showloading() {loading.style.display = "block";}
+    function hideLoading() {loading.style.display = "none";}
+
+    //fill data list
+    const db = firebase.database();
+    var usersRef ="";
+    var uref = "";
+    var tempRef= "";
+    ref="movies";
+    console.log(ref);
+
+    if(artist==="actor")
+    {
+        uref= db.ref('/actormovies');
+        usersRef= db.ref('actor'+ref+'/'+entity);
+    }
+    else if(artist==="director")
+    {
+        uref= db.ref('/directormovies');
+        usersRef=db.ref('director'+ref+'/'+entity);
+    }
+    var works = [];
+
+
+    usersRef.child(entity).once('value', function(snapshot) {
+        var exists = (snapshot.val() !== null);
+        //if list of movies already exist make firebase req
+        if (exists) {
+            console.log("artist already exists")
+            showloading();
+            uref.once('value').then(function (snapshot) {
+                //here we will get data
+                //enter your field name
+                //while (snapshot.val().albums===null){}
+                works = snapshot.val().movies;
+                var moviesList = document.getElementById("movies");
+                works.forEach(function(item){
+                    var option = document.createElement('option');
+                    option.value = item;
+                    moviesList.appendChild(option);
+                });
+                hideLoading()
+            })
+
+        }
+        else {
+            //if list of movies does not exist wait for promise from  req
+            showloading();
+            moviesreq(entity,bOrA).then(res=>
+            {
+                var moviesList = document.getElementById("movies");
+                res.forEach(function(item){
+                    var option = document.createElement('option');
+                    option.value = item;
+                    moviesList.appendChild(option);
+                });
+                hideLoading();
+            })
+        }
+    });
+
+    var movieBtn = document.getElementById("movieBtn");
+    movieBtn.onclick = ()=> {
+
+        var movie = document.getElementById("searchMovie").value;
+        console.log(movie);
+        if (artist === "actor") {
+            usersRef = db.ref('/actormoviesInfo');
+            uref = db.ref(artist + ref + 'Info/' + movie);
+
+        } else if (artist === "director") {
+            usersRef = db.ref('/directormoviesInfo');
+            uref = db.ref(artist + ref + 'Info/' + movie);
+        }
+
+        usersRef.child(song).once('value', function (snapshot) {
+            var exists = (snapshot.val() !== null);
+
+            //if list of movies already exist make firebase req
+
+            if (exists) {
+                showloading();
+                uref.once('value').then(function (snapshot) {
+
+                    while (snapshot.val().personal === null) {
+                    }
+                    var moviesinfo = snapshot.val().moviesInfo;
+
+                    buildGraph(moviesinfo);
+                    hideLoading();
+
+                })
+            } else {
+                //if list of movies does not exist wait for promise from  req
+                showloading();
+                moviesInfoReq(song, bOrA).then(res => {
+                    var info = res;
+                    buildGraph(info);
+                    hideLoading();
+                })
+            }
+
+
+        });
+    }
+
+
+
+</script>
+
+
+</body>
+</html>
