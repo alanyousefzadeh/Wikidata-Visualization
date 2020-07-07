@@ -82,7 +82,7 @@
                                 <option value="Sculpture" disabled="">Sculpture</option>
                                 <option value="Theater" disabled="">Theater</option>
                                 <option value="Typography" disabled="">Typography</option>
-                                <option value="Other" disabled="">Other</option>
+                                <option value="Other">Other</option>
                             </select>
                             <span class="input-group-btn">
                             <!--<button type="button" class="btn btn-primary" id="subjectBtn" onclick = "chooseSubject()">Submit</button>-->
@@ -200,6 +200,12 @@
                 dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/chooseArtist.html');
                 window.location.href = dirLocation + '?artist=' + artist ; // go to chooseArtist.html page
             };
+        }else if(subject ==="Other")
+        {
+            dirLocation = location.href;
+            dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/generalSearch.html');
+            window.location.href = dirLocation; // go to chooseArtist.html page
+
         }
     }
 

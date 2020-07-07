@@ -10,7 +10,7 @@ function buildGraph(info) {
     chart.logo.disabled = true;
 
   }
-  console.log(info)
+  //console.log(info)
   info=JSON.parse(info)
   am4core.useTheme(am4themes_animated);
 //var chart = am4core.create("zoom",am4charts.XYChart);
@@ -230,13 +230,13 @@ function buildGraph(info) {
         else{
           var wikiLink=target.dataItem.dataContext.children[0].article;
         }
-        console.log(wikiLink);
+        //console.log(wikiLink);
         var link = '<a href='+wikiLink+' target="_blank">Go to Wikipedia!</a><div class="embed-responsive embed-responsive-16by9" style="height:300px ; width: 600px; "><iframe class="embed-responsive-item" src='+wikiLink+'></iframe></div> ';
-        console.log(link);
+        //console.log(link);
 
 
         // var link = '<a href="https://en.wikipedia.org/wiki/'+ name +'" target="_blank">More info</a><div class="box" ><iframe src="https://en.wikipedia.org/wiki/' + name + '" width = "500px" height = "700px"></iframe></div> ';
-        console.log(link);
+        //console.log(link);
         if (target.dataItem) {
           currNode=target;
           if (target.dataItem.level===2){
