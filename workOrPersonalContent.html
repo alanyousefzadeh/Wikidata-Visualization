@@ -63,10 +63,12 @@
             <!--search entity div-->
             <div class="container-fluid" id="searchEntityDiv">
                 <div class="col">
-                    <h2>Music Entity</h2>
+                    <h2 id="subjectLabel" ></h2>
                     <label >
-                        <h4 id="label"></h4>
+                        <h4 id="entitiesLabel"></h4>
                     </label>
+
+                    <h3 id ="label"></h3>
 
                     <div class="row" id="checkDiv">
                         <div id="worksAndPersnalDiv" class="panel-footer" >
@@ -147,6 +149,28 @@
      var entity = params.get('label') +"(" + params.get('qid')+")";
      label.innerText= entity;
 
+     var subjectLabel= document.getElementById("subjectLabel");//
+     var entitiesLabel= document.getElementById("entitiesLabel");//
+     //change labels according to subject and entity kind, singer/actor/director
+     if(artist ==='singer'){
+         subjectLabel.innerText= "Music Entity";
+         entitiesLabel.innerText = "Singers Search";
+     }
+     else if (artist==='band')
+     {
+         subjectLabel.innerText= "Music Entity";
+         entitiesLabel.innerText = "Band Search";
+     }
+     else if(artist ==='actor'){
+         subjectLabel.innerText= "Movies Entity";
+         entitiesLabel.innerText = "Actors Search";
+     }
+     else if(artist ==='director'){
+         subjectLabel.innerText= "Movies Entity";
+         entitiesLabel.innerText = "Directors Search";
+     }
+
+     ///////////////////
 
     var loading = document.getElementById("loading");
 
@@ -168,7 +192,10 @@
         // GO TO CHOOSE FEATURED MOVIES
         // NEW PAGES, NEED TO CREATE NEW PAGE OR USE CHOOSE SONG GENERICALLY
         if(artist ==="actor" || artist ==="director"){//in Movies
-            //redirect to choose movie
+
+            var dirLocation = location.href;
+            dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/chooseMovie.html');
+            window.location.href = dirLocation + '?label=' + params.get('label') +'&qid='+ params.get('qid')+'&artist='+ artist; // go to albumsOrSongsContent.html
 
         }
         else if(artist ==="singer" || artist ==="band"){//in Music

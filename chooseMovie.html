@@ -74,11 +74,13 @@
 
                         </datalist>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary" id="songBtn">Submit</button>
+                            <button type="button" class="btn btn-primary" id="movieBtn">Submit</button>
                         </span>
                         <!--<input id="entityBtn" type="submit" onclick = "chooseEntity()">-->
                     </div>
-
+                    <label id="IMDBLabel">Movie Trailer</label>
+                    <div class="embed-responsive embed-responsive-16by9" id="IMDB"></div>
+                    <div class="embed-responsive embed-responsive-16by9" id="IMDBRating"></div>
                 </div>
             </div>
         </div>
@@ -104,6 +106,16 @@
 <!--<script src="./chooseSubject.html"></script>-->
 
 <script src="./amchartgraphbuid.js"></script>
+<script src="./sparqlMovies.js"></script>
+<script src="./sparqlMovieInfo.js"></script>
+<script src="./sparqlQuery.js"></script>
+<script src="./csvtoarray.js"></script>
+<script src="./csvtoarray2.js"></script>
+<script src="./sparklqueryForAlbums.js"></script>
+<script src="./sparqlqueryForSongs.js"></script>
+<script src="./SparqlQueryAlbumInfo.js"></script>
+<script src="./SparqlQuerySongsInfo.js"></script>
+<script src="./SparqlQueryAlbumTracks.js"></script>
 
 
 <script>
@@ -167,7 +179,7 @@
         else {
             //if list of movies does not exist wait for promise from  req
             showloading();
-            moviesreq(entity,bOrA).then(res=>
+            moviesReq(entity,artist).then(res=>
             {
                 var moviesList = document.getElementById("movies");
                 res.forEach(function(item){
@@ -180,21 +192,23 @@
         }
     });
 
+    var temp = ""
     var movieBtn = document.getElementById("movieBtn");
     movieBtn.onclick = ()=> {
 
         var movie = document.getElementById("searchMovie").value;
+         movie = movie.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
         console.log(movie);
         if (artist === "actor") {
             usersRef = db.ref('/actormoviesInfo');
-            uref = db.ref(artist + ref + 'Info/' + movie);
+            uref = db.ref(artist+ref+'Info/'+movie);
 
         } else if (artist === "director") {
             usersRef = db.ref('/directormoviesInfo');
             uref = db.ref(artist + ref + 'Info/' + movie);
         }
 
-        usersRef.child(song).once('value', function (snapshot) {
+        usersRef.child(movie).once('value', function (snapshot) {
             var exists = (snapshot.val() !== null);
 
             //if list of movies already exist make firebase req
@@ -203,9 +217,9 @@
                 showloading();
                 uref.once('value').then(function (snapshot) {
 
-                    while (snapshot.val().personal === null) {
-                    }
-                    var moviesinfo = snapshot.val().moviesInfo;
+                    var moviesinfo = snapshot.val().movieInfo;
+
+                    console.log(moviesinfo);
 
                     buildGraph(moviesinfo);
                     hideLoading();
@@ -214,13 +228,63 @@
             } else {
                 //if list of movies does not exist wait for promise from  req
                 showloading();
-                moviesInfoReq(song, bOrA).then(res => {
+                movieInfoReq(movie, artist).then(res => {
                     var info = res;
                     buildGraph(info);
                     hideLoading();
                 })
             }
 
+
+        });
+
+        var imdb = document.getElementById("IMDB")
+        var trailer = movie
+        trailer = trailer.substring(0,trailer.indexOf("("));
+
+        trailer=trailer.split(' ').join('%20')
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://movie-database-imdb-alternative.p.rapidapi.com/?page=1&r=json&s="+trailer+"",
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
+                "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+            }
+        }
+
+        $.ajax(settings).done(function (response) {
+            temp=response;
+            console.log(response);
+
+        }).then(res=>
+        {
+              var id = res.Search[0].imdbID;
+
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/"+id+"",
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "imdb-internet-movie-database-unofficial.p.rapidapi.com",
+                    "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+                }
+            }
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            }).then(res=>{
+
+                var rating = document.getElementById('IMDBRating')
+               var id = res.trailer.id
+
+                imdb.innerHTML += '<iframe src="https://www.imdb.com/videoembed/'+id+'" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no"></iframe>'
+                rating.innerHTML+='<label>IMDB Rating :'+res.rating+'</label>'
+                // var linkFormat = "https://www.youtube.com/embed/" + link + "";
+
+            });
 
         });
     }

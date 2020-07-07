@@ -2,7 +2,7 @@ var nested_data=""
 var res = "";
 var promiseRes = ""
 
-async function songsInfoReq(qid,type) {
+async function generalReq(qid,name) {
     function makeSPARQLQuery(endpointUrl, sparqlQuery, doneCallback) {
         var settings = {
             headers: {Accept: "text/csv"},
@@ -11,9 +11,9 @@ async function songsInfoReq(qid,type) {
         return $.ajax(endpointUrl, settings).then(doneCallback);
     }
 
-    var regExp = /\(([^)]+)\)/;
-    var identifier = regExp.exec(qid);
-    var qID = identifier[1]
+    // var regExp = /\(([^)]+)\)/;
+    // var identifier = regExp.exec(qid);
+    // var qID = identifier[1]
 
     var endpointUrl = 'https://query.wikidata.org/sparql',
         sparqlQuery = "PREFIX entity: <http://www.wikidata.org/entity/> \n" +
@@ -22,29 +22,29 @@ async function songsInfoReq(qid,type) {
             "             WHERE\n" +
             "             { \n" +
             "             	hint:Query hint:optimizer 'None'\n" +
-            "             	{	BIND(entity:"+qID+" AS ?valUrl) .\n" +
+            "             	{	BIND(entity:"+qid+" AS ?valUrl) .\n" +
             "             	BIND(\"N/A\" AS ?propUrl ) .\n" +
             "             	BIND(\"Name\"@en AS ?propLabel ) .\n" +
-            "                   entity:"+qID+" rdfs:label ?val .\n" +
+            "                   entity:"+qid+" rdfs:label ?val .\n" +
             "                  \n" +
             "                     FILTER (LANG(?val) = \"en\")\n" +
             "             } \n" +
             "              \n" +
             "                UNION\n" +
-            "                 {   BIND(entity:"+qID+" AS ?valUrl) .\n" +
+            "                 {   BIND(entity:"+qid+" AS ?valUrl) .\n" +
             "                     BIND(\"AltLabel\"@en AS ?propLabel ) .\n" +
-            "                     optional{entity:"+qID+" skos:altLabel ?val}.\n" +
+            "                     optional{entity:"+qid+" skos:altLabel ?val}.\n" +
             "                     FILTER (LANG(?val) = \"en\") \n" +
             "                 }\n" +
             "                 UNION\n" +
-            "                 {   BIND(entity:"+qID+" AS ?valUrl) .\n" +
+            "                 {   BIND(entity:"+qid+" AS ?valUrl) .\n" +
             "                     BIND(\"Description\"@en AS ?propLabel ) .\n" +
-            "                     optional{entity:"+qID+" schema:description ?val}.\n" +
+            "                     optional{entity:"+qid+" schema:description ?val}.\n" +
             "                     FILTER (LANG(?val) = \"en\") \n" +
             "                 }\n" +
             "               \n" +
             "               UNION\n" +
-            "                     {	entity:"+qID+" ?propUrl ?valUrl .\n" +
+            "                     {	entity:"+qid+" ?propUrl ?valUrl .\n" +
             "             		?property ?ref ?propUrl .\n" +
             "             		?property rdf:type wikibase:Property .\n" +
             "             		?property rdfs:label ?propLabel.\n" +
@@ -58,7 +58,7 @@ async function songsInfoReq(qid,type) {
             "                     BIND(?valUrl AS ?val)\n" +
             "             	}\n" +
             "               UNION\n" +
-            "             	{	entity:"+qID+" ?propUrl ?valUrl . \n" +
+            "             	{	entity:"+qid+" ?propUrl ?valUrl . \n" +
             "             		?property ?ref ?propUrl .\n" +
             "             		?property rdf:type wikibase:Property . \n" +
             "             		?property rdfs:label ?propLabel. \n" +
@@ -98,7 +98,8 @@ async function songsInfoReq(qid,type) {
 
     promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
             var str = "";
-            var name = qid.substring(0, qid.indexOf("("));
+            // var name = qid.substring(0, qid.indexOf("("));
+            // console.log(qid)
             /*var fixed = "\n\"fixed\":\"true\",\n" +
                 "  \"x\":\" \",\n" +
                 "  \"y\":\" \","*/
@@ -131,10 +132,9 @@ async function songsInfoReq(qid,type) {
 
             //nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\"\n,"+fixed+"\n\"children\":");
 
-           nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\",\n\"children\":");
+            nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\",\n\"children\":");
 
-
-        console.log(nested_data)
+            console.log(nested_data)
 
             nested_data = JSON.parse(nested_data)
 
@@ -147,25 +147,19 @@ async function songsInfoReq(qid,type) {
             str=nested_data;
             const db = firebase.database();
             var usersRef =""
-            if(type==="artists") {
-                usersRef = db.ref('/artistsongsInfo');
-            }
-            else if(type==="bands")
-            {
-                usersRef = db.ref('/bandssongsInfo');
-            }
-            const normalUsersRef = usersRef.child('normal_users');
-            const superUsersRef = usersRef.child('super_users');
-            usersRef.child(qid).once('value', function(snapshot) {
+
+                usersRef = db.ref('/generalEntities');
+
+            usersRef.child(name).once('value', function(snapshot) {
 
                 var exists = (snapshot.val() !== null);
 
                 if (exists) {
-                    console.log("artist already exists")
+                    console.log("entity already exists")
                 } else {
-                    console.log("artist doesn't exist exists")
-                    usersRef.child(qid).set({songsInfo: str,});
-                    console.log("artist added")
+                    console.log("entity doesn't exist exists")
+                    usersRef.child(name).set({general: str,});
+                    console.log("entity added")
                 }
             });
             return str;
