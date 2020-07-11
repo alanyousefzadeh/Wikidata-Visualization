@@ -84,6 +84,20 @@
 
         <!--graph and legend-->
         <div  class="col-sm-9" >
+            <!--alert div-->
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div id="alertPrompt" class="alert alert-danger collapse" role="alert">
+
+                            <h2 class="alert-heading">Invalid input!</h2>
+                            <p>Make sure to enter an entity from the list</p>
+                            <p>Like so : entity name(entity id)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--graph div-->
             <div id="chartdiv"></div>
         </div>
 
@@ -163,7 +177,7 @@
                 //here we will get data
                 //enter your field name
                 //while (snapshot.val().albums===null){}
-                    works = snapshot.val().albums;
+                works = snapshot.val().albums;
                 var albumsList = document.getElementById("albums");
                 works.forEach(function(item){
                     var option = document.createElement('option');
@@ -175,9 +189,10 @@
 
         } else {
             //if list of albums doesn not exist wait from promise req
-            showloading()
+            showloading();
             albumreq(entity,bOrA).then(res=>
             {
+                works = res;
                 var albumsList = document.getElementById("albums");
                 res.forEach(function(item){
                     var option = document.createElement('option');
@@ -194,55 +209,64 @@
     albumBtn.onclick = ()=>{
 
         var album = document.getElementById("searchAlbum").value;
-        console.log(album);
-        if(bOrA==="artists")
-        {
-            usersRef = db.ref('/artistAlbumsInfo');
-            uref= db.ref('artist'+ref+'Info/'+album);
-
-        }else if(bOrA==="bands")
-        {
-            usersRef = db.ref('/bandsAlbumsInfo');
-            uref=db.ref('bands'+ref+'Info/'+album);
-        }
-
-        usersRef.child(album).once('value', function(snapshot) {
-            var exists = (snapshot.val() !== null);
-
-            //if list of albums info  already exist make firebase req
-
-            if (exists) {
-                showloading()
-                uref.once('value').then(function (snapshot) {
-
-                    while (snapshot.val().personal===null){}
-                    var albuminfo = snapshot.val().albumInfo;
-
-                    buildGraph(albuminfo)
-                    hideLoading()
-                })
-            } else
+        /////////CHECK FOR VALID INPUT!!!!!!!!!!!!!!!!!!!!//////////
+        if(works.indexOf(album) !== -1){//album is in works list
+            console.log(album);
+            if(bOrA==="artists")
             {
-                //if list of albums info doesn not exist wait from promise req
+                usersRef = db.ref('/artistAlbumsInfo');
+                uref= db.ref('artist'+ref+'Info/'+album);
 
-                showloading()
-                albumInfoReq(album,bOrA).then(res=>{
-                    //var r is just used to receive promised but its not implemented
-                    var r = res;
-                    console.log(r)
-                    //we used for this req local storage because of sync problems with this specific promise
-                    var info =localStorage.getItem('res')
-                    console.log(info)
-                    buildGraph(info)
-                    hideLoading();
-                })
+            }else if(bOrA==="bands")
+            {
+                usersRef = db.ref('/bandsAlbumsInfo');
+                uref=db.ref('bands'+ref+'Info/'+album);
             }
 
+            usersRef.child(album).once('value', function(snapshot) {
+                var exists = (snapshot.val() !== null);
 
-        })
+                //if list of albums info  already exist make firebase req
+
+                if (exists) {
+                    showloading()
+                    uref.once('value').then(function (snapshot) {
+
+                        while (snapshot.val().personal===null){}
+                        var albuminfo = snapshot.val().albumInfo;
+
+                        buildGraph(albuminfo)
+                        hideLoading()
+                    })
+                } else
+                {
+                    //if list of albums info doesn not exist wait from promise req
+
+                    showloading()
+                    albumInfoReq(album,bOrA).then(res=>{
+                        //var r is just used to receive promised but its not implemented
+                        var r = res;
+                        console.log(r)
+                        //we used for this req local storage because of sync problems with this specific promise
+                        var info =localStorage.getItem('res')
+                        console.log(info)
+                        buildGraph(info)
+                        hideLoading();
+                    })
+                }
 
 
-
+            })
+        }
+        else{//invalid input
+            // console.log("invalid input");
+            document.getElementById("searchAlbum").value = "";
+            //alert or logout a message => invalid input try again
+            $('#alertPrompt').show('fade');
+            setTimeout(function () {
+                $('#alertPrompt').hide('hide');
+            },5000)
+        }
 
 
     };

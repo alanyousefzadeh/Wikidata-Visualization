@@ -4,6 +4,8 @@ chart.logo.disabled = true;
 
 var networkSeries = null;
 function buildGraph(info) {
+  am4core.disposeAllCharts();
+
   if(chart._disposed===true)
   {
      chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);

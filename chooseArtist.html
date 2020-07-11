@@ -81,8 +81,23 @@
 
         <!--graph and legend-->
         <div  class="col-sm-9" >
+            <!--alert div-->
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div id="alertPrompt" class="alert alert-danger collapse" role="alert">
+
+                            <h2 class="alert-heading">Invalid input!</h2>
+                            <p>Make sure to enter an entity from the list</p>
+                            <p>Like so : entity name(entity id)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--graph div-->
             <div id="chartdiv"></div>
         </div>
+
 
         <div id="loading" style="display: none;">
             <img id="loading-image" src="images/ajax-loader.gif" alt="Loading...">
@@ -110,6 +125,8 @@
 <script src="./SparqlQueryAlbumTracks.js"></script>
 
 <script>
+    // $('.alert').hide();
+
     //get entity's name and QID from previous page
     const params = new URLSearchParams(window.location.search);
     var artist = params.get('artist');
@@ -175,8 +192,12 @@
         entityBtn.onclick = ()=>{
             if(artistsList.indexOf(searchEntity.value) === -1){//if input is invalid
                 searchEntity.value = "";
-                //
-                //alert or logout a message => "invalid input try again"
+                //alert or logout a message => invalid input try again
+                $('#alertPrompt').show('fade');
+                setTimeout(function () {
+                    $('#alertPrompt').hide('hide');
+                },5000)
+
             }
             else{//artist is in DB
                 //redirect to workOrPersonalContent.html and send label and QID

@@ -89,6 +89,19 @@
 
         <!--graph and legend-->
         <div  class="col-sm-9" >
+            <!--alert div-->
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div id="alertPrompt" class="alert alert-danger collapse" role="alert">
+
+                            <h2 class="alert-heading">Invalid input!</h2>
+                            <p>Make sure to enter an entity from the list</p>
+                            <p>Like so : entity name(entity id)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="chartdiv"></div>
         </div>
 
@@ -195,8 +208,8 @@
         var exists = (snapshot.val() !== null);
         //if list of songs already exist make firebase req
         if (exists) {
-            console.log("artist already exists")
-            showloading()
+            console.log("artist already exists");
+            showloading();
             uref.once('value').then(function (snapshot) {
                 //here we will get data
                 //enter your field name
@@ -213,9 +226,10 @@
 
         } else {
             //if list of songs does not exist wait for promise from  req
-            showloading()
+            showloading();
             songsreq(entity,bOrA).then(res=>
             {
+                works = res;
                 var songsList = document.getElementById("songs");
                 res.forEach(function(item){
                     var option = document.createElement('option');
@@ -229,92 +243,64 @@
 
     var songBtn = document.getElementById("songBtn");
     songBtn.onclick = ()=>{
-
         var song = document.getElementById("searchSong").value;
-        console.log(song);
-        if(bOrA==="artists")
-        {
-            usersRef = db.ref('/artistsongsInfo');
-            uref= db.ref('artist'+ref+'Info/'+song);
-
-        }else if(bOrA==="bands")
-        {
-            usersRef = db.ref('/bandssongsInfo');
-            uref=db.ref('bands'+ref+'Info/'+song);
-        }
-
-        usersRef.child(song).once('value', function(snapshot) {
-            var exists = (snapshot.val() !== null);
-
-            //if list of songs already exist make firebase req
-
-            if (exists) {
-                showloading()
-                uref.once('value').then(function (snapshot) {
-
-                    while (snapshot.val().personal===null){}
-                    var songsinfo = snapshot.val().songsInfo;
-
-                    buildGraph(songsinfo)
-                    hideLoading()
-
-                })
-            } else
+        if(works.indexOf(song) !== -1){//song is in works list
+            console.log(song);
+            if(bOrA==="artists")
             {
-                //if list of songs does not exist wait for promise from  req
+                usersRef = db.ref('/artistsongsInfo');
+                uref= db.ref('artist'+ref+'Info/'+song);
 
-                showloading()
-                songsInfoReq(song,bOrA).then(res=>{
-                    var info = res;
-                    buildGraph(info)
-                    hideLoading();
-                })
+            }else if(bOrA==="bands")
+            {
+                usersRef = db.ref('/bandssongsInfo');
+                uref=db.ref('bands'+ref+'Info/'+song);
             }
 
+            usersRef.child(song).once('value', function(snapshot) {
+                var exists = (snapshot.val() !== null);
 
-        })
+                //if list of songs already exist make firebase req
 
-        var video = document.getElementById("youtube")
+                if (exists) {
+                    showloading()
+                    uref.once('value').then(function (snapshot) {
 
-        var clip =song
-        clip = clip.substring(0,clip.indexOf("("));
+                        while (snapshot.val().personal===null){}
+                        var songsinfo = snapshot.val().songsInfo;
 
-        clip=clip.split(' ').join('%20')
+                        buildGraph(songsinfo)
+                        hideLoading()
 
-        console.log(clip)
-        var res=""
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://genius.p.rapidapi.com/search?q="+clip+"",
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "genius.p.rapidapi.com",
-                "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
-            }
-        }
-        $.ajax(settings).done(function (response) {
-            //localStorage.setItem('id',response.response.hits[0].result.id)
-            console.log(response)
-            console.log(response.response.hits[0].result.id)
-            //console.log(response.hits[0].id);
-        }).then(r=>{
-            var index;
-            var artist = entity;
-            artist = artist.substring(0,artist.indexOf("("));
-            console.log(artist)
-            for (var i=0;i<r.response.hits.length;i++)
-            {
-                if(r.response.hits[i].result.primary_artist.name.includes(artist)===true)
+                    })
+                } else
                 {
-                    console.log(r.response.hits[i].result.primary_artist.name)
-                    index = i;
+                    //if list of songs does not exist wait for promise from  req
+
+                    showloading()
+                    songsInfoReq(song,bOrA).then(res=>{
+                        var info = res;
+                        buildGraph(info)
+                        hideLoading();
+                    })
                 }
-            }
+
+
+            })
+
+            var video = document.getElementById("youtube")
+
+            var clip =song
+            clip = clip.substring(0,clip.indexOf("("));
+
+            clip=clip.split(' ').join('%20')
+
+            console.log(clip)
+            var res=""
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://genius.p.rapidapi.com/songs/"+r.response.hits[index].result.id+"",
+                "url": "https://genius.p.rapidapi.com/search?q="+clip+"",
                 "method": "GET",
                 "headers": {
                     "x-rapidapi-host": "genius.p.rapidapi.com",
@@ -322,70 +308,108 @@
                 }
             }
             $.ajax(settings).done(function (response) {
-                res=response;
+                //localStorage.setItem('id',response.response.hits[0].result.id)
                 console.log(response)
-                //localStorage.setItem('link', response.response.song.media[0].url);
+                console.log(response.response.hits[0].result.id)
+                //console.log(response.hits[0].id);
             }).then(r=>{
-                alert(r);
-                console.log(r)
-                var link=""
-                if(r.response.song.media.length!==0) {
-                    for (var i = 0; i < r.response.song.media.length; i++) {
-                        if (r.response.song.media[i].provider === "youtube") {
-                            link = r.response.song.media[i].url
-                        }
-                    }
-                    //var link = r.response.song.media[0].url;
-                    link = link.split('=')[1];
-                    console.log(link)
-                    document.getElementById('youtubeLabel').style.display="block"
-                    var linkFormat = "https://www.youtube.com/embed/" + link + "";
-                    console.log(linkFormat);
-                    video.innerHTML += '<label for="exampleFormControlTextarea1">Youtube video</label><iframe src=' + linkFormat + ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                }else {
-                    //return "not media found"
-
-                    video.innerHTML += '<label for="exampleFormControlTextarea1">The video is not on DB , Please choose from search</label><iframe "https://www.youtube.com/results?search_query=help+by+the+beatles" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-
-                   // https://www.youtube.com/embed/results?search_query=help+by+the+beatles
-                }
-
-            });
-        });
-        var lyrics = document.getElementById('lyrics');
-        var songName = song
-        console.log(songName)
-        songName = songName.substring(0,songName.indexOf("("));
-        songName=songName.split(' ').join('%2520')
-        console.log(songName)
-        var artistName = entity;
-        artistName = artistName.substring(0,clip.indexOf("("));
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://canarado-lyrics.p.rapidapi.com/lyrics/"+songName+"",
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "canarado-lyrics.p.rapidapi.com",
-                "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
-            }
-        }
-        $.ajax(settings).done(function (response) {
-            console.log(response);
-        }).then(r=>{
-            console.log(r)
-            var index = 0;
-            for(var i=0;i<r.content.length;i++)
-            {
-                if(r.content[i].artist===artistName)
+                var index;
+                var artist = entity;
+                artist = artist.substring(0,artist.indexOf("("));
+                console.log(artist)
+                for (var i=0;i<r.response.hits.length;i++)
                 {
-                    index = i
+                    if(r.response.hits[i].result.primary_artist.name.includes(artist)===true)
+                    {
+                        console.log(r.response.hits[i].result.primary_artist.name)
+                        index = i;
+                    }
+                }
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://genius.p.rapidapi.com/songs/"+r.response.hits[index].result.id+"",
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-host": "genius.p.rapidapi.com",
+                        "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+                    }
+                }
+                $.ajax(settings).done(function (response) {
+                    res=response;
+                    console.log(response)
+                    //localStorage.setItem('link', response.response.song.media[0].url);
+                }).then(r=>{
+                    alert(r);
+                    console.log(r)
+                    var link=""
+                    if(r.response.song.media.length!==0) {
+                        for (var i = 0; i < r.response.song.media.length; i++) {
+                            if (r.response.song.media[i].provider === "youtube") {
+                                link = r.response.song.media[i].url
+                            }
+                        }
+                        //var link = r.response.song.media[0].url;
+                        link = link.split('=')[1];
+                        console.log(link)
+                        document.getElementById('youtubeLabel').style.display="block"
+                        var linkFormat = "https://www.youtube.com/embed/" + link + "";
+                        console.log(linkFormat);
+                        video.innerHTML += '<label for="exampleFormControlTextarea1">Youtube video</label><iframe src=' + linkFormat + ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                    }else {
+                        //return "not media found"
+
+                        video.innerHTML += '<label for="exampleFormControlTextarea1">The video is not on DB , Please choose from search</label><iframe "https://www.youtube.com/results?search_query=help+by+the+beatles" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+
+                        // https://www.youtube.com/embed/results?search_query=help+by+the+beatles
+                    }
+
+                });
+            });
+            var lyrics = document.getElementById('lyrics');
+            var songName = song
+            console.log(songName)
+            songName = songName.substring(0,songName.indexOf("("));
+            songName=songName.split(' ').join('%2520')
+            console.log(songName)
+            var artistName = entity;
+            artistName = artistName.substring(0,clip.indexOf("("));
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://canarado-lyrics.p.rapidapi.com/lyrics/"+songName+"",
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "canarado-lyrics.p.rapidapi.com",
+                    "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
                 }
             }
-            var text = r.content[index].lyrics
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            }).then(r=>{
+                console.log(r)
+                var index = 0;
+                for(var i=0;i<r.content.length;i++)
+                {
+                    if(r.content[i].artist===artistName)
+                    {
+                        index = i
+                    }
+                }
+                var text = r.content[index].lyrics
 
-            lyrics.innerHTML += '<label for="exampleFormControlTextarea1">Lyrics</label><textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="5" disabled="disabled">'+text+'</textarea>'
-        });
+                lyrics.innerHTML += '<label for="exampleFormControlTextarea1">Lyrics</label><textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="5" disabled="disabled">'+text+'</textarea>'
+            });
+        }
+        else{//invalid input
+            document.getElementById("searchSong").value="";
+            //alert or logout a message => invalid input try again
+            $('#alertPrompt').show('fade');
+            setTimeout(function () {
+                $('#alertPrompt').hide('hide');
+            },5000)
+        }
+
     };
 
 

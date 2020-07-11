@@ -87,6 +87,19 @@
 
         <!--graph and legend-->
         <div  class="col-sm-9" >
+            <!--alert div-->
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div id="alertPrompt" class="alert alert-danger collapse" role="alert">
+
+                            <h2 class="alert-heading">Invalid input!</h2>
+                            <p>Make sure to enter an entity from the list</p>
+                            <p>Like so : entity name(entity id)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="chartdiv"></div>
         </div>
 
@@ -119,6 +132,7 @@
 
 
 <script>
+    document.getElementById("IMDBLabel").style.display = "none";
     var label= document.getElementById("label");//
     //get entity's name and QID from previous page
     const params = new URLSearchParams(window.location.search);
@@ -181,6 +195,7 @@
             showloading();
             moviesReq(entity,artist).then(res=>
             {
+                works = res;
                 var moviesList = document.getElementById("movies");
                 res.forEach(function(item){
                     var option = document.createElement('option');
@@ -192,101 +207,114 @@
         }
     });
 
-    var temp = ""
+    var temp = "";
     var movieBtn = document.getElementById("movieBtn");
     movieBtn.onclick = ()=> {
-
         var movie = document.getElementById("searchMovie").value;
-         movie = movie.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
-        console.log(movie);
-        if (artist === "actor") {
-            usersRef = db.ref('/actormoviesInfo');
-            uref = db.ref(artist+ref+'Info/'+movie);
+        if(works.indexOf(movie) !== -1){//movie is in works list
+            movie = movie.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
+            console.log(movie);
+            if (artist === "actor") {
+                usersRef = db.ref('/actormoviesInfo');
+                uref = db.ref(artist+ref+'Info/'+movie);
 
-        } else if (artist === "director") {
-            usersRef = db.ref('/directormoviesInfo');
-            uref = db.ref(artist + ref + 'Info/' + movie);
-        }
-
-        usersRef.child(movie).once('value', function (snapshot) {
-            var exists = (snapshot.val() !== null);
-
-            //if list of movies already exist make firebase req
-
-            if (exists) {
-                showloading();
-                uref.once('value').then(function (snapshot) {
-
-                    var moviesinfo = snapshot.val().movieInfo;
-
-                    console.log(moviesinfo);
-
-                    buildGraph(moviesinfo);
-                    hideLoading();
-
-                })
-            } else {
-                //if list of movies does not exist wait for promise from  req
-                showloading();
-                movieInfoReq(movie, artist).then(res => {
-                    var info = res;
-                    buildGraph(info);
-                    hideLoading();
-                })
+            } else if (artist === "director") {
+                usersRef = db.ref('/directormoviesInfo');
+                uref = db.ref(artist + ref + 'Info/' + movie);
             }
 
+            usersRef.child(movie).once('value', function (snapshot) {
+                var exists = (snapshot.val() !== null);
 
-        });
+                //if list of movies already exist make firebase req
 
-        var imdb = document.getElementById("IMDB")
-        var trailer = movie
-        trailer = trailer.substring(0,trailer.indexOf("("));
+                if (exists) {
+                    showloading();
+                    uref.once('value').then(function (snapshot) {
 
-        trailer=trailer.split(' ').join('%20')
-        var settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://movie-database-imdb-alternative.p.rapidapi.com/?page=1&r=json&s="+trailer+"",
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
-                "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
-            }
-        }
+                        var moviesinfo = snapshot.val().movieInfo;
 
-        $.ajax(settings).done(function (response) {
-            temp=response;
-            console.log(response);
+                        console.log(moviesinfo);
 
-        }).then(res=>
-        {
-              var id = res.Search[0].imdbID;
+                        buildGraph(moviesinfo);
+                        hideLoading();
 
+                    })
+                } else {
+                    //if list of movies does not exist wait for promise from  req
+                    showloading();
+                    movieInfoReq(movie, artist).then(res => {
+                        var info = res;
+                        buildGraph(info);
+                        hideLoading();
+                    })
+                }
+
+
+            });
+            document.getElementById("IMDBLabel").style.display = "block";
+
+            var imdb = document.getElementById("IMDB")
+            var trailer = movie
+            trailer = trailer.substring(0,trailer.indexOf("("));
+
+            trailer=trailer.split(' ').join('%20')
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/"+id+"",
+                "url": "https://movie-database-imdb-alternative.p.rapidapi.com/?page=1&r=json&s="+trailer+"",
                 "method": "GET",
                 "headers": {
-                    "x-rapidapi-host": "imdb-internet-movie-database-unofficial.p.rapidapi.com",
+                    "x-rapidapi-host": "movie-database-imdb-alternative.p.rapidapi.com",
                     "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
                 }
             }
 
             $.ajax(settings).done(function (response) {
+                temp=response;
                 console.log(response);
-            }).then(res=>{
 
-                var rating = document.getElementById('IMDBRating')
-               var id = res.trailer.id
+            }).then(res=>
+            {
+                var id = res.Search[0].imdbID;
 
-                imdb.innerHTML += '<iframe src="https://www.imdb.com/videoembed/'+id+'" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no"></iframe>'
-                rating.innerHTML+='<label>IMDB Rating :'+res.rating+'</label>'
-                // var linkFormat = "https://www.youtube.com/embed/" + link + "";
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://imdb-internet-movie-database-unofficial.p.rapidapi.com/film/"+id+"",
+                    "method": "GET",
+                    "headers": {
+                        "x-rapidapi-host": "imdb-internet-movie-database-unofficial.p.rapidapi.com",
+                        "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+                    }
+                }
+
+                $.ajax(settings).done(function (response) {
+                    console.log(response);
+                }).then(res=>{
+
+                    var rating = document.getElementById('IMDBRating')
+                    var id = res.trailer.id
+
+                    imdb.innerHTML += '<iframe src="https://www.imdb.com/videoembed/'+id+'" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no"></iframe>'
+                    rating.innerHTML+='<label>IMDB Rating :'+res.rating+'</label>'
+                    // var linkFormat = "https://www.youtube.com/embed/" + link + "";
+
+                });
 
             });
+        }
+        else{//invalid input
+            document.getElementById("searchMovie").value="";
+            //alert or logout a message => invalid input try again
+            $('#alertPrompt').show('fade');
+            setTimeout(function () {
+                $('#alertPrompt').hide('hide');
+            },5000)
 
-        });
+        }
+
+
     }
 
 
