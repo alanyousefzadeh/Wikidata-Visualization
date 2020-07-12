@@ -62,8 +62,11 @@
             <div class="container-fluid" id="searchEntityDiv">
                 <div class="col">
                     <h2>General Entity Search</h2>
-
+                    <label>
+                        <h2 id="label"></h2>
+                    </label>
                     <h4>Search Entity</h4>
+
 
                     <div class="input-group">
                         <input class="form-control" id="searchEntity" list="movies" name="movie" autocomplete="off" placeholder="Type to search..." >
@@ -171,7 +174,7 @@
                 var name = res.query.pages[pageId].title;
                 name = name.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
                 console.log(qid);
-                console.log(name)
+                console.log(name);
                 uref= db.ref('/generalEntities');
                 usersRef= db.ref('generalEntities/'+name);
 
@@ -187,7 +190,8 @@
                             while (snapshot.val().general === null) {
                             }
                             var moviesinfo = snapshot.val().moviesInfo;
-
+                            document.getElementById("label").innerText =name+'('+qid+')' ;//
+                            document.getElementById("searchEntity").value="";
                             buildGraph(moviesinfo);
                             hideLoading();
                         })
@@ -195,6 +199,8 @@
                         //if list of movies does not exist wait for promise from  req
                         showloading();
                         generalReq(qid,name).then(res => {
+                            document.getElementById("label").innerText =name+'('+qid+')' ;//
+                            document.getElementById("searchEntity").value="";
                             var info = res;
                             buildGraph(info);
                             hideLoading();

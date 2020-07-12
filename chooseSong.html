@@ -63,9 +63,9 @@
                 <div class="col">
                     <h2>Music Entity</h2>
                     <label>
-                        <h3 id="label"></h3>
+                        <h2 id="label"></h2>
+                        <h3 id="songLabel"></h3>
                     </label>
-
                     <h4>Search Song</h4>
 
                     <div class="input-group">
@@ -285,7 +285,8 @@
                     uref.once('value').then(function (snapshot) {
 
                         var songsinfo = snapshot.val().songsInfo;
-
+                        document.getElementById("songLabel").innerText = song ;
+                        document.getElementById("searchSong").value = "";
                         buildGraph(songsinfo)
                         hideLoading()
 
@@ -296,7 +297,10 @@
 
                     showloading()
                     songsInfoReq(song,bOrA).then(res=>{
+                        document.getElementById("songLabel").innerText = song ;
+                        document.getElementById("searchSong").value = "";
                         var info = res;
+
                         buildGraph(info)
                         hideLoading();
                     })
@@ -365,8 +369,8 @@
                     console.log(response)
                     //localStorage.setItem('link', response.response.song.media[0].url);
                 }).then(r=>{
-                    console.log(r)
-                    var link=""
+                    console.log(r);
+                    var link="";
                     if(r.response.song.media.length!==0) {
                         for (var i = 0; i < r.response.song.media.length; i++) {
                             if (r.response.song.media[i].provider === "youtube") {
@@ -376,7 +380,7 @@
                         //var link = r.response.song.media[0].url;
                         link = link.split('=')[1];
                         console.log(link)
-                        document.getElementById('youtubeLabel').style.display="block"
+                        document.getElementById('youtubeLabel').style.display="block";
                         var linkFormat = "https://www.youtube.com/embed/" + link + "";
                         console.log(linkFormat);
                         video.innerHTML += '<label for="exampleFormControlTextarea1">Youtube video</label><iframe src=' + linkFormat + ' frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
@@ -411,7 +415,7 @@
             $.ajax(settings).done(function (response) {
                 console.log(response);
             }).then(r=>{
-                console.log(r)
+                console.log(r);
                 var index = 0;
                 for(var i=0;i<r.content.length;i++)
                 {

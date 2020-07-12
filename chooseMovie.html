@@ -63,7 +63,8 @@
                 <div class="col">
                     <h2>Movie Entity</h2>
                     <label>
-                        <h3 id="label"></h3>
+                        <h2 id="label"></h2>
+                        <h3 id="movieLabel"></h3>
                     </label>
 
                     <h4>Search Movie</h4>
@@ -236,7 +237,8 @@
                         var moviesinfo = snapshot.val().movieInfo;
 
                         console.log(moviesinfo);
-
+                        document.getElementById("movieLabel").innerText = document.getElementById("searchMovie").value ;
+                        document.getElementById("searchMovie").value="";
                         buildGraph(moviesinfo);
                         hideLoading();
 
@@ -259,6 +261,8 @@
                             }, 5000)
                             hideLoading();
                         }else {
+                            document.getElementById("movieLabel").innerText = document.getElementById("searchMovie").value ;
+                            document.getElementById("searchMovie").value="";
                             var info = res;
                             buildGraph(info);
                             hideLoading();
@@ -266,11 +270,11 @@
                     })
                 }
             });
-            var imdb = document.getElementById("IMDB")
-            var trailer = movie
+            var imdb = document.getElementById("IMDB");
+            var trailer = movie;
             trailer = trailer.substring(0,trailer.indexOf("("));
-            var youtubeTrailer = trailer
-            trailer=trailer.split(' ').join('%20')
+            var youtubeTrailer = trailer;
+            trailer=trailer.split(' ').join('%20');
             var settings = {
                 "async": true,
                 "crossDomain": true,
