@@ -96,7 +96,7 @@ async function generalReq(qid,name) {
             "";
 
 
-    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
             var str = "";
             // var name = qid.substring(0, qid.indexOf("("));
             // console.log(qid)
@@ -164,12 +164,13 @@ async function generalReq(qid,name) {
             });
             return str;
 
-        }
-    ).then(function (result) {
-        res=result;
-        return result
-    })
-    res = Promise.resolve(res)
-    console.log(res)
-    return res;
+        })
+    // ).then(function (result) {
+    //     res=result;
+    //     return result
+    // })
+    // res = Promise.resolve(res)
+    // console.log(res)
+    // return res;
+    return promiseRes;
 }

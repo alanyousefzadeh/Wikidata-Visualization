@@ -159,13 +159,24 @@ footer {
 }
 
 #chartdiv {
-/width: 100%;/
-position: relative;
-    height: 700px;
-/max-height: 100vh;/
-/overflow-x: auto;/
-/overflow-y: auto;/
+    position: relative;
+        width: 100%;
+       height: 700px;
+       max-height: 100vh;
+        box-sizing: border-box;
+       display: inline-block;
 }
+
+
+
+/*#chartdiv {*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    height: 700px;*/
+/*    max-height: 100vh;*/
+/*    box-sizing: border-box;*/
+/*    display: inline-block;*/
+/*}*/
 /*/#legenddiv {/*/
 /* /position: relative;/*/
 /* /height: 100vh;/*/

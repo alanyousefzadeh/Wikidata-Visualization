@@ -77,7 +77,7 @@
                         </span>
                         <!--<input id="entityBtn" type="submit" onclick = "chooseEntity()">-->
                     </div>
-
+                    <div class="embed-responsive embed-responsive-16by9" id="playlist"></div>
                 </div>
             </div>
         </div>
@@ -97,7 +97,6 @@
                     </div>
                 </div>
             </div>
-            <!--graph div-->
             <div id="chartdiv"></div>
         </div>
 
@@ -105,15 +104,10 @@
             <img id="loading-image" src="images/ajax-loader.gif" alt="Loading...">
         </div>
     </div>
-
-
 </div>
 <footer class="footer navbar-fixed-bottom">
     <p>2020 © All Rights Reserved. </p>
 </footer>
-
-
-
 <!--<script src="./chooseSubject.html"></script>-->
 
 <script src="./amchartgraphbuid.js"></script>
@@ -177,7 +171,7 @@
                 //here we will get data
                 //enter your field name
                 //while (snapshot.val().albums===null){}
-                works = snapshot.val().albums;
+                    works = snapshot.val().albums;
                 var albumsList = document.getElementById("albums");
                 works.forEach(function(item){
                     var option = document.createElement('option');
@@ -189,17 +183,33 @@
 
         } else {
             //if list of albums doesn not exist wait from promise req
-            showloading();
+            showloading()
             albumreq(entity,bOrA).then(res=>
             {
-                works = res;
-                var albumsList = document.getElementById("albums");
-                res.forEach(function(item){
-                    var option = document.createElement('option');
-                    option.value = item;
-                    albumsList.appendChild(option);
-                    hideLoading()
-                });
+
+                if (res.length === 0) {
+                    document.getElementById("searchSong").value = "";
+
+                    var alertText = document.getElementById("alertPrompt");
+                    alertText.innerHTML = '   <h2 class="alert-heading">Entity Work Not Found!</h2>\n' +
+                        '                            <p>This artist has no albums on Wikidata</p>\n' +
+                        '                            <p>Please try other artists</p>'
+                    //alert or logout a message => invalid input try again
+                    $('#alertPrompt').show('fade');
+                    setTimeout(function () {
+                        $('#alertPrompt').hide('hide');
+                    }, 5000)
+                    hideLoading();
+                }else{works = res;
+                    var albumsList = document.getElementById("albums");
+                    res.forEach(function(item){
+                        var option = document.createElement('option');
+                        option.value = item;
+                        albumsList.appendChild(option);
+                        hideLoading()
+                    });}
+
+
             })
         }
     });
@@ -209,7 +219,8 @@
     albumBtn.onclick = ()=>{
 
         var album = document.getElementById("searchAlbum").value;
-        if(works.indexOf(album) !== -1){//album is in works list
+        if(works.indexOf(album) !== -1){
+            album = album.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
             console.log(album);
             if(bOrA==="artists")
             {
@@ -231,7 +242,6 @@
                     showloading()
                     uref.once('value').then(function (snapshot) {
 
-                        while (snapshot.val().personal===null){}
                         var albuminfo = snapshot.val().albumInfo;
 
                         buildGraph(albuminfo)
@@ -247,17 +257,13 @@
                         var r = res;
                         console.log(r)
                         //we used for this req local storage because of sync problems with this specific promise
-                        var info =localStorage.getItem('res')
-                        console.log(info)
-                        buildGraph(info)
+                        console.log(r)
+                        buildGraph(r)
                         hideLoading();
                     })
                 }
-
-
             })
-        }
-        else{//invalid input
+        }else{//invalid input
             // console.log("invalid input");
             document.getElementById("searchAlbum").value = "";
             //alert or logout a message => invalid input try again
@@ -266,8 +272,6 @@
                 $('#alertPrompt').hide('hide');
             },5000)
         }
-
-
     };
 
 

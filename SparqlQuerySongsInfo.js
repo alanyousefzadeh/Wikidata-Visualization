@@ -96,7 +96,7 @@ async function songsInfoReq(qid,type) {
             "";
 
 
-    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
             var str = "";
             var name = qid.substring(0, qid.indexOf("("));
             /*var fixed = "\n\"fixed\":\"true\",\n" +
@@ -170,12 +170,13 @@ async function songsInfoReq(qid,type) {
             });
             return str;
 
-        }
-    ).then(function (result) {
-        res=result;
-        return result
-    })
-    res = Promise.resolve(res)
-    console.log(res)
-    return res;
+        })
+    // ).then(function (result) {
+    //     res=result;
+    //     return result
+    // })
+    // res = Promise.resolve(res)
+    // console.log(res)
+    // return res;
+    return promiseRes;
 }

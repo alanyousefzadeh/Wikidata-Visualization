@@ -61,42 +61,60 @@
             <!--search entity div-->
             <div class="container-fluid" id="searchEntityDiv">
                 <div class="col">
-                    <h2>Music Entity</h2>
-                    <label >
-                        <h4 id="label">Bands Search</h4>
+                    <label>
+                        <h4>Please Select Entity</h4>
                     </label>
-                    <div id="searchBox" class="input-group">
-                        <input class="form-control" id="searchEntity" list="entities" name="entity" autocomplete="off"  placeholder="Type to search..." >
+                    <div class="input-group">
+                        <input class="form-control" id="searchEntity" list="entities" name="entity" placeholder="Type to search..." >
                         <datalist id="entities">
 
                         </datalist>
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary" id="entityBtn">Submit</button>
+                            <button type="button" class="btn btn-primary" id="entityBtn" onclick = "chooseEntity()">Submit</button>
                         </span>
+                        <!--<input id="entityBtn" type="submit" onclick = "chooseEntity()">-->
                     </div>
 
-                </div>
-            </div>
-        </div>
+                    <div class="row" id="checkDiv">
+                        <div class="panel-footer" >
+                            <!--<div id="checkDiv">-->
+                            <!--<h4>Are You Interested in</h4>-->
+                            <!--<input id="work" type="submit" value="work content" >-->
+                            <!--<input id="personal" type="submit" value="personal content" >-->
+                            <!--</div>-->
+                            <h4>Are You Interested in:</h4>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <button id="work" type="button" class="btn btn-primary">work content</button>
+                                    <!--<input type="radio" name="choice" value="band">band<br>-->
+                                </div>
+                                <div class="col-xs-6">
+                                    <button id="personal" type="button" class="btn btn-primary">personal content</button>
+                                    <!--<input type="radio" name="choice" value="artist">artist-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer" id="radioDiv2">
+                            <!--<form id="radioDiv2">-->
+                            <!--<input type="radio" name="albumsOrSongs" value="albums">albums<br>-->
+                            <!--<input type="radio" name="albumsOrSongs" value="songs">songs-->
+                            <!--</form>-->
+                            <h4>Are You Interested in:</h4>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <button type="button" class="btn btn-primary">Click For Albums</button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button type="button" class="btn btn-primary">Click For Songs</button>
+                                </div>
+                            </div>
 
-        <!--graph and legend-->
-        <div  class="col-sm-9" >
-            <!--alert div-->
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div id="alertPrompt" class="alert alert-danger collapse" role="alert">
-
-                            <h2 class="alert-heading">Invalid input!</h2>
-                            <p>Make sure to enter an entity from the list</p>
-                            <p>Like so : entity name(entity id)</p>
                         </div>
                     </div>
+
                 </div>
             </div>
-            <div id="chartdiv"></div>
         </div>
-
         <div id="loading" style="display: none;">
             <img id="loading-image" src="images/ajax-loader.gif" alt="Loading...">
         </div>
@@ -108,8 +126,32 @@
     <p>2020 © All Rights Reserved. </p>
 </footer>
 
+<script>
+     var searchEntityDiv = document.getElementById("searchEntityDiv");
+     var searchEntity = document.getElementById("searchEntity");
+     var entitiesDataList = document.getElementById("entities");
+     var entityBtn = document.getElementById("entityBtn");
+     var checkDiv = document.getElementById("checkDiv");
+     var workInput = document.getElementById("work");
+     var personalInput = document.getElementById("personal");
+
+     // searchEntityDiv.style.display = "none";
+     // searchEntity.style.display = "none";
+     // entitiesDataList.style.display = "none";
+     // entityBtn.style.display = "none";
+     checkDiv.style.display = "none";
+     workInput.style.display = "none";
+     personalInput.style.display = "none";
 
 
+
+     console.log(window.subject);
+
+     console.log(window.entities);
+</script>
+
+
+<!--<script src="./chooseSubject.html"></script>-->
 
 <script src="./amchartgraphbuid.js"></script>
 <script src="./sparqlQuery.js"></script>
@@ -120,77 +162,6 @@
 <script src="./SparqlQueryAlbumInfo.js"></script>
 <script src="./SparqlQuerySongsInfo.js"></script>
 <script src="./SparqlQueryAlbumTracks.js"></script>
-
-<script>
-    var loading = document.getElementById("loading");
-
-    function showloading() {loading.style.display = "block";}
-    function hideLoading() {loading.style.display = "none";}
-
-
-    var label= document.getElementById("label");//
-
-    var searchBox = document.getElementById("searchBox");//
-    var searchEntityDiv = document.getElementById("searchEntityDiv");
-    var searchEntity = document.getElementById("searchEntity");
-    var entitiesDataList = document.getElementById("entities");
-    var entityBtn = document.getElementById("entityBtn");
-
-
-    console.log("bands");
-    var bOrA = "bands";
-    var artist = "band";
-    // var entities =[];
-    var bandsList=[];
-    showloading();
-    //retrieve list all bands in Wikidata from firebase
-    $.getJSON('datafiles/bands2.json', function (jd) {
-        for (var i = 0; i < jd.results.bindings.length; i++) {
-            var parts = jd.results.bindings[i].musicalEnsemble.value.split("/");
-            var result = parts[parts.length - 1]; // Or parts.pop();
-            bandsList[i] = jd.results.bindings[i].musicalEnsembleLabel.value + "(" + result + ")";
-        }
-        bandsList.forEach(function (item) {
-            var option = document.createElement('option');
-            option.value = item;
-            entitiesDataList.appendChild(option);
-        });
-    }).then(()=>{
-        hideLoading();
-        searchEntity.value = "";
-
-        //////////////////////////
-        entityBtn.onclick = ()=>{
-            //if input is invalid
-            if(bandsList.indexOf(searchEntity.value) === -1){
-                searchEntity.value = "";
-                //alert or logout a message => invalid input try again
-                $('#alertPrompt').show('fade');
-                setTimeout(function () {
-                    $('#alertPrompt').hide('hide');
-                },5000)
-            }
-            else{//band is in DB
-                var labelAndQid = searchEntity.value.slice(0, -1).split('(');//
-                //redirect to workOrPersonalContent.html and send label and QID
-                var dirLocation = location.href;
-                dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/workOrPersonalContent.html');
-                var artistLabel= labelAndQid[0];
-                artistLabel = artistLabel.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
-                window.location.href = dirLocation + '?label=' + artistLabel +'&qid='+ labelAndQid[1]+'&bOrA='+ bOrA+'&artist='+ artist;//go to workOrPersonalContent
-            }
-        };
-    });
-
-
-
-
-
-
-
-</script>
-<!--<script src="./chooseSubject.html"></script>-->
-
 
 </body>
 </html>

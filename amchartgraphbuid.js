@@ -8,7 +8,7 @@ function buildGraph(info) {
 
   if(chart._disposed===true)
   {
-     chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
+    chart = am4core.create("chartdiv", am4plugins_forceDirected.ForceDirectedTree);
     chart.logo.disabled = true;
 
   }
@@ -55,7 +55,7 @@ function buildGraph(info) {
   chart.data.scrollable = true;
   chart.responsive.enabled = true;
   chart.resizable = true;
-   networkSeries = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
+  networkSeries = chart.series.push(new am4plugins_forceDirected.ForceDirectedSeries())
   networkSeries.scrollbarX = new am4charts.XYChartScrollbar();
   networkSeries.scrollbarX.series.push(networkSeries);
 

@@ -28,8 +28,8 @@ async function albumSongsReq (qid) {
 
 
 
-    wd:" + qID + "
-    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    //wd:" + qID + "
+    promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         //    var name = qid.substring(0, qid.indexOf("("));
 
         var d = d3.csvParse(data);
@@ -76,10 +76,12 @@ async function albumSongsReq (qid) {
         }
         console.log(songslist);
         return nested_data;
-    }).then(function (result) {
-        res=result;
-        return result
     })
-    res = Promise.resolve(res)
-    return res ;
+    // }).then(function (result) {
+    //     res=result;
+    //     return result
+    // })
+    // res = Promise.resolve(res)
+    // return res ;
+    return promiseRes;
 }

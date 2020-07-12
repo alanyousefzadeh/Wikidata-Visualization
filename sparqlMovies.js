@@ -34,7 +34,7 @@ async function moviesReq (qid,type) {
     }
 
     var movielist = [];
-    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         //    var name = qid.substring(0, qid.indexOf("("));
 
         var d = d3.csvParse(data);
@@ -105,11 +105,12 @@ async function moviesReq (qid,type) {
             }
         );
         return str;
-    }).then(function (result) {
-        res=result;
-        return result
-    })
-    res = Promise.resolve(res)
-    console.log(res)
-    return res ;
+    })// ).then(function (result) {
+    //     res=result;
+    //     return result
+    // })
+    // res = Promise.resolve(res)
+    // console.log(res)
+    // return res;
+    return promiseRes
 }

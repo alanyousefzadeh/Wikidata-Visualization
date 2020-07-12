@@ -96,8 +96,8 @@ async function albumInfoReq(qid,type) {
             "\n" +
             "";
 
-    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-            albumSongsReq(qid, type).then(listOfSongs => {
+    promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+            return albumSongsReq(qid, type).then(listOfSongs => {
                 console.log(listOfSongs)
                 listOfS=listOfSongs;
                 var name = qid.substring(0, qid.indexOf("("));
@@ -198,21 +198,23 @@ async function albumInfoReq(qid,type) {
                     }
                     //we used for this req local storage because of sync problems with this specific promise
 
-                    localStorage.setItem('res',str);
+                    //localStorage.setItem('res',str);
                 });
                 console.log(str)
                 //we used for this req local storage because of sync problems with this specific promise
-
-                localStorage.setItem('res',str);
+                //localStorage.setItem('res',str);
                 return str;
             });
-    }
-    ).then(function (result) {
-        res=result;
-        return result
-    })
-    res = Promise.resolve(res)
-    console.log(res)
-    return res;
+            //console.log(res)
+           // return res;
+    });
+    return promiseRes
+    // ).then(function (result) {
+    //     res=result;
+    //     return result
+    // })
+    // res = Promise.resolve(res)
+    // console.log(res)
+    // return res;
 }
 

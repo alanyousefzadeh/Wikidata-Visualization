@@ -81,7 +81,7 @@
 
                 </div>
             </div>
-            <label id="youtubeLabel">Lyrics</label>
+            <label id="youtubeLabel">Video Clip</label>
             <div class="embed-responsive embed-responsive-16by9" id="youtube"></div>
             <div id="lyrics" class="overflow-auto" style="padding-bottom: 20px"></div>
 
@@ -89,7 +89,6 @@
 
         <!--graph and legend-->
         <div  class="col-sm-9" >
-            <!--alert div-->
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -102,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div id="chartdiv"></div>
+            <div class="overflow-hidden" id="chartdiv"></div>
         </div>
 
         <div id="loading" style="display: none;">
@@ -208,13 +207,14 @@
         var exists = (snapshot.val() !== null);
         //if list of songs already exist make firebase req
         if (exists) {
-            console.log("artist already exists");
-            showloading();
+            console.log("artist already exists")
+            showloading()
             uref.once('value').then(function (snapshot) {
                 //here we will get data
                 //enter your field name
                 //while (snapshot.val().albums===null){}
                 works = snapshot.val().songs;
+                console.log(works)
                 var songsList = document.getElementById("songs");
                 works.forEach(function(item){
                     var option = document.createElement('option');
@@ -226,25 +226,43 @@
 
         } else {
             //if list of songs does not exist wait for promise from  req
-            showloading();
-            songsreq(entity,bOrA).then(res=>
-            {
-                works = res;
+            showloading()
+            songsreq(entity,bOrA).then(res=> {
+                if (res.length === 0) {
+                    document.getElementById("searchSong").value = "";
+
+                    var alertText = document.getElementById("alertPrompt");
+                    alertText.innerHTML = '   <h2 class="alert-heading">Entity Work Not Found!</h2>\n' +
+                        '                            <p>This artist has no songs on Wikidata</p>\n' +
+                        '                            <p>Please try other artists</p>'
+                    //alert or logout a message => invalid input try again
+                    $('#alertPrompt').show('fade');
+                    setTimeout(function () {
+                        $('#alertPrompt').hide('hide');
+                    }, 5000)
+                    hideLoading();
+                }
+                else{
+                    works = res;
                 var songsList = document.getElementById("songs");
-                res.forEach(function(item){
+                res.forEach(function (item) {
                     var option = document.createElement('option');
                     option.value = item;
                     songsList.appendChild(option);
                 });
                 hideLoading()
+                }
             })
         }
     });
 
     var songBtn = document.getElementById("songBtn");
     songBtn.onclick = ()=>{
+
         var song = document.getElementById("searchSong").value;
-        if(works.indexOf(song) !== -1){//song is in works list
+        //song is in works list
+        if(works.indexOf(song) !== -1){
+            song = song.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
             console.log(song);
             if(bOrA==="artists")
             {
@@ -266,7 +284,6 @@
                     showloading()
                     uref.once('value').then(function (snapshot) {
 
-                        while (snapshot.val().personal===null){}
                         var songsinfo = snapshot.val().songsInfo;
 
                         buildGraph(songsinfo)
@@ -325,22 +342,29 @@
                         index = i;
                     }
                 }
-                var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "https://genius.p.rapidapi.com/songs/"+r.response.hits[index].result.id+"",
-                    "method": "GET",
-                    "headers": {
-                        "x-rapidapi-host": "genius.p.rapidapi.com",
-                        "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+
+                var searchquery=clip+"+"+artist;
+                try {
+
+                    var settings = {
+                        "async": true,
+                        "crossDomain": true,
+                        "url": "https://genius.p.rapidapi.com/songs/"+r.response.hits[index].result.id+"",
+                        "method": "GET",
+                        "headers": {
+                            "x-rapidapi-host": "genius.p.rapidapi.com",
+                            "x-rapidapi-key": "ccf5c1b0bemshd28affca1200e92p11a5e7jsn8dbd4a815341"
+                        }
                     }
+                }catch (e) {
+                    console.log("song not found , youtube query")
+                    video.innerHTML += '<label for="exampleFormControlTextarea1">The video is not on DB , Please choose from search</label><iframe src="https://www.youtube.com/embed?listType=search&list='+searchquery+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
                 }
                 $.ajax(settings).done(function (response) {
                     res=response;
                     console.log(response)
                     //localStorage.setItem('link', response.response.song.media[0].url);
                 }).then(r=>{
-                    alert(r);
                     console.log(r)
                     var link=""
                     if(r.response.song.media.length!==0) {
@@ -359,7 +383,7 @@
                     }else {
                         //return "not media found"
 
-                        video.innerHTML += '<label for="exampleFormControlTextarea1">The video is not on DB , Please choose from search</label><iframe "https://www.youtube.com/results?search_query=help+by+the+beatles" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                        video.innerHTML += '<label for="exampleFormControlTextarea1">The video is not on DB , Please choose from search</label><iframe src="https://www.youtube.com/embed?listType=search&list='+searchquery+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
 
                         // https://www.youtube.com/embed/results?search_query=help+by+the+beatles
                     }
@@ -397,17 +421,17 @@
                     }
                 }
                 var text = r.content[index].lyrics
-
+                lyrics.innerHTML +='';
                 lyrics.innerHTML += '<label for="exampleFormControlTextarea1">Lyrics</label><textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="5" disabled="disabled">'+text+'</textarea>'
             });
-        }
-        else{//invalid input
+        }else{//invalid input
             document.getElementById("searchSong").value="";
             //alert or logout a message => invalid input try again
             $('#alertPrompt').show('fade');
             setTimeout(function () {
                 $('#alertPrompt').hide('hide');
             },5000)
+
         }
 
     };
