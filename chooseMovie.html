@@ -78,7 +78,7 @@
                         </span>
                         <!--<input id="entityBtn" type="submit" onclick = "chooseEntity()">-->
                     </div>
-                    <label id="IMDBLabel">Movie Trailer</label>
+                    <label id="IMDBLabel" style="display:none">Movie Trailer</label>
                     <div class="embed-responsive embed-responsive-16by9" id="IMDB"></div>
                     <div class="embed-responsive embed-responsive-16by9" id="IMDBRating"></div>
                 </div>
@@ -87,7 +87,6 @@
 
         <!--graph and legend-->
         <div  class="col-sm-9" >
-            <!--alert div-->
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -132,7 +131,6 @@
 
 
 <script>
-    document.getElementById("IMDBLabel").style.display = "none";
     var label= document.getElementById("label");//
     //get entity's name and QID from previous page
     const params = new URLSearchParams(window.location.search);
@@ -207,11 +205,14 @@
         }
     });
 
-    var temp = "";
+    var temp = ""
     var movieBtn = document.getElementById("movieBtn");
     movieBtn.onclick = ()=> {
+
         var movie = document.getElementById("searchMovie").value;
-        if(works.indexOf(movie) !== -1){//movie is in works list
+
+        //movie is in works list
+        if(works.indexOf(movie) !== -1){
             movie = movie.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
             console.log(movie);
             if (artist === "actor") {
@@ -244,20 +245,31 @@
                     //if list of movies does not exist wait for promise from  req
                     showloading();
                     movieInfoReq(movie, artist).then(res => {
-                        var info = res;
-                        buildGraph(info);
-                        hideLoading();
+                        if (res.length === 0) {
+                            document.getElementById("searchSong").value = "";
+
+                            var alertText = document.getElementById("alertPrompt");
+                            alertText.innerHTML = '   <h2 class="alert-heading">Entity Work Not Found!</h2>\n' +
+                                '                            <p>This artist has no movies on Wikidata</p>\n' +
+                                '                            <p>Please try other artists</p>'
+                            //alert or logout a message => invalid input try again
+                            $('#alertPrompt').show('fade');
+                            setTimeout(function () {
+                                $('#alertPrompt').hide('hide');
+                            }, 5000)
+                            hideLoading();
+                        }else {
+                            var info = res;
+                            buildGraph(info);
+                            hideLoading();
+                        }
                     })
                 }
-
-
             });
-            document.getElementById("IMDBLabel").style.display = "block";
-
             var imdb = document.getElementById("IMDB")
             var trailer = movie
             trailer = trailer.substring(0,trailer.indexOf("("));
-
+            var youtubeTrailer = trailer
             trailer=trailer.split(' ').join('%20')
             var settings = {
                 "async": true,
@@ -292,19 +304,30 @@
                 $.ajax(settings).done(function (response) {
                     console.log(response);
                 }).then(res=>{
-
                     var rating = document.getElementById('IMDBRating')
-                    var id = res.trailer.id
+                    if(res.trailer.id!=="") {
+                        var id = res.trailer.id
 
-                    imdb.innerHTML += '<iframe src="https://www.imdb.com/videoembed/'+id+'" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no"></iframe>'
-                    rating.innerHTML+='<label>IMDB Rating :'+res.rating+'</label>'
-                    // var linkFormat = "https://www.youtube.com/embed/" + link + "";
+                        document.getElementById('IMDBLabel').style.display = 'block'
+                        imdb.innerHTML += '<iframe src="https://www.imdb.com/videoembed/' + id + '" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no"></iframe>'
+                        rating.innerHTML += '<label>IMDB Rating :' + res.rating + '</label>'
+                        // var linkFormat = "https://www.youtube.com/embed/" + link + "";
+                    }else
+                    {
+                        var actorName=  entity.substring(0,trailer.indexOf("("));
+                        var searchquery = youtubeTrailer+"+"+actorName+"+trailer"
+                        console.log(searchquery)
+                        imdb.innerHTML=''
+                        rating.innerHTML=''
+                        imdb.innerHTML += '<label for="exampleFormControlTextarea1">The video is not on DB , Please choose from search</label><iframe src="https://www.youtube.com/embed?listType=search&list='+searchquery+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                        rating.innerHTML += '<label>IMDB Rating :' + res.rating + '</label>'
+                    }
 
                 });
 
             });
-        }
-        else{//invalid input
+
+        }else{//invalid input
             document.getElementById("searchMovie").value="";
             //alert or logout a message => invalid input try again
             $('#alertPrompt').show('fade');

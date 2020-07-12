@@ -146,7 +146,6 @@
     var actorsOrDirectors = document.getElementById("actorsOrDirectors");
     var actorsBtn = document.getElementById("actorsBtn");
     var directorsBtn = document.getElementById("directorsBtn");
-    //
     var dirLocation = "";
     var artist = "";
 
@@ -154,15 +153,10 @@
     window.onload = ()=>{
         bandsOrArtists.style.display = "none";
         actorsOrDirectors.style.display = "none";
-
-
         if(subjectsSelect.value === "Music" || subjectsSelect.value === "Movies"){
             subjectBtn.click();
         }
     };
-
-
-
     subjectBtn.onclick = () => {
         if(subjectsSelect){
             subject = subjectsSelect.value;

@@ -94,10 +94,8 @@
                     </div>
                 </div>
             </div>
-            <!--graph div-->
             <div id="chartdiv"></div>
         </div>
-
 
         <div id="loading" style="display: none;">
             <img id="loading-image" src="images/ajax-loader.gif" alt="Loading...">
@@ -125,8 +123,6 @@
 <script src="./SparqlQueryAlbumTracks.js"></script>
 
 <script>
-    // $('.alert').hide();
-
     //get entity's name and QID from previous page
     const params = new URLSearchParams(window.location.search);
     var artist = params.get('artist');
@@ -197,14 +193,15 @@
                 setTimeout(function () {
                     $('#alertPrompt').hide('hide');
                 },5000)
-
             }
             else{//artist is in DB
                 //redirect to workOrPersonalContent.html and send label and QID
                 var labelAndQid = searchEntity.value.slice(0, -1).split('(');
                 var dirLocation = location.href;
                 dirLocation = dirLocation.split("/").slice(0, -1).join("/").concat('/workOrPersonalContent.html');
-                window.location.href = dirLocation + '?label=' + labelAndQid[0] +'&qid='+ labelAndQid[1]+'&bOrA='+ bOrA+'&artist='+ artist; // go to workOrPersonalContent
+                var artistLabel= labelAndQid[0];
+                artistLabel = artistLabel.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
+                window.location.href = dirLocation + '?label=' + artistLabel +'&qid='+ labelAndQid[1]+'&bOrA='+ bOrA+'&artist='+ artist; // go to workOrPersonalContent
 
             }
         };

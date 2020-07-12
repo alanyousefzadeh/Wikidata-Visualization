@@ -21,13 +21,13 @@ async function albumreq (qid,type) {
             "}";
 
     var albumlist = [];
-    promiseRes = await makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
+    promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
         //    var name = qid.substring(0, qid.indexOf("("));
 
         var d = d3.csvParse(data);
 
         var nested_data = d3.nest()
-        //.key(function(d) { return "entity"; })
+            //.key(function(d) { return "entity"; })
             .entries(d);
 
         nested_data = JSON.stringify(nested_data, null, 2).replace(/"value":/g, '"name":')
@@ -50,50 +50,50 @@ async function albumreq (qid,type) {
 
         console.log(nested_data);
 
-        var listItem ="";
-        var id="";
-        var parts="";
+        var listItem = "";
+        var id = "";
+        var parts = "";
 
         var id = parts[parts.length - 1]; // Or parts.pop();
         for (var i = 0; i < nested_data.length; i++) {
             parts = nested_data[i].album.split("/");
-            id=parts[parts.length - 1];
-            listItem= nested_data[i].albumLabel+"("+id+")";
+            id = parts[parts.length - 1];
+            listItem = nested_data[i].albumLabel + "(" + id + ")";
             albumlist[i] = listItem;
         }
         const db = firebase.database();
         var str = albumlist;
-        var usersRef =""
-        if(type==="artists")
-        {
+        var usersRef = ""
+        if (type === "artists") {
             usersRef = db.ref('/artistAlbums');
 
-        }else if(type==="bands")
-        {
+        } else if (type === "bands") {
             usersRef = db.ref('/bandsAlbums');
 
         }
         console.log(usersRef)
-        usersRef.child(qid).once('value', function(snapshot) {
+        usersRef.child(qid).once('value', function (snapshot) {
 
                 var exists = (snapshot.val() !== null);
 
                 if (exists) {
-                    console.log(type+" already exists")
+                    console.log(type + " already exists")
                 } else {
-                    console.log(type+" doesn't exist exists")
+                    console.log(type + " doesn't exist exists")
 
                     usersRef.child(qid).set({albums: str,});
-                    console.log(type+" artist added")
+                    console.log(type + " artist added")
                 }
             }
         );
         return str;
-    }).then(function (result) {
-        res=result;
-        return result
     })
-    res = Promise.resolve(res)
-    console.log(res)
-    return res ;
+    // }).then(function (result) {
+    //     res=result;
+    //     return result
+    // })
+    // res = Promise.resolve(res)
+    // console.log(res)
+    // return res ;
+    return promiseRes;
 }

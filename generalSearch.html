@@ -150,9 +150,9 @@
     button = document.getElementById('generalBtn');
     button.onclick = ()=> {
         var ent = document.getElementById("searchEntity").value;
-        console.log(ent);
+        console.log(ent)
         ent=ent.split(' ').join('_');
-        console.log(ent);
+        console.log(ent)
         $.get("https://en.wikipedia.org/w/api.php?action=query&prop=pageprops&ppprop=wikibase_item&redirects=1&&indexpageids&format=json&titles="+ent+"&origin=*", function (data) {
             if (data.query.pageids[0]=== "-1"){
                 document.getElementById("searchEntity").value="";
@@ -162,25 +162,24 @@
                     $('#alertPrompt').hide('hide');
                 },5000);
             }
-            r = data;
+            r = data
             console.log(data)
-
         }).then(res=>{
             if(r.query.pageids[0] !== "-1"){
-                var pageId = r.query.pageids[0];
+                var pageId = r.query.pageids[0]
                 var qid = res.query.pages[pageId].pageprops.wikibase_item;
                 var name = res.query.pages[pageId].title;
+                name = name.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
                 console.log(qid);
-                console.log(name);
-
+                console.log(name)
                 uref= db.ref('/generalEntities');
-
-                //CHECK IF MAME IS PARSED PROPERLY !!!!!!!!!
                 usersRef= db.ref('generalEntities/'+name);
+
 
                 usersRef.child(name).once('value', function (snapshot) {
                     var exists = (snapshot.val() !== null);
 
+                    //if list of movies already exist make firebase req
                     if (exists) {
                         showloading();
                         uref.once('value').then(function (snapshot) {
@@ -193,6 +192,7 @@
                             hideLoading();
                         })
                     } else {
+                        //if list of movies does not exist wait for promise from  req
                         showloading();
                         generalReq(qid,name).then(res => {
                             var info = res;
@@ -200,6 +200,8 @@
                             hideLoading();
                         })
                     }
+
+
                 });
             }
 
