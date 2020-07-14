@@ -145,6 +145,9 @@ async function generalReq(qid,name) {
             nested_data= JSON.stringify(nested_data, null, 2)
 
             str=nested_data;
+        var currentDate=new Date();
+        var month = currentDate.getMonth()+1
+        console.log(month)
             const db = firebase.database();
             var usersRef =""
 
@@ -158,7 +161,7 @@ async function generalReq(qid,name) {
                     console.log("entity already exists")
                 } else {
                     console.log("entity doesn't exist exists")
-                    usersRef.child(name).set({general: str,});
+                    usersRef.child(name).set({general: str,monthDate:month});
                     console.log("entity added")
                 }
             });

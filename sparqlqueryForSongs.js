@@ -64,6 +64,9 @@ async function songsreq (qid,type) {
             albumlist[i] = listItem;
         }
 
+        var currentDate=new Date();
+        var month = currentDate.getMonth()+1
+        console.log(month)
         const db = firebase.database();
         var str = albumlist;
         var usersRef = ""
@@ -77,15 +80,9 @@ async function songsreq (qid,type) {
         console.log(usersRef)
         usersRef.child(qid).once('value', function (snapshot) {
 
-                var exists = (snapshot.val() !== null);
-
-                if (exists) {
-                    console.log(type + " already exists")
-                } else {
                     console.log(type + " doesn't exist exists")
-                    usersRef.child(qid).set({songs: str,});
+                    usersRef.child(qid).set({songs: str,monthDate:month});
                     console.log(type + " artist added")
-                }
             }
         );
 

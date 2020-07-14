@@ -118,7 +118,7 @@ function buildGraph(info) {
   networkSeries.nodes.template.expandAll = false;
   networkSeries.fontSize = 8;
 
-  networkSeries.currentLevel = 1;
+  //networkSeries.currentLevel = 1;
 
 
 
@@ -233,7 +233,7 @@ function buildGraph(info) {
           var wikiLink=target.dataItem.dataContext.children[0].article;
         }
         //console.log(wikiLink);
-        var link = '<a href='+wikiLink+' target="_blank">Go to Wikipedia!</a><div class="embed-responsive embed-responsive-16by9" style="height:300px ; width: 600px; "><iframe class="embed-responsive-item" src='+wikiLink+'></iframe></div> ';
+        var link = '<a href='+wikiLink+' target="_blank">Go to Wikipedia!</a><div class="embed-responsive embed-responsive-16by9" style="height:500px ; width: 600px; "><iframe class="embed-responsive-item" src='+wikiLink+'></iframe></div> ';
         //console.log(link);
 
 
@@ -242,6 +242,7 @@ function buildGraph(info) {
         if (target.dataItem) {
           currNode=target;
           if (target.dataItem.level===2){
+
             //info.children[0].children[1].children[0].valUrl
             return link;
           }

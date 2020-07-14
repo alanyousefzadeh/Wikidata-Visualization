@@ -121,7 +121,9 @@
 <script src="./SparqlQueryAlbumTracks.js"></script>
 
 <script>
-
+    var currentDate=new Date();
+    var month = currentDate.getMonth()+1
+    console.log(month)
     var label= document.getElementById("label");//
     //get entity's name and QID from previous page
     const params = new URLSearchParams(window.location.search);
@@ -243,9 +245,25 @@
                     uref.once('value').then(function (snapshot) {
 
                         var albuminfo = snapshot.val().albumInfo;
+                        var date = snapshot.val().monthDate;
+                        console.log(date + " " +month)
+                        if(date === month && date!=null ) {
+                            buildGraph(albuminfo)
+                            hideLoading()
+                        }
+                else{
+                            showloading()
+                            albumInfoReq(album,bOrA).then(res=>{
+                                //var r is just used to receive promised but its not implemented
+                                var r = res;
+                                console.log(r)
+                                //we used for this req local storage because of sync problems with this specific promise
+                                console.log(r)
+                                buildGraph(r)
+                                hideLoading();
+                            })
 
-                        buildGraph(albuminfo)
-                        hideLoading()
+                        }
                     })
                 } else
                 {

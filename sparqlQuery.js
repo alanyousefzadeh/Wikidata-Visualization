@@ -144,6 +144,11 @@ async function req(qid,type) {
 
                 str=nested_data;
                 nested_data=JSON.parse(nested_data);
+
+            var currentDate=new Date();
+            var month = currentDate.getMonth()+1
+            console.log(month)
+
                  const db = firebase.database();
                  var usersRef =""
                  if(type==="artists") {
@@ -160,15 +165,10 @@ async function req(qid,type) {
 
                   usersRef.child(qid).once('value', function(snapshot) {
 
-                      var exists = (snapshot.val() !== null);
-
-             if (exists) {
-                 console.log("artist already exists")
-             } else {
                  console.log("artist doesn't exist exists")
-                 usersRef.child(qid).set({personal: str,})
+                 usersRef.child(qid).set({personal: str,monthDate: month})
                  console.log("artist added")
-             }
+
          });
          return str;
             }

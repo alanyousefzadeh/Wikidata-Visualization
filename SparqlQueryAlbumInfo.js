@@ -176,6 +176,9 @@ async function albumInfoReq(qid,type) {
 
                 nested_data = JSON.parse(nested_data);
 
+                var currentDate=new Date();
+                var month = currentDate.getMonth()+1
+                console.log(month)
                 const db = firebase.database();
                 var usersRef = "";
                 if (type === "artists") {
@@ -187,15 +190,11 @@ async function albumInfoReq(qid,type) {
                 const superUsersRef = usersRef.child('super_users');
                 usersRef.child(qid).once('value', function (snapshot) {
 
-                    var exists = (snapshot.val() !== null);
 
-                    if (exists) {
-                        console.log("artist already exists");
-                    } else {
                         console.log("artist doesn't exist exists");
-                        usersRef.child(qid).set({albumInfo: str,});
+                        usersRef.child(qid).set({albumInfo: str,monthDate:month});
                         console.log("artist added")
-                    }
+
                     //we used for this req local storage because of sync problems with this specific promise
 
                     //localStorage.setItem('res',str);
