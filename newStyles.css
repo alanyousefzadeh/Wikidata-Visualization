@@ -118,12 +118,14 @@
 .sidenav {
     background-color: #f1f1f1;
     height: 100vh;
+    overflow: auto;
 }
 /* Set black background color, white text and some padding */
 footer {
     background-color: #555;
     color: white;
     padding: 15px;
+    overflow: auto;
 }
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
@@ -131,9 +133,11 @@ footer {
         height: auto;
         padding: 15px;
         resize: vertical;
+        overflow: auto;
     }
     .row.content {
         height: auto;
+        overflow: auto;
     }
 }
 #loading {
@@ -165,6 +169,9 @@ footer {
        max-height: 100vh;
         box-sizing: border-box;
        display: inline-block;
+        overflow: auto;
+        flex: 1;
+
 }
 
 

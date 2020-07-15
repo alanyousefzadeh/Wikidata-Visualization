@@ -182,6 +182,9 @@
     // //
 
     //fill data list
+    var currentDate=new Date();
+    var month = currentDate.getMonth()+1
+    console.log(month)
     const db = firebase.database();
     var usersRef ="";
     var uref = "";
@@ -259,6 +262,7 @@
     var songBtn = document.getElementById("songBtn");
     songBtn.onclick = ()=>{
 
+
         var song = document.getElementById("searchSong").value;
         //song is in works list
         if(works.indexOf(song) !== -1){
@@ -285,10 +289,29 @@
                     uref.once('value').then(function (snapshot) {
 
                         var songsinfo = snapshot.val().songsInfo;
+
                         document.getElementById("songLabel").innerText = song ;
                         document.getElementById("searchSong").value = "";
-                        buildGraph(songsinfo)
-                        hideLoading()
+
+                        var date = snapshot.val().monthDate;
+                        console.log(date + " " +month)
+
+                        if(date === month && date!=null ) {
+                            // document.getElementById("chartdivwrapper").style.height="100vh";
+                            buildGraph(songsinfo);
+                            hideLoading()
+                        }else {
+                            console.log("not same date")
+                            showloading()
+                            songsInfoReq(song,bOrA).then(res=>{
+                                document.getElementById("songLabel").innerText = song ;
+                                document.getElementById("searchSong").value = "";
+                                var info = res;
+
+                                buildGraph(info)
+                                hideLoading();
+                            })
+                        }
 
                     })
                 } else
@@ -425,8 +448,8 @@
                     }
                 }
                 var text = r.content[index].lyrics
-                lyrics.innerHTML +='';
-                lyrics.innerHTML += '<label for="exampleFormControlTextarea1">Lyrics</label><textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="5" disabled="disabled">'+text+'</textarea>'
+                lyrics.innerHTML ='';
+                lyrics.innerHTML = '<label for="exampleFormControlTextarea1">Lyrics</label><textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="5" disabled="disabled">'+text+'</textarea>'
             });
         }else{//invalid input
             document.getElementById("searchSong").value="";

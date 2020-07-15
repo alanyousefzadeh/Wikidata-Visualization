@@ -230,6 +230,11 @@
 
             }
 
+        //var currentDate=new Date().toLocaleDateString(); //"8/5/2019"
+        var currentDate=new Date();
+        var month = currentDate.getMonth()+1
+        console.log(month)
+
         usersRef.child(entity).once('value', function(snapshot) {
 
             var exists = (snapshot.val() !== null);
@@ -242,13 +247,25 @@
                     //enter your field name
                     while (snapshot.val().personal===null){}
                     var personalInfo = snapshot.val().personal;
-                    // console.log(personalInfo);
-                    //////////////
-                    //////
-                    // document.getElementById("chartdivwrapper").style.height="100vh";
+                    var date = snapshot.val().monthDate;
 
-                    buildGraph(personalInfo);
-                    hideLoading()
+
+                    console.log(date + " " +month)
+
+                    if(date === month && date!=null ) {
+                        // document.getElementById("chartdivwrapper").style.height="100vh";
+                        buildGraph(personalInfo);
+                        hideLoading()
+                    }else {
+                        console.log("not same date")
+                        showloading();
+                        req(entity,bOrA).then(res=>
+                        {
+                            console.log(res);
+                            buildGraph(res);
+                            hideLoading();
+                        })
+                    }
                 })
 
             } else {

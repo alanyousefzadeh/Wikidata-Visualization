@@ -148,6 +148,9 @@
     function hideLoading() {loading.style.display = "none";}
 
     //fill data list
+    var currentDate=new Date();
+    var month = currentDate.getMonth()+1
+    console.log(month)
     const db = firebase.database();
     var usersRef ="";
     var uref = "";
@@ -235,12 +238,41 @@
                     uref.once('value').then(function (snapshot) {
 
                         var moviesinfo = snapshot.val().movieInfo;
-
+                        var date = snapshot.val().monthDate;
+                        console.log(date + " " +month)
                         console.log(moviesinfo);
                         document.getElementById("movieLabel").innerText = document.getElementById("searchMovie").value ;
                         document.getElementById("searchMovie").value="";
+
+                        if(date === month && date!=null ) {
                         buildGraph(moviesinfo);
                         hideLoading();
+                        }
+                        else{
+                            showloading();
+                            movieInfoReq(movie, artist).then(res => {
+                                if (res.length === 0) {
+                                    document.getElementById("searchSong").value = "";
+
+                                    var alertText = document.getElementById("alertPrompt");
+                                    alertText.innerHTML = '   <h2 class="alert-heading">Entity Work Not Found!</h2>\n' +
+                                        '                            <p>This artist has no movies on Wikidata</p>\n' +
+                                        '                            <p>Please try other artists</p>'
+                                    //alert or logout a message => invalid input try again
+                                    $('#alertPrompt').show('fade');
+                                    setTimeout(function () {
+                                        $('#alertPrompt').hide('hide');
+                                    }, 5000)
+                                    hideLoading();
+                                }else {
+                                    document.getElementById("movieLabel").innerText = document.getElementById("searchMovie").value ;
+                                    document.getElementById("searchMovie").value="";
+                                    var info = res;
+                                    buildGraph(info);
+                                    hideLoading();
+                                }
+                            })
+                        }
 
                     })
                 } else {
@@ -313,20 +345,19 @@
                         var id = res.trailer.id
 
                         document.getElementById('IMDBLabel').style.display = 'block'
-                        imdb.innerHTML += '<iframe src="https://www.imdb.com/videoembed/' + id + '" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no"></iframe>'
-                        rating.innerHTML += '<label>IMDB Rating :' + res.rating + '</label>'
+                        imdb.innerHTML = '<iframe src="https://www.imdb.com/videoembed/' + id + '" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" frameborder="no" scrolling="no"></iframe>'
+                        rating.innerHTML = '<label>IMDB Rating :' + res.rating + '</label>'
                         // var linkFormat = "https://www.youtube.com/embed/" + link + "";
-                    }else
+                    } else
                     {
                         var actorName=  entity.substring(0,trailer.indexOf("("));
                         var searchquery = youtubeTrailer+"+"+actorName+"+trailer"
                         console.log(searchquery)
                         imdb.innerHTML=''
                         rating.innerHTML=''
-                        imdb.innerHTML += '<label for="exampleFormControlTextarea1">The video is not on DB , Please choose from search</label><iframe src="https://www.youtube.com/embed?listType=search&list='+searchquery+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                        rating.innerHTML += '<label>IMDB Rating :' + res.rating + '</label>'
+                        imdb.innerHTML = '<label for="exampleFormControlTextarea1">The video is not on DB , Please choose from search</label><iframe src="https://www.youtube.com/embed?listType=search&list='+searchquery+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                        rating.innerHTML = '<label>IMDB Rating :' + res.rating + '</label>'
                     }
-
                 });
 
             });

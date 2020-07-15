@@ -146,6 +146,9 @@ async function movieInfoReq(qid,type) {
             nested_data= JSON.stringify(nested_data, null, 2)
 
             str=nested_data;
+        var currentDate=new Date();
+        var month = currentDate.getMonth()+1
+        console.log(month)
             const db = firebase.database();
             var usersRef =""
             if(type==="actor") {
@@ -158,15 +161,11 @@ async function movieInfoReq(qid,type) {
 
             usersRef.child(qid).once('value', function(snapshot) {
 
-                var exists = (snapshot.val() !== null);
 
-                if (exists) {
-                    console.log("artist already exists")
-                } else {
                     console.log("artist doesn't exist exists")
-                    usersRef.child(qid).set({movieInfo: str,});
+                    usersRef.child(qid).set({movieInfo: str,monthDate:month});
                     console.log("artist added")
-                }
+
             });
             return str;
 

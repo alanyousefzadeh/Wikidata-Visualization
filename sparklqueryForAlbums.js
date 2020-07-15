@@ -54,6 +54,10 @@ async function albumreq (qid,type) {
         var id = "";
         var parts = "";
 
+        var currentDate=new Date();
+        var month = currentDate.getMonth()+1
+        console.log(month)
+
         var id = parts[parts.length - 1]; // Or parts.pop();
         for (var i = 0; i < nested_data.length; i++) {
             parts = nested_data[i].album.split("/");
@@ -74,16 +78,12 @@ async function albumreq (qid,type) {
         console.log(usersRef)
         usersRef.child(qid).once('value', function (snapshot) {
 
-                var exists = (snapshot.val() !== null);
 
-                if (exists) {
-                    console.log(type + " already exists")
-                } else {
+
                     console.log(type + " doesn't exist exists")
 
-                    usersRef.child(qid).set({albums: str,});
+                    usersRef.child(qid).set({albums: str,monthDate:month});
                     console.log(type + " artist added")
-                }
             }
         );
         return str;

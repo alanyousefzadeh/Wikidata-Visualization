@@ -75,6 +75,9 @@ async function moviesReq (qid,type) {
             movielist[i] = listItem;
         }
 
+        var currentDate=new Date();
+        var month = currentDate.getMonth()+1
+        console.log(month)
         const db = firebase.database();
         var str = movielist;
 
@@ -92,16 +95,11 @@ async function moviesReq (qid,type) {
         console.log(usersRef)
         usersRef.child(qid).once('value', function(snapshot) {
 
-                var exists = (snapshot.val() !== null);
 
-                if (exists) {
-                    console.log(type+" already exists")
-                } else {
                     console.log(type+" doesn't exist exists")
-
-                    usersRef.child(qid).set({movies: str,});
+                    usersRef.child(qid).set({movies: str,monthDate:month});
                     console.log(type+" artist added")
-                }
+
             }
         );
         return str;
