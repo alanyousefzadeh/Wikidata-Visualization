@@ -12,7 +12,7 @@ If you're using any code style like xo, standard etc. That will help others whil
 ## Screenshots
 
 ## Tech/framework used
-amCharts<br/>  
+amcharts4<br/>  
 d3.js  
 
 ## Features
