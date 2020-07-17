@@ -12,6 +12,8 @@ If you're using any code style like xo, standard etc. That will help others whil
 ## Screenshots
 
 ## Tech/framework used
+ amCharts  d3.js  
+
 
 ## Features
 The main goal of the project is to make a user-friendly interface that displays the information in a straightforward, pictorial way in order to assist the user in searching and manipulating the data in an efficient manner. Additionally, the search engine results also provides external links so that the user can access information he or she needs in an instantaneous way without having to engage another platform to search. 
@@ -23,10 +25,7 @@ Show what the library does as concisely as possible, developers should be able t
 
 ## API Reference
 
-Wikidata Query Service
-YouTube API
-Genious API
-IMDB API
+Wikidata Query Service  YouTube API  Genious API  IMDB API
 
 ## How to use?
 If people like your project they’ll want to learn how they can use it. To do so include step by step guide to use your project.
