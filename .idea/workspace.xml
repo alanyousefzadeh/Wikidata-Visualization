@@ -19,30 +19,94 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChooseAlbum.html" beforeDir="false" afterPath="$PROJECT_DIR$/ChooseAlbum.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SparqlQuerySongsInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/SparqlQuerySongsInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amchartgraphbuid.js" beforeDir="false" afterPath="$PROJECT_DIR$/amchartgraphbuid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chooseArtist.html" beforeDir="false" afterPath="$PROJECT_DIR$/chooseArtist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chooseBand.html" beforeDir="false" afterPath="$PROJECT_DIR$/chooseBand.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chooseMovie.html" beforeDir="false" afterPath="$PROJECT_DIR$/chooseMovie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chooseSong.html" beforeDir="false" afterPath="$PROJECT_DIR$/chooseSong.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generalSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/generalSearch.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/newStyles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparklqueryForAlbums.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparklqueryForAlbums.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlGeneralSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlGeneralSearch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlMovieInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlMovieInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlMovies.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlMovies.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlQuery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlqueryForSongs.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlqueryForSongs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workOrPersonalContent.html" beforeDir="false" afterPath="$PROJECT_DIR$/workOrPersonalContent.html" afterDir="false" />
-    </list>
+    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chooseSubject.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="183" column="50" lean-forward="true" selection-start-line="183" selection-start-column="50" selection-end-line="183" selection-end-column="50" />
+              <folding>
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generalSearch.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="530">
+              <caret line="219" column="81" lean-forward="true" selection-start-line="219" selection-start-column="81" selection-end-line="219" selection-end-column="81" />
+              <folding>
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/amchartgraphbuid.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="115">
+              <caret line="218" column="2" lean-forward="true" selection-start-line="218" selection-start-column="2" selection-end-line="218" selection-end-column="31" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sparqlQuery.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/csvtoarray.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sparqlMovies.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-161" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chooseMovie.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="598">
+              <caret line="295" selection-start-line="295" selection-end-line="295" />
+              <folding>
+                <element signature="n#style#0;n#label#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chooseSong.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="64" selection-start-line="64" selection-end-line="67" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,6 +116,13 @@
         <option value="JavaScript File" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>date</find>
+      <find>searchEntity</find>
+      <find>wiki</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -63,6 +134,25 @@
   </component>
   <component name="ProjectId" id="1bOHRc5dHOwcvLeOk92xMoorXvn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Wikidata-Visualization" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Wikidata-Visualization" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -90,6 +180,18 @@
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/images" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="JavaScript Debug.homepage.html">
     <configuration name="homepage.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Wikidata-Visualization-afterbeta/homepage.html" useBuiltInWebServerPort="true">
@@ -200,6 +302,9 @@
     <option name="localTasksCounter" value="9" />
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="2045000" />
+  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -209,6 +314,28 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
+  <component name="ToolWindowManager">
+    <frame x="41" y="24" width="1399" height="876" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21480407" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49419448" weight="0.21556123" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32908162" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.4967509" weight="0.32908162" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49075082" visible="true" weight="0.31505102" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5058055" side_tool="true" weight="0.21556123" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
@@ -217,7 +344,14 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -236,7 +370,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created validation to check if artist already exists in db" />
@@ -377,5 +510,55 @@
     <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1591020989774" />
     <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" timestamp="1591020989774" />
     <state x="684" y="492" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1792.23.1920.1177/0.23.1792.1034@0.23.1792.1034" timestamp="1593423935789" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/generalSearch.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="530">
+          <caret line="219" column="81" lean-forward="true" selection-start-line="219" selection-start-column="81" selection-end-line="219" selection-end-column="81" />
+          <folding>
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chooseSubject.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="183" column="50" lean-forward="true" selection-start-line="183" selection-start-column="50" selection-end-line="183" selection-end-column="50" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/amchartgraphbuid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="218" column="2" lean-forward="true" selection-start-line="218" selection-start-column="2" selection-end-line="218" selection-end-column="31" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/csvtoarray.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparqlMovies.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-161" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sparqlQuery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
