@@ -11,6 +11,28 @@ If you're using any code style like xo, standard etc. That will help others whil
  
 ## Screenshots
 
+Choose a Subject
+
+![image](https://user-images.githubusercontent.com/11071282/87851555-895e5600-c902-11ea-92e0-f9f0ced4c40a.png)
+
+
+![image](https://user-images.githubusercontent.com/11071282/87851557-8f543700-c902-11ea-8ba4-0f2c8fb946e6.png)
+
+![image](https://user-images.githubusercontent.com/11071282/87851559-95e2ae80-c902-11ea-96a3-1e7e463eee72.png)
+
+![image](https://user-images.githubusercontent.com/11071282/87851563-9bd88f80-c902-11ea-9a96-6431b0e49fa4.png)
+
+![image](https://user-images.githubusercontent.com/11071282/87851565-a135da00-c902-11ea-8dc9-8bd63fea49a1.png)
+
+![image](https://user-images.githubusercontent.com/11071282/87851566-a85ce800-c902-11ea-99b4-7b54112ef7f2.png)
+
+![image](https://user-images.githubusercontent.com/11071282/87851574-b14db980-c902-11ea-8c8f-fa29e5ed686c.png)
+
+![image](https://user-images.githubusercontent.com/11071282/87851575-b6ab0400-c902-11ea-9132-ebc431337e7a.png)
+
+![image](https://user-images.githubusercontent.com/11071282/87851578-c1fe2f80-c902-11ea-93c8-5bfef17aafac.png)
+
+
 ## Tech/framework used
 amcharts4<br/>  
 d3.js  
