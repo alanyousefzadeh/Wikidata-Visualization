@@ -19,25 +19,78 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums">
+    <list default="true" id="04f0da95-16f3-4e64-ba86-292f12f1c166" name="Default Changelist" comment="implemented refresh firebase once a month">
+      <change afterPath="$PROJECT_DIR$/public/.firebaserc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/HtmlFiles/ChooseAlbum.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/HtmlFiles/albumsOrSongsContent.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/HtmlFiles/chooseArtist.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/HtmlFiles/chooseBand.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/HtmlFiles/chooseMovie.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/HtmlFiles/chooseSong.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/HtmlFiles/generalSearch.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/HtmlFiles/workOrPersonalContent.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/JsFiles/amchartgraphbuid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/JsFiles/newCode.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/StyleFiles/newStyles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/datafiles/actors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/datafiles/directors.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sparqlRequests/queryTest.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sparqlRequests/sparklqueryForAlbums.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sparqlRequests/sparqlGeneralSearch.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sparqlRequests/sparqlQuery.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sparqlRequests/sparqlqueryForSongs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChooseAlbum.html" beforeDir="false" afterPath="$PROJECT_DIR$/ChooseAlbum.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SparqlQuerySongsInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/SparqlQuerySongsInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/amchartgraphbuid.js" beforeDir="false" afterPath="$PROJECT_DIR$/amchartgraphbuid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chooseArtist.html" beforeDir="false" afterPath="$PROJECT_DIR$/chooseArtist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chooseBand.html" beforeDir="false" afterPath="$PROJECT_DIR$/chooseBand.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chooseMovie.html" beforeDir="false" afterPath="$PROJECT_DIR$/chooseMovie.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chooseSong.html" beforeDir="false" afterPath="$PROJECT_DIR$/chooseSong.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generalSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/generalSearch.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/newStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/newStyles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparklqueryForAlbums.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparklqueryForAlbums.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlGeneralSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlGeneralSearch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlMovieInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlMovieInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlMovies.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlMovies.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlQuery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sparqlqueryForSongs.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlqueryForSongs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/workOrPersonalContent.html" beforeDir="false" afterPath="$PROJECT_DIR$/workOrPersonalContent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChooseAlbum.html" beforeDir="false" afterPath="$PROJECT_DIR$/HtmlFiles/ChooseAlbum.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sparql/oldquery" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sparql/sparqlQuery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparqlQueryAlbumInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/SparqlQueryAlbumInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparqlQueryAlbumTracks.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/SparqlQueryAlbumTracks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SparqlQuerySongsInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/SparqlQuerySongsInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/albumsOrSongsContent.html" beforeDir="false" afterPath="$PROJECT_DIR$/HtmlFiles/albumsOrSongsContent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amchartgraphbuid.js" beforeDir="false" afterPath="$PROJECT_DIR$/JsFiles/amchartgraphbuid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chooseArtist.html" beforeDir="false" afterPath="$PROJECT_DIR$/HtmlFiles/chooseArtist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chooseBand.html" beforeDir="false" afterPath="$PROJECT_DIR$/HtmlFiles/chooseBand.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chooseMovie.html" beforeDir="false" afterPath="$PROJECT_DIR$/HtmlFiles/chooseMovie.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chooseSong.html" beforeDir="false" afterPath="$PROJECT_DIR$/HtmlFiles/chooseSong.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chooseSubject.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/JsFiles/code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csvtoarray.js" beforeDir="false" afterPath="$PROJECT_DIR$/JsFiles/csvtoarray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/csvtoarray2.js" beforeDir="false" afterPath="$PROJECT_DIR$/JsFiles/csvtoarray2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generalSearch.html" beforeDir="false" afterPath="$PROJECT_DIR$/HtmlFiles/generalSearch.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphbuildstyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/StyleFiles/graphbuildstyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/homepage.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/newCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/JsFiles/newCode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newStyles.css" beforeDir="false" afterPath="$PROJECT_DIR$/StyleFiles/newStyles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AmchartGraph/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/AmchartGraph/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/AmchartGraph/LICENSE-3RD-PARTY.md" beforeDir="false" afterPath="$PROJECT_DIR$/public/AmchartGraph/LICENSE-3RD-PARTY.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/SparqlQueryAlbumInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlRequests/SparqlQueryAlbumInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/SparqlQueryAlbumTracks.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlRequests/SparqlQueryAlbumTracks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/SparqlQuerySongsInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlRequests/SparqlQuerySongsInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/amchartgraphbuid.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/JsFiles/code.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/csvtoarray.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/JsFiles/csvtoarray.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/csvtoarray2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/JsFiles/csvtoarray2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graphbuildstyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/StyleFiles/graphbuildstyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/indexgraphbuid.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/realtime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sparklqueryForAlbums.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlRequests/sparqlMovieInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/sparqlqueryForSongs.js" beforeDir="false" afterPath="$PROJECT_DIR$/sparqlRequests/sparqlMovies.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/StyleFiles/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queryTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/queryTest.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/realtime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparklqueryForAlbums.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/sparklqueryForAlbums.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparqlGeneralSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/sparqlGeneralSearch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparqlMovieInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/sparqlMovieInfo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparqlMovies.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/sparqlMovies.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparqlQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/sparqlQuery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sparqlqueryForSongs.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/sparqlRequests/sparqlqueryForSongs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/StyleFiles/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/workOrPersonalContent.html" beforeDir="false" afterPath="$PROJECT_DIR$/HtmlFiles/workOrPersonalContent.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,14 +134,19 @@
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.web.browsers" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/StyleFiles" />
+      <recent name="$PROJECT_DIR$/sparqlRequests" />
+      <recent name="$PROJECT_DIR$/HtmlFiles" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/datafiles" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/images" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/StyleFiles" />
+      <recent name="$PROJECT_DIR$/JsFiles" />
+      <recent name="$PROJECT_DIR$/HtmlFiles" />
+      <recent name="$PROJECT_DIR$/sparqlRequests" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.homepage.html">
@@ -197,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592059012476</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="implemented refresh firebase once a month">
+      <created>1594742643512</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1594742643512</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -243,7 +308,8 @@
     <MESSAGE value="design improvement" />
     <MESSAGE value="Done in this commit:&#10;&#10;Fixed graph &#10;Albums list &#10;Artist list &#10;Band List" />
     <MESSAGE value="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums" />
-    <option name="LAST_COMMIT_MESSAGE" value="design improvement&#10;&#10;Hyperlink for las node with wikipedia previe &#10;&#10;inverted query to bring tracklist from albums" />
+    <MESSAGE value="implemented refresh firebase once a month" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented refresh firebase once a month" />
   </component>
   <component name="WindowStateProjectService">
     <state x="556" y="244" width="815" height="439" key="#Web_Browsers" timestamp="1591277542180">
@@ -255,6 +321,10 @@
       <screen x="1792" y="23" width="1920" height="1177" />
     </state>
     <state x="2440" y="354" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/1792.23.1920.1177/0.23.1792.1030@1792.23.1920.1177" timestamp="1591535286904" />
+    <state x="506" y="219" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594742855413">
+      <screen x="0" y="23" width="1536" height="892" />
+    </state>
+    <state x="506" y="219" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.1536.892@0.23.1536.892" timestamp="1594742855413" />
     <state x="336" y="25" key="CommitChangelistDialog2" timestamp="1591020989772" />
     <state x="336" y="25" key="CommitChangelistDialog2/0.23.1536.867@0.23.1536.867" timestamp="1591020989773" />
     <state x="100" y="123" width="1592" height="850" key="DiffContextDialog" timestamp="1593789503447">
@@ -352,10 +422,11 @@
     <state x="412" y="171" key="SettingsEditor/0.23.1536.873@0.23.1536.873" timestamp="1591277188838" />
     <state x="412" y="173" key="SettingsEditor/1792.23.1920.1101/0.23.1792.1097@1792.23.1920.1101" timestamp="1591020989774" />
     <state x="412" y="173" key="SettingsEditor/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" timestamp="1591020989774" />
-    <state x="368" y="190" key="Vcs.Push.Dialog.v2" timestamp="1592059015633">
-      <screen x="0" y="23" width="1792" height="1022" />
+    <state x="315" y="169" key="Vcs.Push.Dialog.v2" timestamp="1594742666208">
+      <screen x="0" y="23" width="1536" height="892" />
     </state>
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/0.23.1536.867@0.23.1536.867" timestamp="1591020989774" />
+    <state x="315" y="169" key="Vcs.Push.Dialog.v2/0.23.1536.892@0.23.1536.892" timestamp="1594742666208" />
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1101/0.23.1792.1097@0.23.1792.1097" timestamp="1591020989774" />
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1177/0.23.1792.1022@0.23.1792.1022" timestamp="1592059015633" />
     <state x="368" y="190" key="Vcs.Push.Dialog.v2/1792.23.1920.1177/0.23.1792.1024@0.23.1792.1024" timestamp="1591020989774" />

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wikidata Visualization Engine</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../StyleFiles/newStyles.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--<title>Wikidata Visualization Engine</title>-->
+    <!--<link rel="stylesheet" type="text/css" href="styles.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-hierarchy.v1.min.js"></script>
+<script src="../AmchartGraph/core.js"></script>
+<script src="../AmchartGraph/charts.js"></script>
+<script src="../AmchartGraph/themes/animated.js"></script>
+<script src="../AmchartGraph/plugins/forceDirected.js"></script>
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCaxMo8rfeEkDWTlAXZy_-rNcTqxpFLh_s",
+        authDomain: "wikidata-visualization.firebaseapp.com",
+        databaseURL: "https://wikidata-visualization.firebaseio.com",
+        projectId: "wikidata-visualization",
+        storageBucket: "wikidata-visualization.appspot.com",
+        messagingSenderId: "44744854813",
+        appId: "1:44744854813:web:af01dc81d43b150c6565f4",
+        measurementId: "G-JZDLW4MY64"
+    };
+    firebase.initializeApp(firebaseConfig);
+</script>
+<script src="../JsFiles/newCode.js"></script>
+
+
+<div class="container-fluid" >
+    <div class="row content" >
+        <div class="col-sm-3 sidenav" id="mainPage" >
+            <div class="container-fluid" >
+                <div class="row-fluid" id="header" >
+                    <!--<h1>Wikidata<br>Visualization Engine</h1>-->
+                    <h1>Wikidata Visualization Engine</h1>
+                </div>
+            </div>
+
+
+            <!--search entity div-->
+            <div class="container-fluid" id="searchEntityDiv" >
+                <div class="col">
+                    <h2>General Entity Search</h2>
+                    <label>
+                        <h2 id="label"></h2>
+                    </label>
+                    <h4>Search Entity</h4>
+
+
+                    <div class="input-group">
+                        <input class="form-control" id="searchEntity" list="movies" name="movie" autocomplete="off" placeholder="Type to search..." >
+                        <datalist id="movies">
+
+                        </datalist>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary" id="generalBtn">Submit</button>
+                        </span>
+                        <!--<input id="entityBtn" type="submit" onclick = "chooseEntity()">-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--graph and legend-->
+        <div  class="col-sm-9" >
+            <!--alert div-->
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div id="alertPrompt" class="alert alert-danger collapse" role="alert">
+
+                            <h2 class="alert-heading">Invalid input!</h2>
+                            <p>Make sure to enter an entity from the list</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="chartdiv"></div>
+        </div>
+
+        <div id="loading" style="display: none;">
+            <img id="loading-image" src="../images/ajax-loader.gif" alt="Loading...">
+        </div>
+    </div>
+
+
+</div>
+<footer class="footer navbar-fixed-bottom">
+    <p>2020 © All Rights Reserved. </p>
+</footer>
+
+
+
+<!--<script src="./index.html"></script>-->
+
+<script src="../JsFiles/amchartgraphbuid.js"></script>
+<script src="../sparqlRequests/sparqlGeneralSearch.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+
+<script>
+
+    var loading = document.getElementById("loading");
+    var currentDate=new Date();
+    var month = currentDate.getMonth()+1
+    console.log(month)
+    function showloading() {loading.style.display = "block";}
+    function hideLoading() {loading.style.display = "none";}
+
+    const db = firebase.database();
+    var usersRef ="";
+    var uref = "";
+    $("#searchEntity").autocomplete({
+        source: function(request, response) {
+            console.log(request.term);
+            $.ajax({
+                url: "http://en.wikipedia.org/w/api.php",
+                dataType: "jsonp",
+                data: {
+                    'action': "opensearch",
+                    'format': "json",
+                    'search': request.term
+                },
+                success: function(data) {
+                    response(data[1]);
+                    console.log(data[1])
+
+                }
+            });
+        }
+    });
+    button = document.getElementById('generalBtn');
+    button.onclick = ()=> {
+        var ent = document.getElementById("searchEntity").value;
+        console.log(ent)
+        ent=ent.split(' ').join('_');
+        console.log(ent)
+        $.get("https://en.wikipedia.org/w/api.php?action=query&prop=pageprops&ppprop=wikibase_item&redirects=1&&indexpageids&format=json&titles="+ent+"&origin=*", function (data) {
+            if (data.query.pageids[0]=== "-1"){
+                document.getElementById("searchEntity").value="";
+                //alert or logout a message => invalid input try again
+                $('#alertPrompt').show('fade');
+                setTimeout(function () {
+                    $('#alertPrompt').hide('hide');
+                },5000);
+            }
+            r = data
+            console.log(data)
+        }).then(res=>{
+            if(r.query.pageids[0] !== "-1"){
+                var pageId = r.query.pageids[0]
+                var qid = res.query.pages[pageId].pageprops.wikibase_item;
+                var name = res.query.pages[pageId].title;
+                name = name.replace(/[.#$]/g, "")  // ".", "#", "$", "[", or "]"
+                console.log(qid);
+                console.log(name);
+                uref= db.ref('/generalEntities');
+                usersRef= db.ref('generalEntities/'+name);
+
+
+                usersRef.child(name).once('value', function (snapshot) {
+                    var exists = (snapshot.val() !== null);
+
+                    //if list of movies already exist make firebase req
+                    if (exists) {
+                        showloading();
+                        uref.once('value').then(function (snapshot) {
+
+                            while (snapshot.val().general === null) {
+                            }
+                            var moviesinfo = snapshot.val().moviesInfo;
+                            var date = snapshot.val().monthDate;
+                            console.log(date + " " +month)
+                            document.getElementById("label").innerText =name+'('+qid+')' ;//
+                            document.getElementById("searchEntity").value="";
+                            if(date === month && date!=null ) {
+                                buildGraph(moviesinfo);
+                                hideLoading();
+                            }
+                            else
+                                {
+                                    showloading();
+                                    generalReq(qid,name).then(res => {
+                                        document.getElementById("label").innerText =name+'('+qid+')' ;//
+                                        document.getElementById("searchEntity").value="";
+                                        var info = res;
+                                        buildGraph(info);
+                                        hideLoading();
+                                    })
+                                }
+
+                        })
+                    } else {
+                        //if list of movies does not exist wait for promise from  req
+                        showloading();
+                        generalReq(qid,name).then(res => {
+                            document.getElementById("label").innerText =name+'('+qid+')' ;//
+                            document.getElementById("searchEntity").value="";
+                            var info = res;
+                            buildGraph(info);
+                            hideLoading();
+                        })
+                    }
+
+
+                });
+            }
+
+        });
+    }
+
+</script>
+
+
+</body>
+</html>
