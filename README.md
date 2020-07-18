@@ -51,6 +51,8 @@ Firebase<br/>
 
 Example of Real Time data base from firebase architecture <br/> 
 
+![image](https://user-images.githubusercontent.com/11071282/87851854-51a4dd80-c905-11ea-930e-e97108d60d2b.png)<br/> 
+
 ## Features
 The main goal of the project is to make a user-friendly interface that displays the information in a straightforward, pictorial way in order to assist the user in searching and manipulating the data in an efficient manner. Additionally, the search engine results also provides external links so that the user can access information he or she needs in an instantaneous way without having to engage another platform to search. <br/>
 
