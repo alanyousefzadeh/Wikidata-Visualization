@@ -47,7 +47,9 @@ If you Chose Other in subject selection , choose a entity from the list and pres
 ## Tech/framework used
 amcharts4<br/>  
 d3.js<br/>  
-Firebase
+Firebase<br/>  
+
+Example of Real Time data base from firebase architecture <br/> 
 
 ## Features
 The main goal of the project is to make a user-friendly interface that displays the information in a straightforward, pictorial way in order to assist the user in searching and manipulating the data in an efficient manner. Additionally, the search engine results also provides external links so that the user can access information he or she needs in an instantaneous way without having to engage another platform to search. <br/>
