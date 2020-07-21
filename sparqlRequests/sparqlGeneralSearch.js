@@ -11,9 +11,6 @@ async function generalReq(qid,name) {
         return $.ajax(endpointUrl, settings).then(doneCallback);
     }
 
-    // var regExp = /\(([^)]+)\)/;
-    // var identifier = regExp.exec(qid);
-    // var qID = identifier[1]
 
     var endpointUrl = 'https://query.wikidata.org/sparql',
         sparqlQuery = "PREFIX entity: <http://www.wikidata.org/entity/> \n" +
@@ -98,18 +95,13 @@ async function generalReq(qid,name) {
 
     promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
             var str = "";
-            // var name = qid.substring(0, qid.indexOf("("));
-            // console.log(qid)
-            /*var fixed = "\n\"fixed\":\"true\",\n" +
-                "  \"x\":\" \",\n" +
-                "  \"y\":\" \","*/
+
             var fixed = "\"fixed\":\"true\",";
             console.log(name)
 
             var d = d3.csvParse(data);
 
             nested_data = d3.nest()
-                //.key(function(d) { return "entity"; })
                 .key(function (d) {
                     return d.propLabel;
                 })
@@ -129,8 +121,6 @@ async function generalReq(qid,name) {
             nested_data = JSON.parse(nested_data)
 
             nested_data = JSON.stringify(nested_data, null, 2).replace(/"values":/g, '"children":')
-
-            //nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\"\n,"+fixed+"\n\"children\":");
 
             nested_data = nested_data.replace("\"data\":", "\"name\":\""+name+"\",\n\"children\":");
 
@@ -168,12 +158,5 @@ async function generalReq(qid,name) {
             return str;
 
         })
-    // ).then(function (result) {
-    //     res=result;
-    //     return result
-    // })
-    // res = Promise.resolve(res)
-    // console.log(res)
-    // return res;
     return promiseRes;
 }

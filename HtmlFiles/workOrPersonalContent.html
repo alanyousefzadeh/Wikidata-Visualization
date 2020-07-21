@@ -11,8 +11,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!--<title>Wikidata Visualization Engine</title>-->
-    <!--<link rel="stylesheet" type="text/css" href="styles.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <style>
@@ -49,13 +47,11 @@
     firebase.initializeApp(firebaseConfig);
 </script>
 <script src="../JsFiles/newCode.js"></script>
-<!--<div class="wrapper">-->
 <div class="container-fluid">
     <div class="row content">
         <div class="col-sm-3 sidenav" id="mainPage">
             <div class="container-fluid">
                 <div class="row-fluid" id="header">
-                    <!--<h1>Wikidata<br>Visualization Engine</h1>-->
                     <h1>Wikidata Visualization Engine</h1>
                 </div>
             </div>
@@ -72,20 +68,12 @@
 
                     <div class="row" id="checkDiv">
                         <div id="worksAndPersnalDiv" class="panel-footer" >
-                            <!--<div id="checkDiv">-->
-                            <!--<h4>Are You Interested in</h4>-->
-                            <!--<input id="work" type="submit" value="work content" >-->
-                            <!--<input id="personal" type="submit" value="personal content" >-->
-                            <!--</div>-->
-                            <!--<h4>Are You Interested in:</h4>-->
                             <div class="row">
                                 <div class="col-xs-6">
                                     <button id="workBtn" type="button" class="btn btn-primary">work content</button>
-                                    <!--<input type="radio" name="choice" value="band">band<br>-->
                                 </div>
                                 <div class="col-xs-6">
                                     <button id="personalBtn" type="button" class="btn btn-primary">personal content</button>
-                                    <!--<input type="radio" name="choice" value="artist">artist-->
                                 </div>
                             </div>
                         </div>
@@ -97,11 +85,9 @@
         </div>
 
 
-        <!--graph and legend-->
         <div  class="col-sm-9" >
             <div id="chartdiv"></div>
         </div>
-        <!--<div class="col-sm-2" id="legenddiv"></div>-->
 
 
 
@@ -115,12 +101,6 @@
 <footer class="footer navbar-fixed-bottom">
     <p>2020 © All Rights Reserved. </p>
 </footer>
-
-<!--</div>-->
-
-
-
-
 
 <script src="../JsFiles/amchartgraphbuid.js"></script>
 <script src="../sparqlRequests/sparqlQuery.js"></script>
@@ -183,8 +163,6 @@
     var workBtn = document.getElementById("workBtn");
     var personalBtn = document.getElementById("personalBtn");
 
-    // var albumsBtn = document.getElementById("albumsBtn");
-    // var songsBtn = document.getElementById("songsBtn");
     workBtn.onclick=()=>{
         //IF IN MOVIES
         // GO TO CHOOSE FEATURED MOVIES
@@ -228,7 +206,6 @@
 
             }
 
-        //var currentDate=new Date().toLocaleDateString(); //"8/5/2019"
         var currentDate=new Date();
         var month = currentDate.getMonth()+1
         console.log(month)
@@ -251,7 +228,6 @@
                     console.log(date + " " +month)
 
                     if(date === month && date!=null ) {
-                        // document.getElementById("chartdivwrapper").style.height="100vh";
                         buildGraph(personalInfo);
                         hideLoading()
                     }else {
@@ -281,6 +257,5 @@
         //GENERATE GRAPH
     };
 </script>
-<!--<script src="./index.html"></script>-->
 </body>
 </html>

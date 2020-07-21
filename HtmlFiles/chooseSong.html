@@ -137,48 +137,9 @@
     var bOrA = params.get('bOrA');
     var entity = params.get('label') +"(" + params.get('qid')+")";
     label.innerText= entity;
-
     var loading = document.getElementById("loading");
-
     function showloading() {loading.style.display = "block";}
     function hideLoading() {loading.style.display = "none";}
-    //fill data list
-    // const db = firebase.database();
-    // var usersRef ="";
-    // var uref = "";
-    // var tempRef= "";
-    // ref="songs";
-    // console.log(ref);
-    // // if(bOrA==="artists")
-    // // {
-    // //     usersRef= db.ref('artist'+ref+'/'+entity);
-    // //
-    // // }else if(bOrA==="bands")
-    // // {
-    // //     usersRef=db.ref('bands'+ref+'/'+entity);
-    // //
-    // // }
-    // // var works = [];
-    // //
-    // //     showloading();
-    // //     setTimeout(function(){usersRef.once('value').then(function (snapshot) {
-    // //         //here we will get data
-    // //         //enter your field name
-    // //         //while (snapshot.val().albums===null){}
-    // //         if (snapshot.val() === null) {
-    // //             alert("there is no info available")
-    // //         } else {
-    // //             works = snapshot.val().songs;
-    // //         }
-    // //         var songsList = document.getElementById("songs");
-    // //         works.forEach(function (item) {
-    // //             var option = document.createElement('option');
-    // //             option.value = item;
-    // //             songsList.appendChild(option);
-    // //         });hideLoading()
-    // //     },5000);
-    // //
-
     //fill data list
     var currentDate=new Date();
     var month = currentDate.getMonth()+1
@@ -213,7 +174,6 @@
             uref.once('value').then(function (snapshot) {
                 //here we will get data
                 //enter your field name
-                //while (snapshot.val().albums===null){}
                 works = snapshot.val().songs;
                 console.log(works)
                 var songsList = document.getElementById("songs");
@@ -295,7 +255,6 @@
                         console.log(date + " " +month)
 
                         if(date === month && date!=null ) {
-                            // document.getElementById("chartdivwrapper").style.height="100vh";
                             buildGraph(songsinfo);
                             hideLoading()
                         }else {
@@ -315,7 +274,6 @@
                 } else
                 {
                     //if list of songs does not exist wait for promise from  req
-
                     showloading()
                     songsInfoReq(song,bOrA).then(res=>{
                         document.getElementById("songLabel").innerText = song ;

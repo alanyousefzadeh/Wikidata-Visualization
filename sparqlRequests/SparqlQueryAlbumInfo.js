@@ -101,16 +101,13 @@ async function albumInfoReq(qid,type) {
                 console.log(listOfSongs)
                 listOfS=listOfSongs;
                 var name = qid.substring(0, qid.indexOf("("));
-                /*var fixed = "\n\"fixed\":\"true\",\n" +
-                    "  \"x\":\" \",\n" +
-                    "  \"y\":\" \","*/
+
                 var fixed = "\"fixed\":\"true\",";
                 console.log(name)
 
                 var d = d3.csvParse(data);
 
                 nested_data = d3.nest()
-                    //.key(function(d) { return "entity"; })
                     .key(function (d) {
                         return d.propLabel;
                     })
@@ -208,12 +205,6 @@ async function albumInfoReq(qid,type) {
            // return res;
     });
     return promiseRes
-    // ).then(function (result) {
-    //     res=result;
-    //     return result
-    // })
-    // res = Promise.resolve(res)
-    // console.log(res)
-    // return res;
+
 }
 

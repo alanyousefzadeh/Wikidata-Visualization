@@ -11,8 +11,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!--<title>Wikidata Visualization Engine</title>-->
-    <!--<link rel="stylesheet" type="text/css" href="styles.css">-->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -52,7 +51,6 @@
         <div class="col-sm-3 sidenav" id="mainPage">
             <div class="container-fluid">
                 <div class="row-fluid" id="header">
-                    <!--<h1>Wikidata<br>Visualization Engine</h1>-->
                     <h1>Wikidata Visualization Engine</h1>
                 </div>
             </div>
@@ -108,7 +106,6 @@
 <footer class="footer navbar-fixed-bottom">
     <p>2020 © All Rights Reserved. </p>
 </footer>
-<!--<script src="./index.html"></script>-->
 
 <script src="../JsFiles/amchartgraphbuid.js"></script>
 <script src="../sparqlRequests/sparqlQuery.js"></script>
@@ -170,7 +167,6 @@
             uref.once('value').then(function (snapshot) {
                 //here we will get data
                 //enter your field name
-                //while (snapshot.val().albums===null){}
                     works = snapshot.val().albums;
                 var albumsList = document.getElementById("albums");
                 works.forEach(function(item){
@@ -289,37 +285,6 @@
             },5000)
         }
     };
-
-
-    // usersRef.once('value').then(function (snapshot) {
-    //     //here we will get data
-    //     //enter your field name
-    //     //while (snapshot.val().albums===null){}
-    //     if(snapshot.val() === null)
-    //     {
-    //         alert("there is no info available")
-    //     }
-    //     else {
-    //         works = snapshot.val().albums;
-    //     }
-    //     var albumsList = document.getElementById("albums");
-    //     works.forEach(function(item){
-    //         var option = document.createElement('option');
-    //         option.value = item;
-    //         albumsList.appendChild(option);
-    //     });
-    //
-    //
-    //     var albumBtn = document.getElementById("albumBtn");
-    //     albumBtn.onclick = ()=>{
-    //
-    //     };
-    //
-    // },function(error) {
-    //     // The callback failed.
-    //     console.error(error);
-    // });
-
 
 
 

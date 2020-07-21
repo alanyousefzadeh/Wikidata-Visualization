@@ -103,12 +103,6 @@ async function moviesReq (qid,type) {
             }
         );
         return str;
-    })// ).then(function (result) {
-    //     res=result;
-    //     return result
-    // })
-    // res = Promise.resolve(res)
-    // console.log(res)
-    // return res;
+    })
     return promiseRes
 }

@@ -24,12 +24,10 @@ async function songsreq (qid,type) {
 
     var albumlist = [];
     promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
-        //    var name = qid.substring(0, qid.indexOf("("));
 
         var d = d3.csvParse(data);
 
         var nested_data = d3.nest()
-            //.key(function(d) { return "entity"; })
             .entries(d);
 
         nested_data = JSON.stringify(nested_data, null, 2).replace(/"value":/g, '"name":')
@@ -88,12 +86,6 @@ async function songsreq (qid,type) {
 
         return str;
     })
-//     }).then(function (result) {
-//     res=result;
-//     return result
-// })
-// res = Promise.resolve(res)
-// console.log(res)
-// return res ;
+
     return promiseRes
 }

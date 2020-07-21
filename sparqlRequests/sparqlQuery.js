@@ -100,16 +100,12 @@ async function req(qid,type) {
     promiseRes =  makeSPARQLQuery(endpointUrl, sparqlQuery, function (data) {
           var str = "";
             var name = qid.substring(0, qid.indexOf("("));
-            /*var fixed = "\n\"fixed\":\"true\",\n" +
-                "  \"x\":\" \",\n" +
-                "  \"y\":\" \","*/
-          //  var fixed = "\n\"fixed\":\"false\",";
+
             console.log(name)
 
                 var d = d3.csvParse(data);
 
             nested_data = d3.nest()
-                    //.key(function(d) { return "entity"; })
                     .key(function (d) {
                         return d.propLabel;
                     })
@@ -172,12 +168,6 @@ async function req(qid,type) {
          });
          return str;
             }
-        );// ).then(function (result) {
-    //     res=result;
-    //     return result
-    // })
-    // res = Promise.resolve(res)
-    // console.log(res)
-    // return res;
+        );
     return promiseRes
 }
